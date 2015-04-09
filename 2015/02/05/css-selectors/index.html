@@ -1,0 +1,753 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>CSS 选择器 | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="本文是从Selectors Level 3提取出的一些重点，如有不懂的地方可以看原文对照。
+1. 选择器语法一个选择器是一个或多个被连结符分隔的简单选择器序列组成的链。一个伪元素可能会附加到选择器中的最后一个简单选择器序列。
+一个简单选择器序列是没有被连结符分隔的简单选择器组成的链。它总是以一个类型选择器或通用选择器开始。除了类型选择器和通用选择器，没有其他类型的选择器允许在序列中。
+一个简单选择">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 选择器">
+<meta property="og:url" content="http://cookfront.github.io/2015/02/05/css-selectors/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="本文是从Selectors Level 3提取出的一些重点，如有不懂的地方可以看原文对照。
+1. 选择器语法一个选择器是一个或多个被连结符分隔的简单选择器序列组成的链。一个伪元素可能会附加到选择器中的最后一个简单选择器序列。
+一个简单选择器序列是没有被连结符分隔的简单选择器组成的链。它总是以一个类型选择器或通用选择器开始。除了类型选择器和通用选择器，没有其他类型的选择器允许在序列中。
+一个简单选择">
+<meta property="og:image" content="http://www.w3.org/TR/css3-selectors/first-letter2.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS 选择器">
+<meta name="twitter:description" content="本文是从Selectors Level 3提取出的一些重点，如有不懂的地方可以看原文对照。
+1. 选择器语法一个选择器是一个或多个被连结符分隔的简单选择器序列组成的链。一个伪元素可能会附加到选择器中的最后一个简单选择器序列。
+一个简单选择器序列是没有被连结符分隔的简单选择器组成的链。它总是以一个类型选择器或通用选择器开始。除了类型选择器和通用选择器，没有其他类型的选择器允许在序列中。
+一个简单选择">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/02/05/css-selectors/" title="CSS 选择器" itemprop="url">CSS 选择器</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-02-05T08:47:42.000Z" itemprop="datePublished"> 發表於 2015-02-05</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_选择器语法"><span class="toc-number">1.</span> <span class="toc-text">1. 选择器语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_选择器组"><span class="toc-number">2.</span> <span class="toc-text">2.  选择器组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_简单选择器"><span class="toc-number">3.</span> <span class="toc-text">3. 简单选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1_类型选择器"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 类型选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1_类型选择器和命名空间"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 类型选择器和命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2_通用选择器"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 通用选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1_通用选择器和命名空间"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 通用选择器和命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3_属性选择器"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 属性选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1_属性存在和值选择器"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 属性存在和值选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2_子字符串匹配属性选择器"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2 子字符串匹配属性选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3_属性选择器和命名空间"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3.3 属性选择器和命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4_在DTDs中的默认属性值"><span class="toc-number">3.3.4.</span> <span class="toc-text">3.3.4 在DTDs中的默认属性值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4_类选择器"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 类选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5_ID选择器"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 ID选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6_伪类"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1_动态伪类"><span class="toc-number">3.6.1.</span> <span class="toc-text">3.6.1 动态伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-1-1_链接伪类：:link和:visited"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">3.6.1.1 链接伪类：:link和:visited</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-1-2_用户动作伪类:hover、:active和:focus"><span class="toc-number">3.6.1.2.</span> <span class="toc-text">3.6.1.2 用户动作伪类:hover、:active和:focus</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2_目标伪类:target"><span class="toc-number">3.6.2.</span> <span class="toc-text">3.6.2 目标伪类:target</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-3_语言伪类:lang"><span class="toc-number">3.6.3.</span> <span class="toc-text">3.6.3 语言伪类:lang</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-4_UI元素状态伪类"><span class="toc-number">3.6.4.</span> <span class="toc-text">3.6.4 UI元素状态伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-1_:enabled和:disabled伪类"><span class="toc-number">3.6.4.1.</span> <span class="toc-text">3.6.4.1 :enabled和:disabled伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-2_:checked伪类"><span class="toc-number">3.6.4.2.</span> <span class="toc-text">3.6.4.2 :checked伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-3_:indeterminate伪类"><span class="toc-number">3.6.4.3.</span> <span class="toc-text">3.6.4.3 :indeterminate伪类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-5_结构伪类"><span class="toc-number">3.6.5.</span> <span class="toc-text">3.6.5 结构伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-1_:root伪类"><span class="toc-number">3.6.5.1.</span> <span class="toc-text">3.6.5.1 :root伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-2_:nth-child()伪类"><span class="toc-number">3.6.5.2.</span> <span class="toc-text">3.6.5.2 :nth-child()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-3_:nth-last-child()伪类"><span class="toc-number">3.6.5.3.</span> <span class="toc-text">3.6.5.3 :nth-last-child()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-4_:nth-of-type()伪类"><span class="toc-number">3.6.5.4.</span> <span class="toc-text">3.6.5.4 :nth-of-type()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-5_:nth-last-of-type()伪类"><span class="toc-number">3.6.5.5.</span> <span class="toc-text">3.6.5.5 :nth-last-of-type()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-6_:first-child伪类"><span class="toc-number">3.6.5.6.</span> <span class="toc-text">3.6.5.6 :first-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-7_:last-child伪类"><span class="toc-number">3.6.5.7.</span> <span class="toc-text">3.6.5.7 :last-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-8_:first-of-type伪类"><span class="toc-number">3.6.5.8.</span> <span class="toc-text">3.6.5.8 :first-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-9_:last-of-type伪类"><span class="toc-number">3.6.5.9.</span> <span class="toc-text">3.6.5.9 :last-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-10_:only-child伪类"><span class="toc-number">3.6.5.10.</span> <span class="toc-text">3.6.5.10 :only-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-11_:only-of-type伪类"><span class="toc-number">3.6.5.11.</span> <span class="toc-text">3.6.5.11 :only-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-12_:empty伪类"><span class="toc-number">3.6.5.12.</span> <span class="toc-text">3.6.5.12 :empty伪类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-6_空白"><span class="toc-number">3.6.6.</span> <span class="toc-text">3.6.6 空白</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-7_否定伪类"><span class="toc-number">3.6.7.</span> <span class="toc-text">3.6.7 否定伪类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_伪元素"><span class="toc-number">4.</span> <span class="toc-text">4. 伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1_::first-line伪元素"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 ::first-line伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1_CSS中格式化的第一行的定义"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 CSS中格式化的第一行的定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2_::first-letter伪元素"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 ::first-letter伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1_在CSS中的应用"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 在CSS中的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3_空白"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 空白</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4_::before和::after伪元素"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 ::before和::after伪元素</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>本文是从<a href="http://www.w3.org/TR/css3-selectors/#selector-syntax" target="_blank" rel="external">Selectors Level 3</a>提取出的一些重点，如有不懂的地方可以看原文对照。</p>
+<h2 id="1-_选择器语法">1. 选择器语法</h2><p>一个选择器是一个或多个被<a href="http://www.w3.org/TR/css3-selectors/#combinators" target="_blank" rel="external">连结符</a>分隔的简单选择器序列组成的链。一个<a href="http://www.w3.org/TR/css3-selectors/#pseudo-elements" target="_blank" rel="external">伪元素</a>可能会附加到选择器中的最后一个简单选择器序列。</p>
+<p>一个简单选择器序列是没有被<a href="http://www.w3.org/TR/css3-selectors/#combinators" target="_blank" rel="external">连结符</a>分隔的<a href="http://www.w3.org/TR/css3-selectors/#simple-selectors-dfn" target="_blank" rel="external">简单选择器</a>组成的链。它总是以一个<a href="http://www.w3.org/TR/css3-selectors/#type-selectors" target="_blank" rel="external">类型选择器</a>或<a href="http://www.w3.org/TR/css3-selectors/#universal-selector" target="_blank" rel="external">通用选择器</a>开始。除了类型选择器和通用选择器，没有其他类型的选择器允许在序列中。</p>
+<p>一个简单选择器可以是<a href="http://www.w3.org/TR/css3-selectors/#type-selectors" target="_blank" rel="external">类型选择器</a>，<a href="http://www.w3.org/TR/css3-selectors/#universal-selector" target="_blank" rel="external">通用选择器</a>，<a href="http://www.w3.org/TR/css3-selectors/#attribute-selectors" target="_blank" rel="external">属性选择器</a>，<a href="http://www.w3.org/TR/css3-selectors/#class-html" target="_blank" rel="external">类选择器</a>，<a href="http://www.w3.org/TR/css3-selectors/#id-selectors" target="_blank" rel="external">id选择器</a>或<a href="http://www.w3.org/TR/css3-selectors/#pseudo-classes" target="_blank" rel="external">伪类</a>。</p>
+<p>连结符可以是：空白、<code>&gt;</code>、<code>+</code>、<code>~</code>。</p>
+<p>一个文档树的元素被选择器所代表，它是选择器的主题（subject）。一个选择器组成了一个简单选择器的单一序列，代表了任何满足它需求的元素。前面加上其他的简单选择器序列，且序列中的连结符施加了额外的匹配限制，所以一个选择器的主题总是最后一个简单选择器序列所代表的元素的子集。</p>
+<p>一个空的选择器，没有包含简单选择器序列和伪元素，是一个<a href="http://www.w3.org/TR/css3-selectors/#Conformance" target="_blank" rel="external">无效的选择器</a>。</p>
+<p>选择器中的字符可以根据在<code>CSS2</code>中相同的<a href="http://www.w3.org/TR/CSS21/syndata.html#characters" target="_blank" rel="external">转义规则</a>并通过<code>\</code>来转义。</p>
+<h2 id="2-_选择器组">2.  选择器组</h2><p>一个逗号分隔的选择器列表表示了被任何单一选择器选择的所有元素的组合。例如，在<code>CSS</code>中当一些选择器共享相同的声明时，它们可以组合成一个逗号分隔的列表。空格可能出现在逗号的前面或后面。</p>
+<p><strong><code>CSS</code>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-family</span>:<span class="value"> sans-serif &#125;</span><br><span class="line">h2 &#123; font-family: sans-serif &#125;</span><br><span class="line">h3 &#123; font-family: sans-serif &#125;</span></span></span></span><br></pre></td></tr></table></figure>
+<p>上面等价于：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span>, <span class="tag">h2</span>, <span class="tag">h3</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-family</span>:<span class="value"> sans-serif &#125;</span></span></span></span><br></pre></td></tr></table></figure>
+<p><strong>注意：</strong>在本例中等价是真的，因为所有的选择器是有效的选择器。如果选择器中的一个是无效的选择器，那么整个声明是无效的。</p>
+<p>无效的<code>CSS</code>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-family</span>:<span class="value"> sans-serif &#125;</span><br><span class="line">h2..foo &#123; font-family: sans-serif &#125;</span><br><span class="line">h3 &#123; font-family: sans-serif &#125;</span></span></span></span><br></pre></td></tr></table></figure>
+<p>不等价于：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span>, <span class="tag">h2</span>.<span class="class">.foo</span>, <span class="tag">h3</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-family</span>:<span class="value"> sans-serif &#125;</span></span></span></span><br></pre></td></tr></table></figure>
+<p>在实际应用中也没有人这样写了。否则肯定早晚开除了。</p>
+<h2 id="3-_简单选择器">3. 简单选择器</h2><h3 id="3-1_类型选择器">3.1 类型选择器</h3><p>一个类型选择器是文档语言元素类型的名称，并使用<a href="http://www.w3.org/TR/css3-namespace/#css-qnames" target="_blank" rel="external">CSS qualified names</a>语法。一个类型选择器表示了在文档树中元素类型的实例。</p>
+<p><strong>实例</strong>：</p>
+<p>以下的选择器表示了在文档树中的<code>h1</code>元素：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-1-1_类型选择器和命名空间">3.1.1 类型选择器和命名空间</h4><p>类型选择器允许一个可选的命名空间组件：一个命名空间前缀被定义在元素名的前面，并通过<code>|</code>符号来分隔。</p>
+<p>命名空间可能为空，代表了选择器没有命名空间。</p>
+<p>一个<code>*</code>可被用作为命名空间前缀，表明代表了元素的所有命名空间。</p>
+<p>元素类型选择器在没有命名空间组件时代表了元素不会考虑元素的命名空间（等价于<code>*|</code>），除非定义了一个默认的命名空间。如果一个默认命名空间被声明，这些元素会代表在默认命名空间中的元素。</p>
+<p>那怎么定义默认命名空间呢？</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">namespace</span> <span class="string">"http://www.w3.org/1999/xhtml"</span></span>;</span><br><span class="line"><span class="at_rule">@<span class="keyword">namespace</span> svg <span class="string">"http://www.w3.org/2000/svg"</span></span>;</span><br></pre></td></tr></table></figure>
+<p>上面的<code>http://www.w3.org/1999/xhtml</code>就为默认的命名空间。</p>
+<p>总结(要注意的是<code>|</code>前后没有空格的哟)：</p>
+<p><strong>ns|E</strong><br>元素为<code>E</code>且在命名空间<code>ns</code>中</p>
+<p><strong>*|E</strong><br>元素为<code>E</code>且在任何命名空间中</p>
+<p><strong>|E</strong><br>元素为<code>E</code>且没有命名空间</p>
+<p><strong>E</strong><br>如果没有为选择器定义默认的命名空间，这个等价于<code>*|E</code>。否则等价于<code>ns|E</code>，且<code>ns</code>为默认的命名空间。</p>
+<p><code>CSS</code>实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@namespace foo url(http://www.example.com);</span><br><span class="line"> foo|h1 &#123; color: blue &#125;  /* first rule */</span><br><span class="line"> foo|* &#123; color: yellow &#125; /* second rule */</span><br><span class="line"> |h1 &#123; color: red &#125;      /* ...*/</span><br><span class="line"> *|h1 &#123; color: green &#125;</span><br><span class="line"> h1 &#123; color: green &#125;</span><br></pre></td></tr></table></figure>
+<p>第一条规则只会匹配在<code>http://www.example.com</code>命名空间中的<code>h1</code>元素。<br>第二条规则会匹配在<code>http://www.example.com</code>命名空间中的所有元素。<br>第三条规则只会匹配没有命名空间的<code>h1</code>元素。<br>第四条规则会匹配在任何命名空间中的<code>h1</code>元素。<br>第五条规则等价于第四条规则，因为没有默认的命名空间被定义。</p>
+<h3 id="3-2_通用选择器">3.2 通用选择器</h3><p>通用选择器，用<code>*</code>来表示，它代表了任何元素类型的限定名。它代表了在文档树中的任何命名空间的任何单一元素，如果没有为选择器指定默认的命名空间。如果指定了默认的命名空间，可以看下面的<a href="http://www.w3.org/TR/css3-selectors/#univnmsp" target="_blank" rel="external">通用选择器和命名空间</a>。</p>
+<p>如果一个通用选择器不是选择器序列的唯一组件，或者它后面紧跟了<a href="http://www.w3.org/TR/css3-selectors/#pseudo-elements" target="_blank" rel="external">伪元素</a>，那么<code>*</code>可以省略，通用选择器隐含的表示存在。</p>
+<p><strong>实例：</strong></p>
+<ul>
+<li><code>*[hreflang|=en]</code>和<code>[hreflang|=en]</code>是等价的</li>
+<li><code>*.warning</code>和<code>.warning</code>是等价的</li>
+<li><code>*#myid</code>和<code>#myid</code>是等价的</li>
+</ul>
+<h4 id="3-2-1_通用选择器和命名空间">3.2.1 通用选择器和命名空间</h4><p>通用选择器允许一个可选的命名空间组件。它可以按照以下方式来使用：</p>
+<p><code>ns|*</code><br>在<code>ns</code>命名空间中的所有元素</p>
+<p><code>*|*</code><br>所有元素</p>
+<p><code>|*</code><br>所有没有命名空间的元素</p>
+<p><code>*</code><br>如果没有默认指定默认的命名空间，则等价于<code>*|*</code>，否则等价于<code>ns|*</code>，如果<code>ns</code>为默认的命名空间。</p>
+<h3 id="3-3_属性选择器">3.3 属性选择器</h3><p>选择器允许表示元素的属性。当选择器被用作为一个表达式来匹配元素时，属性选择器必须认为匹配元素如果元素有一个属性且匹配属性选择器所代表的属性时。</p>
+<h4 id="3-3-1_属性存在和值选择器">3.3.1 属性存在和值选择器</h4><p><code>CSS2</code>介绍了四种属性选择器：</p>
+<p><code>[att]</code><br>代表了元素有一个<code>att</code>属性，不管属性的值是什么。</p>
+<p><code>[att=val]</code><br>代表了元素有一个<code>att</code>属性，且值为<code>val</code>。这种可以用于选择例如：<code>input[type=&quot;text&quot;]</code></p>
+<p><code>[att~=val]</code><br>代表了元素有一个<code>att</code>属性，且它的值为空白分隔的列表，其中的一个值为<code>val</code>，如果选择器中的<code>val</code>包含了空白，它永远不会代表什么。同样，如果<code>val</code>为空字符串，它永远不会代表什么。</p>
+<p><code>[att|=val]</code><br>代表了元素有一个<code>att</code>属性，且它的值为<code>val</code>或者<code>val</code>紧跟着<code>-</code>。</p>
+<p><strong>实例：</strong></p>
+<p>下面的属性选择器代表了<code>h1</code>元素，且它有一个<code>title</code>属性，且不管值为多少：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span><span class="attr_selector">[title]</span></span><br></pre></td></tr></table></figure>
+<p>下面的例子选择器代表了一个<code>span</code>元素它的<code>class</code>属性的值为<code>example</code>：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">span</span><span class="attr_selector">[class="example"]</span></span><br></pre></td></tr></table></figure>
+<p>下面的选择器代表了一个<code>a</code>元素，且它的<code>hreflang</code>属性值为<code>en</code>或<code>en-US</code>等</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">a</span><span class="attr_selector">[hreflang|="en"]</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-3-2_子字符串匹配属性选择器">3.3.2 子字符串匹配属性选择器</h4><p>三个附加的属性选择器被提供给匹配属性值的子字符串：</p>
+<p><code>[att^=val]</code><br>代表了元素有一个<code>att</code>属性，且值以<code>val</code>前缀开始。如果<code>val</code>为空字符串，则这个选择器不会代表任何元素</p>
+<p><code>[att$=val]</code><br>代表了元素有一个<code>att</code>属性，且值以<code>val</code>后缀结束。如果<code>val</code>为空字符串，则这个选择器不会代表任何元素</p>
+<p><code>[att*=val]</code><br>代表了元素有一个<code>att</code>属性，且值包含至少子字符串<code>val</code>的一个实例。如果<code>val</code>为空字符串，则这个选择器不会代表任何元素</p>
+<p><strong>实例：</strong></p>
+<p>下面的选择器代表了一个<code>HTML</code>的<code>object</code>，引用了一个图片：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">object</span><span class="attr_selector">[type^="image/"]</span></span><br></pre></td></tr></table></figure>
+<p>下面的选择器代表了一个<code>HTML</code>链接<code>a</code>，且它的<code>href</code>属性以<code>.html</code>结尾：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">a</span><span class="attr_selector">[href$=".html"]</span></span><br></pre></td></tr></table></figure>
+<p>下面的选择器代表了<code>HTML</code>段落中<code>title</code>属性包含了子字符串<code>hello</code>：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">p</span><span class="attr_selector">[title*="hello"]</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="3-3-3_属性选择器和命名空间">3.3.3 属性选择器和命名空间</h4><p>在属性选择器中的属性名是以<a href="http://www.w3.org/TR/css3-namespace/#css-qnames" target="_blank" rel="external">CSS限定名</a>给出：先前已声明的命名空间前缀可预先准备给由命名空间分隔符<code>|</code>分隔的属性名。为了保持命名空间在<code>XML</code>中的推荐，默认的命名空间不会应用到属性中，因此，没有命名空间组件的属性选择器只应用到那些没有命名空间的属性。一个<code>*</code>可能被用于命名空间前缀以表明该选择器可匹配所有属性名而不用考虑属性的命名空间。</p>
+<p>一个属性选择器有一个属性名包含了命名空间前缀，但是该命名空间没有在之前定义，这时该属性选择器是一个无效的选择器。</p>
+<p><code>CSS</code>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">namespace</span> foo <span class="string">"http://www.example.com"</span></span>;</span><br><span class="line"><span class="attr_selector">[foo|att=val]</span> <span class="rules">&#123; <span class="rule"><span class="attribute">color</span>:<span class="value"> blue &#125;</span><br><span class="line">[*|att] &#123; color: yellow &#125;</span><br><span class="line">[|att] &#123; color: green &#125;</span><br><span class="line">[att] &#123; color: green &#125;</span></span></span></span><br></pre></td></tr></table></figure>
+<p>第一条规则只匹配有在<code>http://www.example.com</code>命名空间下的属性<code>att</code>，且值为<code>val</code>的元素。</p>
+<p>第二条规则只匹配具有属性<code>att</code>，且不管属性的命名空间。</p>
+<p>最后两条规则是等价的，且只匹配具有属性<code>att</code>，且该属性不在任何命名空间下的元素。</p>
+<h4 id="3-3-4_在DTDs中的默认属性值">3.3.4 在<code>DTDs</code>中的默认属性值</h4><p>属性选择器代表了在文档树中的属性值。文档树如何构建是在选择器之外的。在某些文档格式中，默认的属性值可以定义在<code>DTD</code>或其他地方，如果它们出现在文档树中的话，这些只能通过属性选择器来选择。选择器的设计应该使它们工作，不管默认值是否包含在文档树中。</p>
+<p>例如，一个<code>XML</code>的用户代理可能并不需要去读取一个<code>DTD</code>的<code>外部子集</code>，但是需要在文档的<code>内部子集</code>寻找默认属性值（看这里：<a href="http://www.w3.org/TR/css3-selectors/#XML10" target="_blank" rel="external">XML10</a>）。取决于用户代理，一个定义在<code>DTD</code>的外部子集的默认的属性值可能会或可能不会出现在文档树中。</p>
+<p>一个识别<code>XML</code>命名空间的用户代理可能不需要利用它的对于那个命名空间的认知来对待默认的属性值，就好像它们就在文档中。（例如，一个<code>XHTML</code>的用户代理不需要利用它内置的该<code>XHTML DTD</code>的认知）</p>
+<p><strong>实例：</strong></p>
+<p>考虑一个元素<code>example</code>，它有一个属性<code>radix</code>，且其默认值为<code>decimal</code>。<code>DTD</code>片段可能为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">!ATTLIST</span> <span class="attribute">EXAMPLE</span> <span class="attribute">radix</span> (<span class="attribute">decimal</span>,<span class="attribute">octal</span>) "<span class="attribute">decimal</span>"&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果样式表包含了这些规则：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">EXAMPLE</span><span class="attr_selector">[radix=decimal]</span> <span class="rules">&#123; <span class="comment">/*... default property settings ...*/</span> &#125;</span></span><br><span class="line"><span class="tag">EXAMPLE</span><span class="attr_selector">[radix=octal]</span>   <span class="rules">&#123; <span class="comment">/*... other settings...*/</span> &#125;</span></span><br></pre></td></tr></table></figure>
+<p>第一条规则可能不会匹配那些<code>radix</code>属性被设置为默认值的元素，即为明确设置。为了捕获所有情况，属性选择器的默认值必须被舍弃：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">EXAMPLE</span>                <span class="rules">&#123; <span class="comment">/*... default property settings ...*/</span> &#125;</span></span><br><span class="line"><span class="tag">EXAMPLE</span><span class="attr_selector">[radix=octal]</span>   <span class="rules">&#123; <span class="comment">/*... other settings...*/</span> &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-4_类选择器">3.4 类选择器</h3><p>与<code>HTML</code>工作，作者可能会使用<code>句点</code>符号（也就是<code>.</code>）来代替<code>~=</code>符号表示<code>class</code>属性。因此，对于<code>HTML</code>，<code>div.value</code>和<code>div[class~=value]</code>是具有同样的含义的。该属性值必须紧跟在<code>.</code>符号后面。</p>
+<p>如果用户代理具有命名空间特定的知识，且允许它确定哪个属性是<code>class</code>属性用于各个命名空间，用户代理可能使用<code>.</code>符号在<code>XML</code>文档中应用选择器。</p>
+<p><strong>CSS实例：</strong></p>
+<p>我们可以通过以下方式来分配样式给所有<code>class~=&quot;pastoral&quot;</code>的元素：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*<span class="class">.pastoral</span> <span class="rules">&#123; <span class="rule"><span class="attribute">color</span>:<span class="value"> green &#125;  <span class="comment">/* all elements with class~=pastoral */</span></span></span></span></span><br></pre></td></tr></table></figure>
+<p>或者只是：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.pastoral</span> <span class="rules">&#123; <span class="rule"><span class="attribute">color</span>:<span class="value"> green &#125;  <span class="comment">/* all elements with class~=pastoral */</span></span></span></span></span><br></pre></td></tr></table></figure>
+<p>以下只分配样式给所有<code>class~=&quot;pastoral&quot;</code>的<code>h1</code>元素：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">H1</span><span class="class">.pastoral</span> <span class="rules">&#123; <span class="rule"><span class="attribute">color</span>:<span class="value"> green &#125;  <span class="comment">/* H1 elements with class~=pastoral */</span></span></span></span></span><br></pre></td></tr></table></figure>
+<h3 id="3-5_ID选择器">3.5 ID选择器</h3><p>文档语言可以包含声明为ID类型的属性。ID类型属性的特殊之处在于在一致性的文档中没有两个这样的属性可以有相同的值，且不管携带该属性的元素类型；无论什么文档语言，一个ID类型属性可被用于唯一地标识其元素。</p>
+<p>ID选择器是以<code>#</code>开头，然后紧跟着ID值。</p>
+<p><strong>实例：</strong></p>
+<p>以下ID选择器代表了一个<code>h1</code>元素，且它的id属性值为<code>chapter1</code></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span><span class="id">#chapter1</span></span><br></pre></td></tr></table></figure>
+<p>不过很少会像上面这样写，一般是像下面这样：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="id">#chapter1</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-6_伪类">3.6 伪类</h3><p>伪类的概念被引入以允许选择位于该文档树以外或者使用其他简单选择器不能表达的信息。</p>
+<p>一个伪类总是包含<code>:</code>跟着伪类的名称和一个可选的值被放在圆括号之间。</p>
+<p>伪类中允许包含在选择器中的所有简单选择器序列。伪类可以出现在简单选择器序列的任何地方，类型选择器和通用选择器（可能省略）后面。伪类名是不区分大小写。一些伪类是相互排斥的，而另一些可以同时施加到相同的元素。伪类可能是动态的，在这个意义上，元素可能获得或失去一个伪类当用户与文档进行交互的时候。</p>
+<h4 id="3-6-1_动态伪类">3.6.1 动态伪类</h4><p>动态伪类在特性上分类元素，除了它们的名字、属性或内容，原则上特性不能从文档树中推断出来。</p>
+<p>动态伪类不会出现在文档源或文档树中。</p>
+<h5 id="3-6-1-1_链接伪类：:link和:visited">3.6.1.1 链接伪类：<code>:link</code>和<code>:visited</code></h5><p>用户代理通常显示未访问的链接不同于之前访问过的。选择器提供了伪类<code>:link</code>和<code>:visited</code>来区分它们。</p>
+<ul>
+<li><code>:link</code>伪类应用在那些没有被访问过的链接</li>
+<li><code>:visited</code>伪类应用在那些已经被用户访问过的链接</li>
+</ul>
+<p>经过一定的时间，用户代理可能选择返回一个访问过的链接为<code>:link</code>状态。</p>
+<p>这两种状态是互斥的。</p>
+<p><strong>实例：</strong></p>
+<p>下面的选择器代表了有一个<code>external</code>类的链接，且被访问过：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">a.external</span>:<span class="value">visited</span></span></span><br></pre></td></tr></table></figure>
+<p>用户代理可能会因此对待所有的链接为未访问链接，或者采取其他措施以保护用户的隐私，而对访问和未访问链接渲染出不同。</p>
+<h5 id="3-6-1-2_用户动作伪类:hover、:active和:focus">3.6.1.2 用户动作伪类<code>:hover</code>、<code>:active</code>和<code>:focus</code></h5><p>交互式用户代理有时会为了响应用户操作而改变呈现。选择器提供了三个伪类来选择这些用户正在作用的元素。</p>
+<ul>
+<li><code>:hover</code>伪类应用在当用户通过定位设备来指定元素，但不一定激活它时。例如，一个视觉用户代理可以应用伪类当光标悬停到元素所生成的盒子上时。用户代理不支持交互式媒体的不需要支持该伪类。支持交互式媒体的一些用户代理可能无法支持这个伪类。</li>
+<li><code>:active</code>伪类应用在正被用户激活的元素上。例如，在用户按下鼠标按钮和释放它之间。在多于一个鼠标按钮的系统，<code>:active</code>仅应用在主激活按钮（通常是鼠标左键），以及它们的任意别名。</li>
+<li><code>:focus</code>伪类应用在获得焦点的元素</li>
+</ul>
+<p>这些伪类不是相互排斥的。一个元素可以在相同的时间匹配的几个伪类。</p>
+<p>选择器没有定义当元素的父亲也在<code>:active</code>或<code>:hover</code>状态时。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">a</span>:<span class="value">link    <span class="comment">/* unvisited links */</span></span><br><span class="line">a:visited <span class="comment">/* visited links */</span></span><br><span class="line">a:hover   <span class="comment">/* user hovers */</span></span><br><span class="line">a:active  <span class="comment">/* active links */</span></span></span></span><br></pre></td></tr></table></figure>
+<p>或者结合多个动态伪类：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">a</span>:<span class="value">focus</span><br><span class="line">a:focus:hover</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="3-6-2_目标伪类:target">3.6.2 目标伪类<code>:target</code></h4><p>一些<code>URIs</code>会引用资源内的一个位置。这种类型的<code>URI</code>是以<code>#</code>紧跟锚标识符结束。</p>
+<p>有片段标识浮的<code>URIs</code>链接到文档内的某个元素，被称为目标元素。举例来说，这里给出了一个<code>URI</code>指向文档中一个名为<code>section_2</code>的锚。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//example.com/html/top.html#section_2</span></span><br></pre></td></tr></table></figure>
+<p>一个目标元素可以使用<code>:target</code>伪类来表示。如果文档的URI没有片段标识符，则该文档没有目标元素。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">p.note</span>:<span class="value">target</span></span></span><br></pre></td></tr></table></figure>
+<p>这个选择器代表了一个<code>p</code>标签，且它有一个类<code>note</code>，且它是指定<code>URI</code>的目标元素时。</p>
+<h4 id="3-6-3_语言伪类:lang">3.6.3 语言伪类<code>:lang</code></h4><p>如果文档语言指定了一个元素的人类语言如何确定，则可以使用选择器来代表基于该语言的元素。例如，在<code>HTML</code>中，语言是由<code>lang</code>属性和从<code>meta</code>元素的信息或<code>HTTP</code>协议联合决定的。<code>XML</code>使用一个叫做<code>xml:lang</code>的属性，并且还可能有其他的文档语言特定的方法，用于确定使用的语言。</p>
+<p>伪类<code>:lang(C)</code>代表了在语言<code>C</code>中的元素。一个元素是否通过<code>:lang</code>被代表是完全基于元素的语言值是否和标识符<code>C</code>相等，或者是以标识符<code>C</code>开始并紧跟着<code>-</code>。对<code>C</code>和元素语言值的匹配是不区分大小写的。标识符<code>C</code>不必须是一个有效的语言名称。</p>
+<p><code>C</code>必须是一个有效的<code>CSS</code>标识符，且不能为空。</p>
+<p>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">html</span>:<span class="value"><span class="function">lang</span>(fr-be)</span><br><span class="line">html:<span class="function">lang</span>(de)</span><br><span class="line">:<span class="function">lang</span>(fr-be) &gt; q</span><br><span class="line">:<span class="function">lang</span>(de) &gt; q</span></span></span><br></pre></td></tr></table></figure>
+<h4 id="3-6-4_UI元素状态伪类">3.6.4 UI元素状态伪类</h4><h5 id="3-6-4-1_:enabled和:disabled伪类">3.6.4.1 <code>:enabled</code>和<code>:disabled</code>伪类</h5><p><code>:enabled</code>伪类代表了处于激活状态的用户界面元素；这些元素都有相应的禁用状态。</p>
+<p>相反地，<code>:disabled</code>伪类代表了处于禁用状态的用户界面元素；这些元素都有相应的激活状态。</p>
+<p>什么构成激活状态、禁用状态和用户界面元素是语言决定的。在一个典型的文档中大多数元素即不会是<code>:enabled</code>也不会是<code>:disabled</code>。</p>
+<p>那什么元素有这种状态呢，<code>input</code>、<code>textarea</code>等元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line"><span class="rule"><span class="attribute">input</span>:<span class="value">disabled &#123;</span><br><span class="line">	border: <span class="number">1px</span> solid blue</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="rule"><span class="attribute">input</span>:<span class="value">enabled &#123;</span><br><span class="line">	border: <span class="number">1px</span> solid red</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">disabled</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-4-2_:checked伪类">3.6.4.2 <code>:checked</code>伪类</h5><p>单选框和复选框元素可以被用户切换。一些菜单项被勾选，当用户选择它们的时候。<code>:checked</code>伪类就是应用在这些有<code>selected</code>和<code>checked</code>属性的元素，这些元素包含<code>checkbox</code>、<code>radio</code>、<code>option</code>等。</p>
+<p>实例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line"><span class="rule"><span class="attribute">input</span>:<span class="value">checked + label &#123;</span><br><span class="line">	color: red</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"checkbox"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span>&gt;</span>checkbox<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"radio"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">label</span>&gt;</span>radio<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-4-3_:indeterminate伪类">3.6.4.3 <code>:indeterminate</code>伪类</h5><p>这个是对于<code>radio</code>和<code>checkbox</code>有时处于一种模糊的状态，即不是<code>checked</code>，也不是<code>unchecked</code>。</p>
+<h4 id="3-6-5_结构伪类">3.6.5 结构伪类</h4><p>选择器引入了结构伪类的概念，允许基于在文档树中确定的信息来选择，但是不能通过其他简单选择器或连结符来表示。</p>
+<p>当在它父亲的孩子列表中计算一个元素的位置时，独立文本和其他非元素节点不计算在内当计算在其父亲的孩子列表中的元素的位置，该指数的编号从1开始。</p>
+<h5 id="3-6-5-1_:root伪类">3.6.5.1 <code>:root</code>伪类</h5><p><code>:root</code>伪类代表了文档的根元素。在<code>HTML4</code>中总是<code>html</code>元素。</p>
+<h5 id="3-6-5-2_:nth-child()伪类">3.6.5.2 <code>:nth-child()</code>伪类</h5><p><code>:nth-child(an+b)</code>伪类可以代表在文档树中在它之前的有<code>an+b-1</code>个兄弟的元素，<code>n</code>可以为任何的正数或0，且有一个父元素。对于大于0的<code>a</code>和<code>b</code>，这有效的将元素的孩子分成每组<code>a</code>个元素，然后选择每组中的第<code>b</code>个元素。例如，这使得选择器解决<code>table</code>中每隔一行的问题，并可以用于段落文本中每四个交替颜色。<code>a</code>和<code>b</code>的值必须为整数。元素的子元素的索引是从<code>1</code>开始（要注意不是<code>JavaScript</code>等语言的0哟）。</p>
+<p>除此之外，<code>:nth-child()</code>还可以接受<code>odd</code>和<code>even</code>作为参数。<code>odd</code>其实等价于<code>2n+1</code>，<code>even</code>其实等价于<code>2n</code>。</p>
+<p><code>:nth-child()</code>的参数必须匹配以下语法规则，<code>INTEGER</code>匹配<code>[0-9]+</code>，标记的其余部分是由<a href="http://www.w3.org/TR/css3-selectors/#lex" target="_blank" rel="external">Lexical scanner</a>给出。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nth</span><br><span class="line">  : S* [ [<span class="string">'-'</span>|<span class="string">'+'</span>]? INTEGER? &#123;N&#125; [ S* [<span class="string">'-'</span>|<span class="string">'+'</span>] S* INTEGER ]? |</span><br><span class="line">         [<span class="string">'-'</span>|<span class="string">'+'</span>]? INTEGER | &#123;O&#125;&#123;D&#125;&#123;D&#125; | &#123;E&#125;&#123;V&#125;&#123;E&#125;&#123;N&#125; ] S*</span><br><span class="line">  ;</span><br></pre></td></tr></table></figure>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">tr</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">2</span>n+<span class="number">1</span>) <span class="comment">/* represents every odd row of an HTML table */</span></span><br><span class="line">tr:<span class="function">nth-child</span>(odd)  <span class="comment">/* same */</span></span><br><span class="line">tr:<span class="function">nth-child</span>(<span class="number">2</span>n+<span class="number">0</span>) <span class="comment">/* represents every even row of an HTML table */</span></span><br><span class="line">tr:<span class="function">nth-child</span>(even) <span class="comment">/* same */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Alternate paragraph colours in CSS */</span></span><br><span class="line">p:<span class="function">nth-child</span>(<span class="number">4</span>n+<span class="number">1</span>) &#123; color: navy</span></span>; &#125;</span><br><span class="line"><span class="rule"><span class="attribute">p</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">4</span>n+<span class="number">2</span>) &#123; color: green</span></span>; &#125;</span><br><span class="line"><span class="rule"><span class="attribute">p</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">4</span>n+<span class="number">3</span>) &#123; color: maroon</span></span>; &#125;</span><br><span class="line"><span class="rule"><span class="attribute">p</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">4</span>n+<span class="number">4</span>) &#123; color: purple</span></span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>当<code>b</code>的值前面有一个负号，则<code>+</code>字符必须从表达式中移除。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="pseudo">:nth-child(10n-1)</span>  <span class="comment">/* represents the 9th, 19th, 29th, etc, element */</span></span><br><span class="line"><span class="pseudo">:nth-child(10n+9)</span>  <span class="comment">/* Same */</span></span><br><span class="line"><span class="pseudo">:nth-child(10n+-1)</span> <span class="comment">/* Syntactically invalid, and would be ignored */</span></span><br></pre></td></tr></table></figure>
+<p>当<code>a=0</code>，则<code>an</code>部分可以不包含。当<code>an</code>未包含且<code>b</code>为非负数，则在<code>b</code>前面的<code>+</code>字符也可省略。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">foo</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">0</span>n+<span class="number">5</span>)   <span class="comment">/* represents an element foo that is the 5th child</span><br><span class="line">                         of its parent element */</span></span><br><span class="line">foo:<span class="function">nth-child</span>(<span class="number">5</span>)      <span class="comment">/* same */</span></span></span></span><br></pre></td></tr></table></figure>
+<p>当<code>a=1</code>或<code>a=-1</code>，数字可以从规则中省略。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">bar</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">1</span>n+<span class="number">0</span>)   <span class="comment">/* represents all bar elements, specificity (0,1,1) */</span></span><br><span class="line">bar:<span class="function">nth-child</span>(n+<span class="number">0</span>)    <span class="comment">/* same */</span></span><br><span class="line">bar:<span class="function">nth-child</span>(n)      <span class="comment">/* same */</span></span><br><span class="line">bar                   <span class="comment">/* same but lower specificity (0,0,1) */</span></span></span></span><br></pre></td></tr></table></figure>
+<p>当<code>b=0</code>，则每一个第<code>a</code>个元素被选择。在这种情况，<code>+b</code>或<code>-b</code>部分可能省略，除非<code>a</code>部分已经被省略。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">tr</span>:<span class="value"><span class="function">nth-child</span>(<span class="number">2</span>n+<span class="number">0</span>) <span class="comment">/* represents every even row of an HTML table */</span></span><br><span class="line">tr:<span class="function">nth-child</span>(<span class="number">2</span>n) <span class="comment">/* same */</span></span></span></span><br></pre></td></tr></table></figure>
+<p>空白是允许出现在<code>(之后</code>或<code>)</code>之前，也可以出现在<code>+</code>或<code>-</code>任何一方以分割<code>an</code>和<code>b</code>部分，当它们都没有省略的时候。</p>
+<p><strong>有效的实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="pseudo">:nth-child(</span> 3<span class="tag">n</span> + 1 )</span><br><span class="line"><span class="pseudo">:nth-child(</span> +3<span class="tag">n</span> <span class="tag">-</span> 2 )</span><br><span class="line"><span class="pseudo">:nth-child(</span> <span class="tag">-n</span>+ 6)</span><br><span class="line"><span class="pseudo">:nth-child(</span> +6 )</span><br></pre></td></tr></table></figure>
+<p>下面是无效的：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="pseudo">:nth-child(3</span> <span class="tag">n</span>)</span><br><span class="line"><span class="pseudo">:nth-child(+</span> 2<span class="tag">n</span>)</span><br><span class="line"><span class="pseudo">:nth-child(+</span> 2)</span><br></pre></td></tr></table></figure>
+<p>当<code>a</code>和<code>b</code>都为0时，该伪类没有选择文档树中的任何元素。</p>
+<p><code>a</code>的值可能为负数，但是只有在<code>an+b</code>的正数位置才可以被选择。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html|tr:nth-child(-n+6)  /* represents the 6 first rows of XHTML tables */</span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-3_:nth-last-child()伪类">3.6.5.3 <code>:nth-last-child()</code>伪类</h5><p>其实这个伪类和前面的<code>:nth-child()</code>是很类似的，它只是从最后一个元素开始计算索引。<code>:nth-last-child(an+b)</code>伪类可以代表在文档树中在它之<code>后</code>的有<code>an+b-1</code>个兄弟的元素，<code>n</code>可以为任何的正数或0，且有一个父元素。这个可以参考上面的<code>:nth-child()</code>语法。它同样接受<code>odd</code>和<code>even</code>作为参数。</p>
+<p>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">tr</span>:<span class="value"><span class="function">nth-last-child</span>(-n+<span class="number">2</span>)    <span class="comment">/* represents the two last rows of an HTML table */</span></span><br><span class="line"></span><br><span class="line">foo:<span class="function">nth-last-child</span>(odd)    <span class="comment">/* represents all odd foo elements in their parent element,</span><br><span class="line">                              counting from the last one */</span></span></span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-4_:nth-of-type()伪类">3.6.5.4 <code>:nth-of-type()</code>伪类</h5><p>这个伪类其实可以看成对<code>:nth-child()</code>施加了一个限制，那就是元素类型必须相同。<code>:nth-of-type(an+b)</code>伪类可以代表在文档树中在它之前有<code>an+b-1</code>个兄弟，且<code>元素类型必须相同</code>的元素，<code>n</code>可以为任何的正数或0，且有一个父元素。这个可以参考上面的<code>:nth-child()</code>语法。它同样接受<code>odd</code>和<code>even</code>作为参数。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">img</span>:<span class="value"><span class="function">nth-of-type</span>(<span class="number">2</span>n+<span class="number">1</span>) &#123; float: right</span></span>; &#125;</span><br><span class="line"><span class="rule"><span class="attribute">img</span>:<span class="value"><span class="function">nth-of-type</span>(<span class="number">2</span>n) &#123; float: left</span></span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>再看一个例子：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">/*#demo p:nth-of-type(even) &#123;</span><br><span class="line">	color: red;</span><br><span class="line">&#125;*/</span><br><span class="line">#demo :nth-child(even) &#123;</span><br><span class="line">	color: blue;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id="demo"&gt;</span><br><span class="line">	&lt;p&gt;1&lt;/p&gt;</span><br><span class="line">	&lt;p&gt;2&lt;/p&gt;</span><br><span class="line">	&lt;p&gt;3&lt;/p&gt;</span><br><span class="line">	&lt;a href=""&gt;4&lt;/a&gt;</span><br><span class="line">	&lt;p&gt;5&lt;/p&gt;</span><br><span class="line">	&lt;p&gt;6&lt;/p&gt;</span><br><span class="line">	&lt;p&gt;7&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<p>你可以在浏览器中对比以下这两个选择器的效果哟。</p>
+<h5 id="3-6-5-5_:nth-last-of-type()伪类">3.6.5.5 <code>:nth-last-of-type()</code>伪类</h5><p>这个伪类和<code>:nth-of-type()</code>，只是从最后一个元素开始计算索引啦。<code>:nth-last-of-type(an+b)</code>伪类可以代表在文档树中在它之<code>后</code>有<code>an+b-1</code>个兄弟，且<code>元素类型必须相同</code>的元素，<code>n</code>可以为任何的正数或0，且有一个父元素。这个可以参考上面的<code>:nth-child()</code>语法。它同样接受<code>odd</code>和<code>even</code>作为参数。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">body</span> &gt; <span class="tag">h2</span><span class="pseudo">:nth-of-type(n+2)</span><span class="pseudo">:nth-last-of-type(n+2)</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-6_:first-child伪类">3.6.5.6 <code>:first-child</code>伪类</h5><p>和<code>:nth-child(1)</code>相同。<code>:first-child</code>伪类代表一个元素为其他元素的第一个子元素。</p>
+<p>实例：</p>
+<p>下面的例子代表了一个<code>p</code>元素是<code>div</code>中的第一个元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span> &gt; <span class="rule"><span class="attribute">p</span>:<span class="value">first-child</span></span></span><br></pre></td></tr></table></figure>
+<p>选择器可以匹配下面HTML中<code>div</code>中的<code>p</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span> The last P before the note.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"note"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="title">p</span>&gt;</span> The first P inside the note.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是不能匹配下面<code>div</code>中<code>p</code>元素，因为<code>p</code>不是<code>div</code>中的第一个子元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span> The last P before the note.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"note"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="title">h2</span>&gt;</span> Note <span class="tag">&lt;/<span class="title">h2</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="title">p</span>&gt;</span> The first P inside the note.<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-7_:last-child伪类">3.6.5.7 <code>:last-child</code>伪类</h5><p>和<code>:nth-last-child(1)</code>相同。<code>:last-child</code>伪类代表一个元素为其他元素的最后一个子元素。</p>
+<p>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">ol</span> &gt; <span class="rule"><span class="attribute">li</span>:<span class="value">last-child</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-8_:first-of-type伪类">3.6.5.8 <code>:first-of-type</code>伪类</h5><p>和<code>:nth-of-type(1)</code>相同。<code>:first-of-type</code>伪类代表一个元素，它是父元素中第一个具有相同元素名的元素。</p>
+<p>实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">dl dt:first-of-type &#123;</span><br><span class="line">	color: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;dl&gt;</span><br><span class="line"> &lt;dt&gt;gigogne&lt;/dt&gt;</span><br><span class="line"> &lt;dd&gt;</span><br><span class="line">  &lt;dl&gt;</span><br><span class="line">   &lt;dt&gt;fusée&lt;/dt&gt;</span><br><span class="line">   &lt;dd&gt;multistage rocket&lt;/dd&gt;</span><br><span class="line">   &lt;dt&gt;table&lt;/dt&gt;</span><br><span class="line">   &lt;dd&gt;nest of tables&lt;/dd&gt;</span><br><span class="line">  &lt;/dl&gt;</span><br><span class="line"> &lt;/dd&gt;</span><br><span class="line">&lt;/dl&gt;</span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-9_:last-of-type伪类">3.6.5.9 <code>:last-of-type</code>伪类</h5><p>和<code>:nth-last-of-type(1)</code>相同。<code>:last-of-type</code>伪类代表一个元素，它是父元素中最后一个具有相同元素名的元素。</p>
+<p>实例：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">tr</span> &gt; <span class="rule"><span class="attribute">td</span>:<span class="value">last-of-type</span></span></span><br></pre></td></tr></table></figure>
+<h5 id="3-6-5-10_:only-child伪类">3.6.5.10 <code>:only-child</code>伪类</h5><p>该伪类代表了一个元素，它的父元素除了它没有其他元素。其实等价于<code>:first-child:last-child</code>。</p>
+<h5 id="3-6-5-11_:only-of-type伪类">3.6.5.11 <code>:only-of-type</code>伪类</h5><p>该伪类代表了一个元素，它的父元素除了它没有其他元素，且和指定的元素类型相同。等价于<code>:first-of-type:last-of-type</code>。</p>
+<h5 id="3-6-5-12_:empty伪类">3.6.5.12 <code>:empty</code>伪类</h5><p><code>:empty</code>伪类代表了一个元素始终没有子元素。</p>
+<p><strong>实例：</strong></p>
+<p><code>p:empty</code>可以代表以下<code>html</code>片段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>而<code>foo:empty</code>不能代表以下片段：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">foo</span>&gt;</span>bar<span class="tag">&lt;/<span class="title">foo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">foo</span>&gt;</span><span class="tag">&lt;<span class="title">bar</span>&gt;</span>bla<span class="tag">&lt;/<span class="title">bar</span>&gt;</span><span class="tag">&lt;/<span class="title">foo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">foo</span>&gt;</span>this is not <span class="tag">&lt;<span class="title">bar</span>&gt;</span>:empty<span class="tag">&lt;/<span class="title">bar</span>&gt;</span><span class="tag">&lt;/<span class="title">foo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="3-6-6_空白">3.6.6 空白</h4><p>本节有意留为空白。（本节之前定义了一个<code>:contains()</code>伪类）</p>
+<h4 id="3-6-7_否定伪类">3.6.7 否定伪类</h4><p>否定伪类，<code>:not(x)</code>是一个功能性的符号，它接受一个简单选择器作为参数。它代表了这些不是参数所代表的元素。</p>
+<p>否定不能嵌套，<code>:not(:not(...))</code>是无效的。要注意当伪元素不是简单选择器，所以它们不是<code>:not()</code>的有效参数。</p>
+<p><strong>实例：</strong></p>
+<p>以下选择器匹配在HTML中没有被禁用的按钮：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">button</span>:<span class="value"><span class="function">not</span>([DISABLED])</span></span></span><br></pre></td></tr></table></figure>
+<p>默认的命名空间声明不会影响否定伪类的参数，除非该参数是一个通用选择器或类型选择器。</p>
+<p><strong>实例：</strong></p>
+<p>假设默认的命名空间为<code>http://example.com/</code>，下面的选择器代表了所有不在该命名空间的元素：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*|*:not(*)</span><br></pre></td></tr></table></figure>
+<h2 id="4-_伪元素">4. 伪元素</h2><p>在文档语言规定之外，伪元素创建了一个关于文档树的抽象引用。例如，文档语言不提供机制来访问的一个元素的内容的第一个字母或第一行。伪元素允许作者引用这个本来无法访问的信息。伪元素还能提供作者一种方式去引用源文档中不存在的内容（<code>::before</code>和<code>::after</code>）。</p>
+<p>一个伪元素是由<code>::</code>跟着伪元素名称组成的。</p>
+<p><code>::</code>符号在文档中被引入是为了在伪类和伪元素之间建立一个区别。为了与现有的样式表的兼容性，用户代理必须同样接受一个冒号<code>:</code>的写法。</p>
+<h3 id="4-1_::first-line伪元素">4.1 <code>::first-line</code>伪元素</h3><p><code>::first-line</code>伪元素描述了元素的内容中被格式化的第一行。</p>
+<p><strong>CSS实例：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">p</span>:<span class="value">:first-line &#123; text-transform: uppercase &#125;</span></span></span><br></pre></td></tr></table></figure>
+<p>上面的规则意思为将每个<code>p</code>元素的第一行的每个字母变为大写。</p>
+<p>注意，第一行的长度取决于许多因素，包括该页面的宽度，字体大小等。因此，一个普通的HTML段落，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">P</span>&gt;</span>This is a somewhat long HTML </span><br><span class="line">paragraph that will be broken into several </span><br><span class="line">lines. The first line will be identified</span><br><span class="line">by a fictional tag sequence. The other lines </span><br><span class="line">will be treated as ordinary lines in the </span><br><span class="line">paragraph.<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其中折行如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">THIS IS A SOMEWHAT LONG HTML PARAGRAPH THAT</span><br><span class="line">will be broken into several lines. The first</span><br><span class="line">line will be identified by a fictional tag </span><br><span class="line">sequence. The other lines will be treated as </span><br><span class="line">ordinary lines in the paragraph.</span><br></pre></td></tr></table></figure>
+<p>该段落可能可能被用户代理<code>重写</code>，包括虚构的标签<code>::first-line</code>。这个虚构的标签序列有助于说明属性如何继承。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">P::first-line</span>&gt;</span> This is a somewhat long HTML </span><br><span class="line">paragraph that <span class="tag">&lt;/<span class="title">P::first-line</span>&gt;</span> will be broken into several</span><br><span class="line">lines. The first line will be identified </span><br><span class="line">by a fictional tag sequence. The other lines </span><br><span class="line">will be treated as ordinary lines in the </span><br><span class="line">paragraph.<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果伪元素折断了一个真实的元素，所需的效果通常被描述为一个虚构的标签序列关闭，然后重新打开该元素。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">SPAN</span> <span class="attribute">class</span>=<span class="value">"test"</span>&gt;</span> This is a somewhat long HTML</span><br><span class="line">paragraph that will be broken into several</span><br><span class="line">lines.<span class="tag">&lt;/<span class="title">SPAN</span>&gt;</span> The first line will be identified</span><br><span class="line">by a fictional tag sequence. The other lines </span><br><span class="line">will be treated as ordinary lines in the </span><br><span class="line">paragraph.<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>用户代理会像下面这样处理：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">P::first-line</span>&gt;</span><span class="tag">&lt;<span class="title">SPAN</span> <span class="attribute">class</span>=<span class="value">"test"</span>&gt;</span> This is a</span><br><span class="line">somewhat long HTML</span><br><span class="line">paragraph that will <span class="tag">&lt;/<span class="title">SPAN</span>&gt;</span><span class="tag">&lt;/<span class="title">P::first-line</span>&gt;</span><span class="tag">&lt;<span class="title">SPAN</span> <span class="attribute">class</span>=<span class="value">"test"</span>&gt;</span> be</span><br><span class="line">broken into several</span><br><span class="line">lines.<span class="tag">&lt;/<span class="title">SPAN</span>&gt;</span> The first line will be identified</span><br><span class="line">by a fictional tag sequence. The other lines</span><br><span class="line">will be treated as ordinary lines in the </span><br><span class="line">paragraph.<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="4-1-1_CSS中格式化的第一行的定义">4.1.1 CSS中格式化的第一行的定义</h4><p>在CSS中，<code>::first-line</code>伪元素只能在<code>block-like</code>容器上有效果，这些容器有<code>block box</code>，<code>inline-block</code>，<code>table-caption</code>和<code>table-cell</code>。</p>
+<p>一个元素的格式化第一行可能发生在相同流的一个<code>block-level</code>后代中（例如，一个<code>block-level</code>后代没有脱离流）。例如，在<code>&lt;DIV&gt;&lt;P&gt;This line...&lt;/P&gt;&lt;/DIV&gt;</code>中<code>DIV</code>的第一行为<code>p</code>元素的第一行。</p>
+<p><code>table-cell</code>和<code>inline-block</code>的第一行不能成为一个祖先元素的格式化的第一行。因此，在<code>&lt;DIV&gt;&lt;P STYLE=&quot;display: inline-block&quot;&gt;Hello&lt;BR&gt;Goodbye&lt;/P&gt; etcetera&lt;/DIV&gt;</code>中，<code>DIV</code>的格式化第一行不是<code>Hello</code>的那一行。</p>
+<p>一个用户代理应当表现的就好像<code>::first-line</code>的虚拟开始标签伪元素被嵌套到最内层的<code>block-level</code>元素中。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">DIV</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">P</span>&gt;</span>First paragraph<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">P</span>&gt;</span>Second paragraph<span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>加上虚拟标签后：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">DIV</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">DIV::first-line</span>&gt;</span><span class="tag">&lt;<span class="title">P::first-line</span>&gt;</span>First paragraph<span class="tag">&lt;/<span class="title">P::first-line</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV::first-line</span>&gt;</span><span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">P</span>&gt;</span><span class="tag">&lt;<span class="title">P::first-line</span>&gt;</span>Second paragraph<span class="tag">&lt;/<span class="title">P::first-line</span>&gt;</span><span class="tag">&lt;/<span class="title">P</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>::first-line</code>伪元素类似于一个<code>inline-level</code>元素，但有一定的限制。以下CSS属性应用到一个<code>::first-line</code>伪元素：字体属性、背景属性、颜色属性、<code>word-spacing</code>，<code>letter-spacing</code>，<code>text-decoration</code>，<code>vertical-align</code>，<code>text-transform</code>，<code>line-height</code>。用户代理也可能应用其他属性。</p>
+<p>在CSS继承时，发生在第一行的子元素的一部分只从<code>::first-line</code>伪元素继承<code>::first-line</code>上可应用的属性。对于所有的其他属性，继承时从第一行伪元素的非鱼伪元素父元素中继承。</p>
+<h3 id="4-2_::first-letter伪元素">4.2 <code>::first-letter</code>伪元素</h3><p><code>::first-letter</code>代表了一个元素的第一个字母，如果在该行中在它前面没有任何其他内容。<code>::first-letter</code>伪元素可能被用于<code>首字母大写</code>等用途。</p>
+<p>标点符号，即第一个字母前面或后面也应包括在内。</p>
+<p><img src="http://www.w3.org/TR/css3-selectors/first-letter2.png" alt="enter image description here"></p>
+<p>当第一个字母为数字时，<code>::first-line</code>也同样被应用，例如，在<code>67 million dollars is a lot of money.</code>中的<code>6</code>。</p>
+<h4 id="4-2-1_在CSS中的应用">4.2.1 在CSS中的应用</h4><p>在CSS中，<code>::first-letter</code>伪元素只能在<code>block-like</code>容器上有效果，这些容器有<code>block</code>，<code>list-item</code>，<code>inline-block</code>，<code>table-caption</code>和<code>table-cell</code>。</p>
+<p><code>::first-letter</code>伪元素可和所有这些包含文本的元素或有一个后代包含文本且在相同的流的元素使用。用户代理也应该表现为好像虚拟的标签被加上。</p>
+<p><strong>实例：</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>The first text.</span><br></pre></td></tr></table></figure>
+<p>表现为：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">div::first-letter</span>&gt;</span><span class="tag">&lt;<span class="title">p::first-letter</span>&gt;</span>T<span class="tag">&lt;/<span class="title">...</span>&gt;</span><span class="tag">&lt;/<span class="title">...</span>&gt;</span>he first text.</span><br></pre></td></tr></table></figure>
+<p><code>table-cell</code>和<code>inline-block</code>的第一个字母不能成为一个祖先元素的的第一字母。因此，在<code>&lt;DIV&gt;&lt;P STYLE=&quot;display: inline-block&quot;&gt;Hello&lt;BR&gt;Goodbye&lt;/P&gt; etcetera&lt;/DIV&gt;</code>中，<code>DIV</code>的第一字母不是<code>H</code>。实际上，<code>DIV</code>没有第一个字母。</p>
+<p>如果元素是一个<code>list item</code>，<code>::first-letter</code>应用在主体框标记后的第一个字母。如果<code>list item</code>设置了<code>list-style-position: inside</code>，用户代理将忽略该列表项的<code>::first-letter</code>。如果一个元素有<code>::before</code>和<code>::after</code>内容，<code>::first-letter</code>应用的时候包含了<code>::before</code>和<code>::after</code>的内容。</p>
+<p><strong>实例：</strong></p>
+<p>例如：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">p</span>:<span class="value">:before &#123;content: <span class="string">"Note: "</span>&#125;</span></span></span><br></pre></td></tr></table></figure>
+<p><code>p::first-letter</code>匹配<code>Note</code>中的<code>N</code>。</p>
+<p>在CSS中，<code>::first-letter</code>伪元素类似于一个<code>inline-level</code>元素，如果该元素的<code>float</code>为<code>none</code>；否则，它和浮动元素相同。</p>
+<h3 id="4-3_空白">4.3 空白</h3><p>这里是故意留白的。（之前定义了<code>::selection</code>伪元素）</p>
+<h3 id="4-4_::before和::after伪元素">4.4 <code>::before</code>和<code>::after</code>伪元素</h3><p>这两个伪元素在<a href="http://www.w3.org/TR/css3-selectors/#CSS21" target="_blank" rel="external">CSS21</a>中定义。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CSS/">CSS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/selector/">selector</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/02/05/css-selectors/" data-title="CSS 选择器 | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/04/09/javascript-types/" title="JavaScript  类型与类型转换">
+  <strong>上一篇：</strong><br/>
+  <span>
+  JavaScript  类型与类型转换</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/21/css3-animation/"  title="CSS3 Animation">
+ <strong>下一篇：</strong><br/> 
+ <span>CSS3 Animation
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/02/05/css-selectors/" data-title="CSS 选择器" data-url="http://cookfront.github.io/2015/02/05/css-selectors/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-_选择器语法"><span class="toc-number">1.</span> <span class="toc-text">1. 选择器语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-_选择器组"><span class="toc-number">2.</span> <span class="toc-text">2.  选择器组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-_简单选择器"><span class="toc-number">3.</span> <span class="toc-text">3. 简单选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1_类型选择器"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 类型选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-1_类型选择器和命名空间"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 类型选择器和命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2_通用选择器"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 通用选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1_通用选择器和命名空间"><span class="toc-number">3.2.1.</span> <span class="toc-text">3.2.1 通用选择器和命名空间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3_属性选择器"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 属性选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-1_属性存在和值选择器"><span class="toc-number">3.3.1.</span> <span class="toc-text">3.3.1 属性存在和值选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-2_子字符串匹配属性选择器"><span class="toc-number">3.3.2.</span> <span class="toc-text">3.3.2 子字符串匹配属性选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-3_属性选择器和命名空间"><span class="toc-number">3.3.3.</span> <span class="toc-text">3.3.3 属性选择器和命名空间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-4_在DTDs中的默认属性值"><span class="toc-number">3.3.4.</span> <span class="toc-text">3.3.4 在DTDs中的默认属性值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4_类选择器"><span class="toc-number">3.4.</span> <span class="toc-text">3.4 类选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5_ID选择器"><span class="toc-number">3.5.</span> <span class="toc-text">3.5 ID选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6_伪类"><span class="toc-number">3.6.</span> <span class="toc-text">3.6 伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-1_动态伪类"><span class="toc-number">3.6.1.</span> <span class="toc-text">3.6.1 动态伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-1-1_链接伪类：:link和:visited"><span class="toc-number">3.6.1.1.</span> <span class="toc-text">3.6.1.1 链接伪类：:link和:visited</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-1-2_用户动作伪类:hover、:active和:focus"><span class="toc-number">3.6.1.2.</span> <span class="toc-text">3.6.1.2 用户动作伪类:hover、:active和:focus</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-2_目标伪类:target"><span class="toc-number">3.6.2.</span> <span class="toc-text">3.6.2 目标伪类:target</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-3_语言伪类:lang"><span class="toc-number">3.6.3.</span> <span class="toc-text">3.6.3 语言伪类:lang</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-4_UI元素状态伪类"><span class="toc-number">3.6.4.</span> <span class="toc-text">3.6.4 UI元素状态伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-1_:enabled和:disabled伪类"><span class="toc-number">3.6.4.1.</span> <span class="toc-text">3.6.4.1 :enabled和:disabled伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-2_:checked伪类"><span class="toc-number">3.6.4.2.</span> <span class="toc-text">3.6.4.2 :checked伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-4-3_:indeterminate伪类"><span class="toc-number">3.6.4.3.</span> <span class="toc-text">3.6.4.3 :indeterminate伪类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-5_结构伪类"><span class="toc-number">3.6.5.</span> <span class="toc-text">3.6.5 结构伪类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-1_:root伪类"><span class="toc-number">3.6.5.1.</span> <span class="toc-text">3.6.5.1 :root伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-2_:nth-child()伪类"><span class="toc-number">3.6.5.2.</span> <span class="toc-text">3.6.5.2 :nth-child()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-3_:nth-last-child()伪类"><span class="toc-number">3.6.5.3.</span> <span class="toc-text">3.6.5.3 :nth-last-child()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-4_:nth-of-type()伪类"><span class="toc-number">3.6.5.4.</span> <span class="toc-text">3.6.5.4 :nth-of-type()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-5_:nth-last-of-type()伪类"><span class="toc-number">3.6.5.5.</span> <span class="toc-text">3.6.5.5 :nth-last-of-type()伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-6_:first-child伪类"><span class="toc-number">3.6.5.6.</span> <span class="toc-text">3.6.5.6 :first-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-7_:last-child伪类"><span class="toc-number">3.6.5.7.</span> <span class="toc-text">3.6.5.7 :last-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-8_:first-of-type伪类"><span class="toc-number">3.6.5.8.</span> <span class="toc-text">3.6.5.8 :first-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-9_:last-of-type伪类"><span class="toc-number">3.6.5.9.</span> <span class="toc-text">3.6.5.9 :last-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-10_:only-child伪类"><span class="toc-number">3.6.5.10.</span> <span class="toc-text">3.6.5.10 :only-child伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-11_:only-of-type伪类"><span class="toc-number">3.6.5.11.</span> <span class="toc-text">3.6.5.11 :only-of-type伪类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-6-5-12_:empty伪类"><span class="toc-number">3.6.5.12.</span> <span class="toc-text">3.6.5.12 :empty伪类</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-6_空白"><span class="toc-number">3.6.6.</span> <span class="toc-text">3.6.6 空白</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-6-7_否定伪类"><span class="toc-number">3.6.7.</span> <span class="toc-text">3.6.7 否定伪类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-_伪元素"><span class="toc-number">4.</span> <span class="toc-text">4. 伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1_::first-line伪元素"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 ::first-line伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-1_CSS中格式化的第一行的定义"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 CSS中格式化的第一行的定义</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2_::first-letter伪元素"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 ::first-letter伪元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-1_在CSS中的应用"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 在CSS中的应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3_空白"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 空白</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4_::before和::after伪元素"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 ::before和::after伪元素</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

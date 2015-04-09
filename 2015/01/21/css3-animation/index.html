@@ -1,0 +1,653 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>CSS3 Animation | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="本文是Web Animations 1.0的学习和翻译，如有翻译不好的可以看看原文哟。
+1 介绍CSS的transition提供了一种在它们基本属性改变时插入CSS属性值的方式。这提供了一种简单的方法来实现一些简单的动画，但动画的开始和结束状态是由现有的属性值来控制，transition在动画如何进行上给作者提供了很少的控制。
+该提案中介绍了定义动画，其中作者可以使用keyframe来指定CSS属">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3 Animation">
+<meta property="og:url" content="http://cookfront.github.io/2015/01/21/css3-animation/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="本文是Web Animations 1.0的学习和翻译，如有翻译不好的可以看看原文哟。
+1 介绍CSS的transition提供了一种在它们基本属性改变时插入CSS属性值的方式。这提供了一种简单的方法来实现一些简单的动画，但动画的开始和结束状态是由现有的属性值来控制，transition在动画如何进行上给作者提供了很少的控制。
+该提案中介绍了定义动画，其中作者可以使用keyframe来指定CSS属">
+<meta property="og:image" content="http://www.w3.org/TR/css3-animations/sandwich.png">
+<meta property="og:image" content="http://www.w3.org/TR/css3-animations/animation1.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS3 Animation">
+<meta name="twitter:description" content="本文是Web Animations 1.0的学习和翻译，如有翻译不好的可以看看原文哟。
+1 介绍CSS的transition提供了一种在它们基本属性改变时插入CSS属性值的方式。这提供了一种简单的方法来实现一些简单的动画，但动画的开始和结束状态是由现有的属性值来控制，transition在动画如何进行上给作者提供了很少的控制。
+该提案中介绍了定义动画，其中作者可以使用keyframe来指定CSS属">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/01/21/css3-animation/" title="CSS3 Animation" itemprop="url">CSS3 Animation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-01-21T05:47:42.000Z" itemprop="datePublished"> 發表於 2015-01-21</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1_介绍"><span class="toc-number">1.</span> <span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2_取值"><span class="toc-number">2.</span> <span class="toc-text">2 取值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3_动画"><span class="toc-number">3.</span> <span class="toc-text">3 动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4_关键帧（keyframes）"><span class="toc-number">4.</span> <span class="toc-text">4 关键帧（keyframes）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1_关键帧的缓动函数"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 关键帧的缓动函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2_animation-name属性"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 animation-name属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3_animation-duration属性"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 animation-duration属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4_animation-timing-function属性"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 animation-timing-function属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5_animation-iteration-count属性"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 animation-iteration-count属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6_animation-direction属性"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 animation-direction属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7_animation-play-state属性"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 animation-play-state属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8_animation-delay属性"><span class="toc-number">4.8.</span> <span class="toc-text">4.8 animation-delay属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9_animation-fill-mode属性"><span class="toc-number">4.9.</span> <span class="toc-text">4.9 animation-fill-mode属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10_animation简写属性"><span class="toc-number">4.10.</span> <span class="toc-text">4.10 animation简写属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5_动画事件"><span class="toc-number">5.</span> <span class="toc-text">5 动画事件</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文是<a href="http://www.w3.org/TR/web-animations/" target="_blank" rel="external">Web Animations 1.0</a>的学习和翻译，如有翻译不好的可以看看原文哟。</p>
+<h2 id="1_介绍">1 介绍</h2><p><code>CSS</code>的<a href="http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS" target="_blank" rel="external">transition</a>提供了一种在它们基本属性改变时插入<code>CSS</code>属性值的方式。这提供了一种简单的方法来实现一些简单的动画，但动画的开始和结束状态是由现有的属性值来控制，<code>transition</code>在动画如何进行上给作者提供了很少的控制。</p>
+<p>该提案中介绍了定义动画，其中作者可以使用<code>keyframe</code>来指定<code>CSS</code>属性随着时间的变化。<code>Animation</code>类似于<code>transition</code>，因为它们随时间改变CSS属性的表象值（presentational value）。主要的区别是，<code>transition</code>是当属性值改变时触发，<code>animation</code>是在<code>animation</code>属性被应用后明确的执行。正因为如此，<code>animations</code>对于正在被动画的属性需要明确的值。这些值是使用动画关键帧（keyframes）来指定的，将在下面描述。</p>
+<p>动画的许多方面可以被控制，包括多少次动画迭代，是否交替开始和结束之间的值，动画是否应该运行还是暂停。动画同样可以延迟它的开始时间。</p>
+<h2 id="2_取值">2 取值</h2><p>该规范遵循<a href="http://www.w3.org/TR/css3-animations/#CSS21" target="_blank" rel="external">CSS21</a>中的<a href="http://www.w3.org/TR/CSS21/about.html#property-defs" target="_blank" rel="external">CSS属性定义约定</a>。在该规范中没有定义的值的类型被定义在<code>CSS Level 2 Revision 1</code><a href="http://www.w3.org/TR/css3-animations/#CSS21" target="_blank" rel="external">[CSS21]</a>。其他CSS模块可能扩展这些值类型的定义：例如<a href="http://www.w3.org/TR/css3-animations/#CSS3VAL" target="_blank" rel="external">[CSS3VAL)]</a>，当与该模块结合时，扩展<code>&lt;length&gt;</code>值类型的定义将在本规范中使用。</p>
+<p>除了在它们的定义中列出的属性的特定值，在该规范中定义的所有属性也接受了<a href="http://dev.w3.org/csswg/css3-values/#common-keywords" target="_blank" rel="external">initial</a>和<a href="http://www.w3.org/TR/CSS21/cascade.html#value-def-inherit" target="_blank" rel="external">inherit</a>关键字作为他们的属性值。因为可读性原因，并未明确重复。</p>
+<h2 id="3_动画">3 动画</h2><p><code>CSS</code>动画影响属性的计算值。在动画的执行期间，对于属性的计算值是由动画控制。这将会覆盖在正常样式系统中指定的值。动画覆盖所有一般规则，但会被<code>!important</code>规则所覆盖。</p>
+<p>如果在一个时间点有多个动画为同一个属性指定了行为，则该动画名出现在<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>值的最后一个会覆盖其他动画。</p>
+<p>一个动画在动画应用程序之前、动画延迟到期前和动画结束后不会影响计算值。</p>
+<center><br><img src="http://www.w3.org/TR/css3-animations/sandwich.png" alt="enter image description here"><br></center>
+
+<center><br>图片1：动画属性值的计算<br></center>
+
+<p>上图显示了属性值如何计算。本身的样式显示在图的顶部，当动画没有运行和动画被延迟时，计算值是从本身样式衍生而来。在动画运行期间，计算样式是由动画值衍生而来。</p>
+<p>动画的开始时间是后面的两个时刻：样式被解析出指定了动画的时间，或文档的<code>load</code>事件被触发。因此，在文档的样式表中指定的动画是在文档加载后开始。通过修改元素样式的指定动画会在文档被加载后且该样式被解析后开始。这可能在伪元素样式规则下立即执行，例如<code>hover</code>，或者是脚本引擎将控制返回给浏览器。</p>
+<p>当元素有一个<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>的值引用了一个有效的<code>keyframes</code>规则时，动画才会应用到元素上。一旦动画开始，它会继续直到结束，或者<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>被移除。用于关键帧和动画属性的值当动画开始时被快照。在动画执行期间改变它们是没有效果的。另外要注意，改变<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>的值并不一定会重新启动动画（例如：如果一个动画列表被应用，且其中一个从列表中移除，只有那个动画会暂停，其他动画会继续运行）。为了重新启动动画，它必须被移除，然后重新应用。</p>
+<p>动画的结束是由<a href="http://www.w3.org/TR/css3-animations/#animation-duration" target="_blank" rel="external">animation-duration</a>、<a href="http://www.w3.org/TR/css3-animations/#animation-iteration-count" target="_blank" rel="external">animation-iteration-count</a>和<a href="http://www.w3.org/TR/css3-animations/#animation-fill-mode" target="_blank" rel="external">animatioin-fill-mode</a>属性结合一起定义的。</p>
+<p><strong>实例1：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-name</span>:<span class="value"> diagonal-slide</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-duration</span>:<span class="value"> <span class="number">5s</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-iteration-count</span>:<span class="value"> <span class="number">10</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> diagonal-slide </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="tag">from</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">to</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上会产生用五秒将元素<code>(0, 0)</code>移动到<code>(100px, 100px)</code>，并且重复十次。</p>
+<p>当设置<code>display</code>属性为<code>none</code>时，会终止任何被应用在元素和它后代的运行中的动画。如果元素的<code>diaplay</code>为<code>none</code>，当更新它的<code>display</code>值不为<code>none</code>的任何值时所有通过<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>运用到元素的动画会开始运行，也同样包括它后代的<code>display</code>不为<code>none</code>的动画。</p>
+<p>虽然作者可以使用动画来创建动态变化的内容，动态变化的内容可以导致在某些用户癫痫。有关如何避免内容导致癫痫发作的信息，可以看<a href="http://www.w3.org/TR/WCAG20/#seizure" target="_blank" rel="external">Guideline 2.3: Seizures: Do not design content in a way that is known to cause seizures</a></p>
+<h2 id="4_关键帧（keyframes）">4 关键帧（keyframes）</h2><p>关键帧被用于在动画过程中指定用于在各个点的动画属性的值。关键帧指定了动画的一个周期的行为，动画可以迭代一次或多次。</p>
+<p>关键帧是使用专门的<code>CSS</code>的<code>@</code>规则来指定。一个<code>@keyframes</code>规则包含了关键字<code>@keyframes</code>，然后跟着标识符给出动画的名称（它会被<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>引用到），最后是一组样式规则（由大括号分隔）。</p>
+<p>对于关键帧样式规则的<strong>关键帧选择器（keyframe selector）</strong>包含了由逗号分隔的百分比值列表或关键字<code>from</code>或<code>to</code>。选择器用于指定沿该关键帧代表的该动画的持续时间的百分比。关键帧本身是通过在选择器声明的属性值块中指定。关键字<code>from</code>等价于<code>0%</code>，关键字<code>to</code>等价于<code>100%</code>。</p>
+<p>如果<code>0%</code>或<code>from</code>没有被指定，那么用户代理会使用将要动画的属性的计算值构造一个<code>0%</code>的关键帧。如果<code>100%</code>或<code>to</code>没有被指定，那么用户代理会使用将要动画的属性的计算值构造一个<code>100%</code>的关键帧。如果关键帧选择器指定了一个负的或者是大于<code>100%</code>百分比值，该关键帧将被忽略。</p>
+<p>一个关键帧规则的<strong>关键帧声明块（keyframe declaration block）</strong>包含属性和值，那些不能动画的属性将在规则中被忽略，除了<a href="http://www.w3.org/TR/css3-animations/#animation-timing-function" target="_blank" rel="external">animation-timing-function</a>之外，该属性的行为将在下面说明。此外，关键帧规则声明中想具有<code>!important</code>资格将被忽略（没有!important优先级）。</p>
+<p>动画所使用的<code>@keyframes</code>规则将是在被排序后的规则顺序中最后一个遇到的，且匹配在<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>引用到）属性中指定的动画名称 。<code>@keyframes</code>规则不会层叠；因此，一个动画永远不会从多个<code>@keyframes</code>规则中获得关键帧。</p>
+<p>为了确定该组的关键帧，所有的选择器的值按时间递增顺序排序。如果有任何重复，那么<code>@keyframes</code>规则内指定的最后一个关键帧将被用于提供那时关键帧的信息。如果有多个关键帧指定了相同的关键帧选择器值时，在<code>@keyframes</code>规则中不会重叠。</p>
+<p>如果一个属性不是为关键帧指定，或者它的指定是无效的，动画的那个属性进行就好像那个关键帧不存在一样。概念上，就好像构造一组关键帧的每个属性存在于任何关键帧，且动画是为每个属性独立运行的。</p>
+<p><strong>实例2：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> wobble </span>&#123;</span><br><span class="line">  0% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  40% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">150px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  60% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">75px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  100% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>四个关键帧在动画名为<code>wobble</code>的动画中指定。在第一个关键帧中，显示了动画周期的开始，<code>left</code>属性的值被动画到<code>100px</code>。在<code>40%</code>时，<code>left</code>为<code>150px</code>。以此类推。下面的图展示了动画的状态，如果动画持续时间被指定为10s的话。</p>
+<p><ceter><br><img src="http://www.w3.org/TR/css3-animations/animation1.png" alt="enter image description here"><br></ceter></p>
+<p>下面是关键帧规则的语法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">keyframes_rule: KEYFRAMES_SYM S+ IDENT S* <span class="string">'&#123;'</span> S* keyframes_blocks <span class="string">'&#125;'</span> S*;</span><br><span class="line"></span><br><span class="line">keyframes_blocks: [ keyframe_selector <span class="string">'&#123;'</span> S* declaration? [ <span class="string">';'</span> S* declaration? ]* <span class="string">'&#125;'</span> S* ]* ;</span><br><span class="line"></span><br><span class="line">keyframe_selector: [ FROM_SYM | TO_SYM | PERCENTAGE ] S* [ <span class="string">','</span> S* [ FROM_SYM | TO_SYM | PERCENTAGE ] S* ]*;</span><br><span class="line"></span><br><span class="line">@&#123;K&#125;&#123;E&#125;&#123;Y&#125;&#123;F&#125;&#123;R&#125;&#123;A&#125;&#123;M&#125;&#123;E&#125;&#123;S&#125;   &#123;<span class="keyword">return</span> KEYFRAMES_SYM;&#125;</span><br><span class="line">&#123;F&#125;&#123;R&#125;&#123;O&#125;&#123;M&#125;                   &#123;<span class="keyword">return</span> FROM_SYM;&#125;</span><br><span class="line">&#123;T&#125;&#123;O&#125;                         &#123;<span class="keyword">return</span> TO_SYM;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-1_关键帧的缓动函数">4.1 关键帧的缓动函数</h3><p>关键帧样式同样可以定义缓动函数，这个缓动函数将用于动画从这个帧运行到下个帧。</p>
+<p><strong>实例3：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> bounce </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="tag">from</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-out</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  25% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-in</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  50% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-out</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  75% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">75px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-in</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">to</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>动画名为<code>bounce</code>的动画指定了五个关键帧。在第一个关键帧到第二个关键帧之间使用的缓动函数为<code>ease-out</code>（也即0%到25%），25%到50%之间使用的缓动函数为<code>ease-in</code>，以此类推了。</p>
+<p>在<code>100%</code>或<code>to</code>上指定的缓动函数将被忽略。</p>
+<h3 id="4-2_animation-name属性">4.2 <code>animation-name</code>属性</h3><p><code>animation-name</code>属性定义了应用的动画列表。每一个名字被用于选择关键帧规则，以提供该动画的属性值。如果该名字没有匹配任何关键帧<code>@</code>规则，没有属性进行动画且动画将不会执行（这里指的是该名字指定的动画，而不是说整个动画不会执行）。此外，如果动画名称为<code>none</code>，那么将不会有动画。这可以用于覆盖层叠而来的任何动画。如果多个动画尝试修改同一个属性，那么靠近列表的最后的动画会胜出。</p>
+<p>对于下面列出的其他动画属性的值，按名称列出的每个动画应该有相应的值（简单点说，比如我定义了animation-name: aa bb; 在animation-duration中应该有相应的值，例如animation-name: 2s 4s;或者其他）。如果对于其他动画属性值的列表不具有相同的长度，<code>animation-name</code>列表的长度决定了启动动画时检查每个列表项的数量。列表是从第一个值开始匹配：不使用尾部剩余的值。如果其他属性中的一个没有足够的逗号分隔的值去匹配<code>animation-name</code>属性值的数量时，用户代理必须通过列表中的值计算，直到有足够的值。这些截断和重复不影响属性的计算值。</p>
+<ul>
+<li>名称：<code>animation-name</code></li>
+<li>取值：<code>&lt;single-animation-name&gt; [ ‘,’ &lt;single-animation-name&gt; ]*</code></li>
+<li>初始值：<code>none</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-name&gt; = none | &lt;IDENT&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-3_animation-duration属性">4.3 <code>animation-duration</code>属性</h3><p><code>animation-duration</code>属性一个动画完成一个周期的时间。</p>
+<ul>
+<li>名称：<code>animation-duration</code></li>
+<li>取值：<code>&lt;time&gt; [, &lt;time&gt;]*</code></li>
+<li>初始值：<code>0s</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>初始值为<code>0s</code>，这意味着动画不花时间。当持续时间为<code>0s</code>时，<code>animation-fill-mode</code>仍然会被应用，所以一个动画填充为<code>backwards</code>将在一个延迟时间（如果有的话）后显示<code>0%</code>的关键帧，填充为<code>forwards</code>的将显示<code>100%</code>的关键帧，即使动画是瞬时的。同样，动画事件也会被触发。一个负的<code>animation-duration</code>值将导致该声明无效。</p>
+<h3 id="4-4_animation-timing-function属性">4.4 <code>animation-timing-function</code>属性</h3><p><code>animation-timing-function</code>属性描述了动画在一个周期内如何进展。更多关于缓动函数：<a href="http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS" target="_blank" rel="external">http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS</a></p>
+<ul>
+<li>名称：<code>animation-timing-function</code></li>
+<li>取值：<code>&lt;single-timing-function&gt; [ ‘,’ &lt;single-timing-function&gt; ]*</code></li>
+<li>初始值：<code>ease</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<h3 id="4-5_animation-iteration-count属性">4.5 <code>animation-iteration-count</code>属性</h3><p>这个属性看名字就能看出来了，它定义动画运行周期的次数。初始值为<code>1</code>，意味着动画会从开始到结束运行一次。一个<code>infinite</code>值将会使动画运行无限次。非整数的值将会导致动画运行到一个循环的一部分结束。<code>animation-iteration-count</code>属性值为负值时是无效的。这个属性通常结合<code>animation-direction</code>属性值的<code>alternate</code>使用，这会导致动画交替运行。</p>
+<ul>
+<li>名称：<code>animation-iteration-count</code></li>
+<li>取值：<code>&lt;single-animation-iteration-count&gt; [ ‘,’ &lt;single-animation-iteration-count&gt; ]*</code></li>
+<li>初始值：1</li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-iteration-count&gt; = infinite | &lt;number&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="4-6_animation-direction属性">4.6 <code>animation-direction</code>属性</h3><p><code>animation-direction</code>属性定义了动画运行的方向。当一个动画运行是<code>reverse</code>（倒着运行）时，缓动函数也将是相反的。例如，当指定的缓动函数为<code>ease-in</code>，倒着运行时缓动函数为<code>ease-out</code>。</p>
+<ul>
+<li>名称：<code>animation-direction</code></li>
+<li>取值：<code>&lt;single-animation-direction&gt; [ ‘,’ &lt;single-animation-direction&gt; ]*</code></li>
+<li>初始值：<code>normal</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-direction&gt; = normal | reverse | alternate | alternate-reverse</span><br></pre></td></tr></table></figure>
+<p>属性值的意义：</p>
+<p><strong>normal</strong><br>动画的所有迭代按着指定的运行</p>
+<p><strong>reverse</strong><br>动画的所有迭代按着定义的相反方向来运行</p>
+<p><strong>alternate</strong><br>动画周期在奇数次按着<code>normal</code>方向运行，偶数次按着<code>reverse</code>方向运行。也就是交替运行</p>
+<p><strong>alternate-reverse</strong><br>这个和<code>alternate</code>相反。奇数次按着<code>reverse</code>方向运行，偶数次按着<code>normal</code>方向运行</p>
+<h3 id="4-7_animation-play-state属性">4.7 <code>animation-play-state</code>属性</h3><p><code>animation-play-state</code>属性定义了动画是否运行还是暂停。一个运行中的动画可以通过设置该属性为<code>pasued</code>。为了继续运行这个暂停的动画可以设置该属性为<code>running</code>。一个暂停的动画将继续处于静止状态显示动画的当前值，就好像动画的时间是常数。当已暂停的动画被恢复，它从当前值重新启动，而没必要从动画的开始。</p>
+<ul>
+<li>名称：<code>animation-play-state</code></li>
+<li>取值：<code>&lt;single-animation-play-state&gt; [ ‘,’ &lt;single-animation-play-state&gt; ]*</code></li>
+<li>初始值：<code>running</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-play-state&gt; = running | paused</span><br></pre></td></tr></table></figure>
+<h3 id="4-8_animation-delay属性">4.8 <code>animation-delay</code>属性</h3><p><code>animation-delay</code>属性定义了动画什么时候开始。它允许动画开始执行一段时间（就是延迟一段时间执行）后在它被应用之后。当<code>animation-delay</code>的值为<code>0s</code>，意味着动画会在被应用后立即执行。否则，该值指定了从动画被应用时刻的偏移，以及动画将用该偏移延迟执行。</p>
+<p>如果<code>animation-delay</code>的值是负的时间偏移，则动画将在它被应用的时刻执行，但是会出现在指定的偏移开始执行。也就是说，动画会出现从运行周期的一部分开始。</p>
+<ul>
+<li>名称：<code>animation-delay</code></li>
+<li>取值：<code>&lt;time&gt; [, &lt;time&gt;]*</code></li>
+<li>初始值：0s</li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<h3 id="4-9_animation-fill-mode属性">4.9 <code>animation-fill-mode</code>属性</h3><p><code>animation-fill-mode</code>属性定义了什么值被应用在动画之外的执行时间。默认情况下，动画不会影响在它被应用的时间和它开始执行的时间之间的属性值。同样，默认情况下动画也不会影响在动画结束后的属性值。<code>animation-fill-mode</code>可以覆盖这种行为。</p>
+<p>如果<code>animation-fill-mode</code>的值为<code>backwards</code>，则动画会应用在定义在动画第一个迭代开始的关键帧的属性值，在定义在<code>animation-delay</code>的时间之间。</p>
+<p>如果<code>animation-fill-mode</code>的值为<code>forwards</code>，则在动画结束后，动画将应用在动画结束后的属性值。</p>
+<p>如果<code>animation-fill-mode</code>的值为<code>both</code>，则动画会遵循<code>backwards</code>和<code>forwards</code>的规则。也就是说，它会扩展两个方向的动画属性。</p>
+<ul>
+<li>名称：<code>animation-fill-mode</code></li>
+<li>取值：<code>&lt;single-animation-fill-mode&gt; [ ‘,’ &lt;single-animation-fill-mode&gt; ]*</code></li>
+<li>初始值：<code>none</code></li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：指定的值</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-fill-mode&gt; = none | forwards | backwards | both</span><br></pre></td></tr></table></figure>
+<h3 id="4-10_animation简写属性">4.10 <code>animation</code>简写属性</h3><p><code>animation</code>属性是一个逗号分隔的动画定义列表，其中结合了7个动画属性成单个组件的值。</p>
+<ul>
+<li>名称：<code>animation</code></li>
+<li>取值：<code>&lt;single-animation&gt; [ ‘,’ &lt;single-animation&gt; ]*</code></li>
+<li>初始值：看单个属性的初始值</li>
+<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
+<li>继承：无</li>
+<li>可否动画：否</li>
+<li>百分比：<code>N/A</code></li>
+<li>媒体：视觉</li>
+<li>计算值：看单个属性</li>
+</ul>
+<p>其中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation&gt; = &lt;single-animation-name&gt; || &lt;time&gt; || &lt;single-animation-timing-function&gt; || &lt;time&gt; || &lt;single-animation-iteration-count&gt; || &lt;single-animation-direction&gt; || &lt;single-animation-fill-mode&gt; || &lt;single-animation-play-state&gt;</span><br></pre></td></tr></table></figure>
+<p>要注意，在每个动画定义中顺序是非常重要的：第一个<code>&lt;time&gt;</code>值被赋给<code>animation-duration</code>，第二个<code>&lt;time&gt;</code>值赋给<code>animation-delay</code>。</p>
+<h2 id="5_动画事件">5 动画事件</h2><p>事件相关可以自己看文档啦：<a href="http://www.w3.org/TR/css3-animations/#animation-events" target="_blank" rel="external">http://www.w3.org/TR/css3-animations/#animation-events</a></p>
+<p>这里说下动画的三个事件：</p>
+<ul>
+<li>animationStart：发生在动画开始</li>
+<li>animationEnd：发生在动画结束</li>
+<li>animationiteration：发生在动画每个迭代的结束</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/CSS/">CSS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Animation/">Animation</a><a href="/tags/CSS3/">CSS3</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/01/21/css3-animation/" data-title="CSS3 Animation | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2015/02/05/css-selectors/" title="CSS 选择器">
+  <strong>上一篇：</strong><br/>
+  <span>
+  CSS 选择器</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2015/01/18/css3-transform/"  title="CSS3 Transform">
+ <strong>下一篇：</strong><br/> 
+ <span>CSS3 Transform
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/01/21/css3-animation/" data-title="CSS3 Animation" data-url="http://cookfront.github.io/2015/01/21/css3-animation/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1_介绍"><span class="toc-number">1.</span> <span class="toc-text">1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2_取值"><span class="toc-number">2.</span> <span class="toc-text">2 取值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3_动画"><span class="toc-number">3.</span> <span class="toc-text">3 动画</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4_关键帧（keyframes）"><span class="toc-number">4.</span> <span class="toc-text">4 关键帧（keyframes）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1_关键帧的缓动函数"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 关键帧的缓动函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2_animation-name属性"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 animation-name属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3_animation-duration属性"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 animation-duration属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4_animation-timing-function属性"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 animation-timing-function属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5_animation-iteration-count属性"><span class="toc-number">4.5.</span> <span class="toc-text">4.5 animation-iteration-count属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-6_animation-direction属性"><span class="toc-number">4.6.</span> <span class="toc-text">4.6 animation-direction属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-7_animation-play-state属性"><span class="toc-number">4.7.</span> <span class="toc-text">4.7 animation-play-state属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-8_animation-delay属性"><span class="toc-number">4.8.</span> <span class="toc-text">4.8 animation-delay属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-9_animation-fill-mode属性"><span class="toc-number">4.9.</span> <span class="toc-text">4.9 animation-fill-mode属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-10_animation简写属性"><span class="toc-number">4.10.</span> <span class="toc-text">4.10 animation简写属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5_动画事件"><span class="toc-number">5.</span> <span class="toc-text">5 动画事件</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
