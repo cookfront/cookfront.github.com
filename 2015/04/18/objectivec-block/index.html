@@ -1,0 +1,560 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Objective-C基础学习之block | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="以下学习内容是翻译自Apple的Programming with Objective-C，内容有部分删减，主要是自己一个学习和理解的过程，如有翻译不当，还请谅解。
+Block是被添加到C、Objective-C和C++的语言级别的特性，它允许你创建不同的代码片段，这些代码片段可以作为值传入到方法或函数中。Blocks是Objective-C对象，这意味着它可以被添加到类似NSArray和NSDic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C基础学习之block">
+<meta property="og:url" content="http://cookfront.github.io/2015/04/18/objectivec-block/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="以下学习内容是翻译自Apple的Programming with Objective-C，内容有部分删减，主要是自己一个学习和理解的过程，如有翻译不当，还请谅解。
+Block是被添加到C、Objective-C和C++的语言级别的特性，它允许你创建不同的代码片段，这些代码片段可以作为值传入到方法或函数中。Blocks是Objective-C对象，这意味着它可以被添加到类似NSArray和NSDic">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C基础学习之block">
+<meta name="twitter:description" content="以下学习内容是翻译自Apple的Programming with Objective-C，内容有部分删减，主要是自己一个学习和理解的过程，如有翻译不当，还请谅解。
+Block是被添加到C、Objective-C和C++的语言级别的特性，它允许你创建不同的代码片段，这些代码片段可以作为值传入到方法或函数中。Blocks是Objective-C对象，这意味着它可以被添加到类似NSArray和NSDic">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/04/18/objectivec-block/" title="Objective-C基础学习之block" itemprop="url">Objective-C基础学习之block</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-04-18T10:07:42.000Z" itemprop="datePublished"> 發表於 2015-04-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Block语法"><span class="toc-number">1.</span> <span class="toc-text">Block语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带参数和返回值的Block"><span class="toc-number">2.</span> <span class="toc-text">带参数和返回值的Block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block能从封闭作用域中捕获值"><span class="toc-number">3.</span> <span class="toc-text">Block能从封闭作用域中捕获值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用__block来共享存储"><span class="toc-number">3.1.</span> <span class="toc-text">使用__block来共享存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你可以传递Block给方法或函数作为参数"><span class="toc-number">4.</span> <span class="toc-text">你可以传递Block给方法或函数作为参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#block必须为方法的最后的参数"><span class="toc-number">4.1.</span> <span class="toc-text">block必须为方法的最后的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用类型定义简化block语法"><span class="toc-number">5.</span> <span class="toc-text">使用类型定义简化block语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象使用属性来记录block"><span class="toc-number">6.</span> <span class="toc-text">对象使用属性来记录block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#捕获self时避免Strong_Reference_Cycles"><span class="toc-number">7.</span> <span class="toc-text">捕获self时避免Strong Reference Cycles</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block简化枚举"><span class="toc-number">8.</span> <span class="toc-text">Block简化枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block简化并发任务"><span class="toc-number">9.</span> <span class="toc-text">Block简化并发任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Block操作与操作队列"><span class="toc-number">9.1.</span> <span class="toc-text">使用Block操作与操作队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调度Block在GCD的调度队列（Schedule_Blocks_on_Dispatch_Queues_with_Grand_Central_Dispatch）"><span class="toc-number">9.2.</span> <span class="toc-text">调度Block在GCD的调度队列（Schedule Blocks on Dispatch Queues with Grand Central Dispatch）</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<p>以下学习内容是翻译自Apple的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ProgrammingWithObjectiveC.pdf" target="_blank" rel="external">Programming with Objective-C</a>，内容有部分删减，主要是自己一个学习和理解的过程，如有翻译不当，还请谅解。</p>
+<p><code>Block</code>是被添加到<code>C</code>、<code>Objective-C</code>和<code>C++</code>的语言级别的特性，它允许你创建不同的代码片段，这些代码片段可以作为值传入到方法或函数中。<code>Blocks</code>是<code>Objective-C</code>对象，这意味着它可以被添加到类似<code>NSArray</code>和<code>NSDictionary</code>的集合中。他们同样有从封闭作用域中捕获值的能力，使他们类似于其他编程语言的<code>closures</code>和<code>lambdas</code>。</p>
+<h2 id="Block语法">Block语法</h2><p>定义一个<code>block</code>是使用<code>^</code>符号，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^&#123;</span><br><span class="line">     NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就像函数和方法的定义，大括号表明了<code>block</code>的开始和结束。在这个例子中，<code>block</code>没有返回任何值，也没有任何参数。</p>
+<p>以同样的方式，您可以使用一个函数指针来引用一个C函数，你可以定义一个变量来记录一个<code>block</code>，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^simpleBlock)(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<p>这个例子定义了一个变量：<code>simpleBlock</code>，该变量用于引用一个<code>block</code>，且该<code>block</code>没有参数且不返回值，这意味着您可以像下面这样将<code>block</code>字面赋给<code>simpleBlock</code>变量，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">simpleBlock = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>要注意的是大括号末尾的分号。您同样可以结合变量定义和赋值：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^simpleBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最后你就可以像下面这样来调用<code>block</code>了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">simpleBlock();</span><br></pre></td></tr></table></figure>
+<h2 id="带参数和返回值的Block">带参数和返回值的Block</h2><p><code>Block</code>是可以接受参数和返回值的，就像函数和方法那样。</p>
+<p>作为一个例子，考虑一个变量引用到一个<code>block</code>，该<code>block</code>返回两个值的乘积：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> (^multiplyTwoValues)(<span class="keyword">double</span>, <span class="keyword">double</span>);</span><br></pre></td></tr></table></figure>
+<p>关联的<code>block</code>字面可能是这样的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^ (<span class="keyword">double</span> firstValue, <span class="keyword">double</span> secondValue) &#123;</span><br><span class="line">    <span class="keyword">return</span> firstValue * secondValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你声明和定义好了<code>block</code>，你可以调用它就像一个函数一样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> (^multiplyTwoValues)(<span class="keyword">double</span>, <span class="keyword">double</span>) =</span><br><span class="line">                          ^(<span class="keyword">double</span> firstValue, <span class="keyword">double</span> secondValue) &#123;</span><br><span class="line">                              <span class="keyword">return</span> firstValue * secondValue;</span><br><span class="line">                          &#125;;</span><br><span class="line"><span class="keyword">double</span> result = multiplyTwoValues(<span class="number">2</span>,<span class="number">4</span>);</span><br><span class="line">NSLog(@<span class="string">"The result is %f"</span>, result);</span><br></pre></td></tr></table></figure>
+<h2 id="Block能从封闭作用域中捕获值">Block能从封闭作用域中捕获值</h2><p>如果你在一个方法中定义了一个<code>block</code>，例如，它能从该方法的作用域中捕获任何能访问到的值，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testMethod &#123;</span><br><span class="line">    <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">        NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">    testBlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>anInteger</code>是定义在<code>block</code>之外的，但是当<code>block</code>定义时该变量被捕获到了。</p>
+<p>只有值被捕获了，除非你指定。这意味着当你在定义<code>block</code>和调用<code>block</code>之间改变该变量的外在值时，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">anInteger = <span class="number">84</span>;</span><br><span class="line">testBlock();</span><br></pre></td></tr></table></figure>
+<p>被<code>block</code>捕获的值并没有受到影响。这意味着同样会输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">42</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用__block来共享存储">使用__block来共享存储</h3><p>如果你需要能够在<code>block</code>中改变捕获变量的值，你可以使用<code>__block</code>存储类型修饰符对原变量声明。这意味着该变量所在的存储是在原始变量的词法作用域和任何定义在该作用域的<code>block</code>之间共享。</p>
+<p>作为一个例子，你可以重写之前都例子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">anInteger = <span class="number">84</span>;</span><br><span class="line">testBlock();</span><br></pre></td></tr></table></figure>
+<p>因为<code>anInteger</code>被定义为一个<code>__block</code>变量，它的存储会在<code>block</code>定义中共享。上面的代码会输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">84</span></span><br></pre></td></tr></table></figure>
+<p>这也意味着在<code>block</code>中可以修改原始值，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">    anInteger = <span class="number">100</span>;</span><br><span class="line">&#125;;</span><br><span class="line">testBlock();</span><br><span class="line">NSLog(@<span class="string">"Value of original variable is now: %i"</span>, anInteger);</span><br></pre></td></tr></table></figure>
+<p>以上会输出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">42</span></span><br><span class="line">Value of original variable is now: <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<h2 id="你可以传递Block给方法或函数作为参数">你可以传递Block给方法或函数作为参数</h2><p>在前面的所有例子中，你都是定义<code>block</code>之后立即调用它。实践中，传递<code>block</code>给函数或方法调用是非常常见的。你可能会使用<code>Grand Central Dispatch</code>在后台调用<code>block</code>，例如，或者定义一个<code>block</code>代表重复被调用的任务，例如当枚举一个集合的时候。</p>
+<p><code>Block</code>也同样可以被用于回调，定义一些代码在任务完成后执行。作为一个例子，你的app可能需要通过创建一个对象来响应用户的动作以此处理复杂的任务，例如从web服务器请求信息。因为这个任务可能会需要很长一段时间，在任务正在进行时您应该显示某种进度指示器，而一旦任务完成，您就需要隐藏掉任务指示器。</p>
+<p>这将可能使用委托来完成这些：您需要创建一个合适的委托协议，实现必须的方法，设置您的对象为任务的委托，然后等待您的对象在任务完成时调用委托方法。</p>
+<p><code>Block</code>使这些变得更加容易，然而，因为你可以定义回调行为在你初始化任务的时候，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (IBAction)fetchRemoteInformation:(id)sender &#123;</span><br><span class="line">    [self showProgressIndicator];</span><br><span class="line">    XYZWebTask *task = ...</span><br><span class="line">    [task beginTaskWithCallbackBlock:^&#123;</span><br><span class="line">        [self hideProgressIndicator];</span><br><span class="line">&#125;]; &#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子调用了一个方法来显示进度指示器，然后创建任务并开始。回调的<code>block</code>指定了在任务完成后执行的代码；在这种情况下，它只是调用了一个方法来隐藏进度指示器。要注意，这个回调<code>block</code>为了能够调用<code>hideProgressIndicator</code>方法而捕获了<code>self</code>。有一点非常重要的是在捕获<code>self</code>时要非常注意，因为它会造成<code>strong reference cycle</code>。</p>
+<p>在代码的可读性方面，<code>block</code>使得很容易在一个地方看出在任务完成之前和之后会发生什么，避免了需要通过跟踪委托方法来找出发生了什么事情。</p>
+<p>下面是<code>beginTaskWithCallbackBlock:</code>方法的声明：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)beginTaskWithCallbackBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))callbackBlock;</span><br></pre></td></tr></table></figure>
+<p><code>(void (^)(void))</code>指定了这个参数是一个不接受任何参数也没有返回值的<code>block</code>。该方法的实现可以以通常的方式来调用<code>block</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)beginTaskWithCallbackBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))callbackBlock &#123;</span><br><span class="line">    ...</span><br><span class="line">    callbackBlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="block必须为方法的最后的参数">block必须为方法的最后的参数</h3><p>在方法中只使用一个<code>block</code>参数通常是最好的做法。如果一个方法同样需要其他的非<code>block</code>参数，那么<code>block</code>应该放在最后：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">￼- (<span class="keyword">void</span>)beginTaskWithName:(NSString *)name completion:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))callback</span><br></pre></td></tr></table></figure>
+<p>这也使得在方法调用时代码具有更好的可读性，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self beginTaskWithName:@<span class="string">"MyTask"</span> completion:^&#123;</span><br><span class="line">    NSLog(@<span class="string">"The task is complete"</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="使用类型定义简化block语法">使用类型定义简化block语法</h2><p>如果你需要定义不只一个<code>block</code>，且它们具有相同的签名，你可能想定义自己的类型签名。</p>
+<p>作为一个例子，你可以定义一个没有参数也没有返回值的简单<code>block</code>类型，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(^XYZSimpleBlock)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>然后你就可以使用你的自定义类型来创建<code>block</code>了：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XYZSimpleBlock anotherBlock = ^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="对象使用属性来记录block">对象使用属性来记录block</h2><p>该语法定义了一个属性来记录一个<code>block</code>，这很类似一个<code>block</code>变量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface XYZObject : NSObject</span><br><span class="line">@property (copy) <span class="keyword">void</span> (^blockProperty)(<span class="keyword">void</span>);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>一个<code>block</code>属性就像其他<code>block</code>变量一样被设置和调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.blockProperty = ^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line">self.blockProperty();</span><br></pre></td></tr></table></figure>
+<p>同样可能使用类型定义来定义<code>block</code>属性声明，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(^XYZSimpleBlock)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line">@interface XYZObject : NSObject</span><br><span class="line">@property (copy) XYZSimpleBlock blockProperty;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<h2 id="捕获self时避免Strong_Reference_Cycles">捕获self时避免Strong Reference Cycles</h2><p>如果你需要在<code>block</code>中捕获<code>self</code>，例如，当定义一个回调<code>block</code>，有一点非常重要当是要考虑内存管理的影响。</p>
+<p><code>Block</code>保持对任何捕获对象的强引用，也包括<code>self</code>，这意味着最后很容易造成强引用循环，例如，一个对象为一个<code>block</code>保持为一个<code>copy</code>属性然后捕获了<code>self</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface XYZBlockKeeper : NSObject</span><br><span class="line">@property (copy) <span class="keyword">void</span> (^block)(<span class="keyword">void</span>);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@implementation XYZBlockKeeper</span><br><span class="line">- (<span class="keyword">void</span>)configureBlock &#123;</span><br><span class="line">	self.block = ^&#123;</span><br><span class="line">          [self doSomething];</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line">... @end</span><br></pre></td></tr></table></figure>
+<p>编译器会警告你一个简单的例子是这样的，但更复杂的例子可能涉及到对象创建周期之间的多个强引用，使之更难以诊断。</p>
+<p>为了避免这个问题，捕获一个对<code>self</code>对弱引用是最好的办法，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)configureBlock &#123;</span><br><span class="line">    XYZBlockKeeper * __weak weakSelf = self;</span><br><span class="line">    self.block = ^&#123;</span><br><span class="line">        [weakSelf doSomething];   <span class="comment">// capture the weak reference</span></span><br><span class="line">                                  <span class="comment">// to avoid the reference cycle</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Block简化枚举">Block简化枚举</h2><p>除了一般的完成处理，许多<code>Cocoa</code>和<code>Cocoa Touch API</code>使用<code>block</code>来简化常用的任务，如集合枚举。<code>NSArray</code>类，例如，提供了三个基于<code>block</code>的方法，包括：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)enumerateObjectsUsingBlock:(<span class="keyword">void</span> (^)(id obj, NSUInteger idx, BOOL</span><br><span class="line">*stop))block;</span><br></pre></td></tr></table></figure>
+<p>该方法接受一个参数，它是一个<code>block</code>会被数组中的每一个元素调用：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *<span class="built_in">array</span> = ...</span><br><span class="line">[<span class="built_in">array</span> enumerateObjectsUsingBlock:^ (id obj, NSUInteger idx, BOOL *stop) &#123;</span><br><span class="line">    NSLog(@<span class="string">"Object at index %lu is %@"</span>, idx, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<h2 id="Block简化并发任务">Block简化并发任务</h2><p><code>block</code>代表了一个工作的不同单位，结合可执行代码和从周围作用域捕获的可选状态。这使得它非常适用于在iOS和OS X中使用并发选项之一来异步调用。而不必弄清楚如何与低层次的机制工作，就像线程，您可以使用<code>block</code>简单地定义你的任务，然后让系统执行这些任务随着处理器资源可用。</p>
+<p>OS X和iOS提供了各种技术的并发性，其中包括两个任务调度机制：操作队列和<code>Grand Central Dispatch</code>，这些机制围绕队列任务等待被执行的想法。您按照您想<code>block</code>执行的顺序将<code>blocks</code>添加到队列中，然后系统将它们出列直到处理器时间和资源可用。</p>
+<p>串行队列只允许一个任务同时执行——队列中的下一个任务将不被出列并调用直到前一个任务已完成。并发队列调用尽可能多的任务，无需等待前一个任务来完成。</p>
+<h3 id="使用Block操作与操作队列">使用Block操作与操作队列</h3><p>操作队列是<code>Cocoa</code>和<code>Cocoa Touch</code>的任务调度方式。你创建一个<code>NSOperation</code>实例为了封装工作单位以及任何必要的数据，然后将那个操作添加到<code>NSOperationQueue</code>执行。</p>
+<p>尽管你创建了你自己的自定义<code>NSOperation</code>子类去实现复杂的任务，但还是可能去使用<code>NSBlockOperation</code>来用<code>block</code>创建一个操作，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<p>这是可能手动去执行操作，但是操作可能通常被添加到一个已经存在到操作队列或你自己创建的一个队列，准备执行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// schedule task on main queue:</span></span><br><span class="line">NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];</span><br><span class="line">[mainQueue addOperation:operation];</span><br><span class="line"><span class="comment">// schedule task on background queue:</span></span><br><span class="line">NSOperationQueue *<span class="built_in">queue</span> = [[NSOperationQueue alloc] init];</span><br><span class="line">[<span class="built_in">queue</span> addOperation:operation];</span><br></pre></td></tr></table></figure>
+<p>如果你使用一个操作队列，你可以在操作之间配置优先级和依赖，例如指定某个操作必须在其他一些操作执行后才能操作。</p>
+<h3 id="调度Block在GCD的调度队列（Schedule_Blocks_on_Dispatch_Queues_with_Grand_Central_Dispatch）">调度Block在GCD的调度队列（Schedule Blocks on Dispatch Queues with Grand Central Dispatch）</h3><p>如果你需要调度执行代码的任意块，你可以直接使用被GCD（Grand Central Dispatch ）控制的调度队列，调度队列使得操作任务更加简单，不管是相对于调用者的同步或异步操作，且执行这些任务的顺序为先进先出。</p>
+<p>你可以创建你自己的调度队列或使用GCD提供的队列。如果你需要调度一个任务为并发执行，例如，你可以通过<code>dispatch_get_global_queue()</code>获取一个存在队列的引用，和指定一个队列优先级，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t <span class="built_in">queue</span> = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>为了将<code>block</code>调度到队列，您可以使用<code>dispatch_async()</code>或<code>dispatch_sync()</code>函数。<code>dispatch_async()</code>函数是立即返回，不用去等待<code>block</code>的执行。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(<span class="built_in">queue</span>, ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Block for asynchronous execution"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/04/18/objectivec-block/" data-title="Objective-C基础学习之block | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/04/09/javascript-types/"  title="JavaScript  类型与类型转换">
+ <strong>下一篇：</strong><br/> 
+ <span>JavaScript  类型与类型转换
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/04/18/objectivec-block/" data-title="Objective-C基础学习之block" data-url="http://cookfront.github.io/2015/04/18/objectivec-block/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Block语法"><span class="toc-number">1.</span> <span class="toc-text">Block语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带参数和返回值的Block"><span class="toc-number">2.</span> <span class="toc-text">带参数和返回值的Block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block能从封闭作用域中捕获值"><span class="toc-number">3.</span> <span class="toc-text">Block能从封闭作用域中捕获值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用__block来共享存储"><span class="toc-number">3.1.</span> <span class="toc-text">使用__block来共享存储</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你可以传递Block给方法或函数作为参数"><span class="toc-number">4.</span> <span class="toc-text">你可以传递Block给方法或函数作为参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#block必须为方法的最后的参数"><span class="toc-number">4.1.</span> <span class="toc-text">block必须为方法的最后的参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用类型定义简化block语法"><span class="toc-number">5.</span> <span class="toc-text">使用类型定义简化block语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象使用属性来记录block"><span class="toc-number">6.</span> <span class="toc-text">对象使用属性来记录block</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#捕获self时避免Strong_Reference_Cycles"><span class="toc-number">7.</span> <span class="toc-text">捕获self时避免Strong Reference Cycles</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block简化枚举"><span class="toc-number">8.</span> <span class="toc-text">Block简化枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block简化并发任务"><span class="toc-number">9.</span> <span class="toc-text">Block简化并发任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Block操作与操作队列"><span class="toc-number">9.1.</span> <span class="toc-text">使用Block操作与操作队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调度Block在GCD的调度队列（Schedule_Blocks_on_Dispatch_Queues_with_Grand_Central_Dispatch）"><span class="toc-number">9.2.</span> <span class="toc-text">调度Block在GCD的调度队列（Schedule Blocks on Dispatch Queues with Grand Central Dispatch）</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1e9fdadfaa36dffc9a8914a1220e8161' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
