@@ -1,0 +1,635 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>iOS UIView 学习 | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="本文主要翻译自：View Programming Guide for iOS，内容有删减。
+UIView类在屏幕上定义了一个矩形区域和一些在那个区域处理内容的接口。在运行时，一个view对象处理那个区域任何内容的渲染，还处理与这些内容的任何交互。UIView类它自己提供了用一个背景颜色填充它的矩形区域的基本行为。更复杂的内容可以通过继承UIView来呈现，并自身实现必要的绘制和事件处理代码。UIK">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS UIView 学习">
+<meta property="og:url" content="http://cookfront.github.io/2015/05/18/ios-uiview/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="本文主要翻译自：View Programming Guide for iOS，内容有删减。
+UIView类在屏幕上定义了一个矩形区域和一些在那个区域处理内容的接口。在运行时，一个view对象处理那个区域任何内容的渲染，还处理与这些内容的任何交互。UIView类它自己提供了用一个背景颜色填充它的矩形区域的基本行为。更复杂的内容可以通过继承UIView来呈现，并自身实现必要的绘制和事件处理代码。UIK">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/scale_aspect.jpg">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/native_coordinate_system.jpg">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/frame_bounds_rects.jpg">
+<meta property="og:image" content="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/rotated_view.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS UIView 学习">
+<meta name="twitter:description" content="本文主要翻译自：View Programming Guide for iOS，内容有删减。
+UIView类在屏幕上定义了一个矩形区域和一些在那个区域处理内容的接口。在运行时，一个view对象处理那个区域任何内容的渲染，还处理与这些内容的任何交互。UIView类它自己提供了用一个背景颜色填充它的矩形区域的基本行为。更复杂的内容可以通过继承UIView来呈现，并自身实现必要的绘制和事件处理代码。UIK">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/05/18/ios-uiview/" title="iOS UIView 学习" itemprop="url">iOS UIView 学习</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-18T03:47:42.000Z" itemprop="datePublished"> 發表於 2015-05-18</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视图绘制周期"><span class="toc-number">1.</span> <span class="toc-text">视图绘制周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Content_Mode"><span class="toc-number">2.</span> <span class="toc-text">Content Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内置动画支持（Built-In_Animation_Support）"><span class="toc-number">3.</span> <span class="toc-text">内置动画支持（Built-In Animation Support）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视图几何结构和坐标系统（View_Geometry_and_Coordinate_Systems）"><span class="toc-number">4.</span> <span class="toc-text">视图几何结构和坐标系统（View Geometry and Coordinate Systems）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#frame、bounds和center属性之间的关系"><span class="toc-number">4.1.</span> <span class="toc-text">frame、bounds和center属性之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标系统转换"><span class="toc-number">4.2.</span> <span class="toc-text">坐标系统转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建和管理视图层次"><span class="toc-number">5.</span> <span class="toc-text">创建和管理视图层次</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加和移除子视图"><span class="toc-number">5.1.</span> <span class="toc-text">添加和移除子视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏视图"><span class="toc-number">5.2.</span> <span class="toc-text">隐藏视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在视图层级中定位视图"><span class="toc-number">5.3.</span> <span class="toc-text">在视图层级中定位视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平移，缩放和旋转视图"><span class="toc-number">5.4.</span> <span class="toc-text">平移，缩放和旋转视图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在视图层级中转换坐标"><span class="toc-number">6.</span> <span class="toc-text">在视图层级中转换坐标</span></a></li></ol>
+		
+		</div>
+		
+		<p>本文主要翻译自：<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009503-CH1-SW2" target="_blank" rel="external">View Programming Guide for iOS</a>，内容有删减。</p>
+<p><code>UIView</code>类在屏幕上定义了一个矩形区域和一些在那个区域处理内容的接口。在运行时，一个<code>view</code>对象处理那个区域任何内容的渲染，还处理与这些内容的任何交互。<code>UIView</code>类它自己提供了用一个背景颜色填充它的矩形区域的基本行为。更复杂的内容可以通过继承<code>UIView</code>来呈现，并自身实现必要的绘制和事件处理代码。<code>UIKit</code>框架还包括一组标准的子类，从简单的按钮到复杂的表格可以使用。例如，一个<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/index.html#//apple_ref/occ/cl/UILabel" target="_blank" rel="external">UILabel</a>对象绘制一个文本字符串，一个<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImageView_Class/index.html#//apple_ref/occ/cl/UIImageView" target="_blank" rel="external">UIImageView</a>对象绘制一张图片。</p>
+<p>因为<code>view</code>对象是你的应用与用户交互的主要方式，所以它们具有许多职责。这里仅仅是几个：</p>
+<ul>
+<li>绘制和动画<ul>
+<li>视图使用例如<code>UIKit</code>，<code>Core Graphics</code>和<code>OpenGL ES</code>的技术在它们的矩形区域绘制内容</li>
+<li>一些视图属性可以动画到新的值</li>
+</ul>
+</li>
+<li>布局和子视图管理<ul>
+<li>一个视图可能包含0个或多个子视图</li>
+<li>每一个视图定义了相对于它的父视图的它们自己默认的尺寸调整行为</li>
+<li>视图可以根据需要限定的它的子视图的尺寸和位置</li>
+</ul>
+</li>
+<li>事件处理<ul>
+<li>视图是一个应答器，并能处理触摸事件以及由<code>UIResponder</code>类定义的其它事件</li>
+<li>视图可以使用<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/addGestureRecognizer:" target="_blank" rel="external">addGestureRecognizer:</a>方法安装手势识别以处理常见的手势</li>
+</ul>
+</li>
+</ul>
+<p>视图可以嵌入其他视图，并创建复杂的视觉层次。这在被嵌入的视图（被称为subview）和父视图做嵌入（被称为superview）之间创建了一种<code>父－子</code>关系。通常情况下，一个<code>subview</code>的可见区域不会在它的<code>superview</code>的边界被剪切，但是在<code>iOS</code>中你可以使用<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instp/UIView/clipsToBounds" target="_blank" rel="external">clipsToBounds</a>来更新这种行为。一个父视图可以包含任意多个<code>subview</code>，但每个<code>subview</code>只有一个<code>superview</code>，该<code>superview</code>负责适当定位其子视图。</p>
+<h2 id="视图绘制周期">视图绘制周期</h2><p><code>UIView</code>类使用一个按需绘制的模式来呈现内容。当一个视图第一次出现在屏幕上时，系统要求它绘制它的内容。系统捕捉内容的快照，并使用快照作为视图的可视化表示。如果你从未改变过视图内容，视图的绘制代码可能永远不会被再次调用。快照图片对于涉及视图的大部分操作中被重用。如果你更改了内容，你通知系统视图被改变了。视图重复绘制视图和捕捉新结果的快照。</p>
+<p>当视图内容改变的时候，你不需要直接重绘这些变化。相反，你使用<code>setNeedsDisplay</code>或<code>setNeedsDisplayInRect:</code>中任何一个方法使视图失效。这些方法告诉系统视图中的内容被改变了，需要在下次机会被重绘。</p>
+<p>当到了渲染视图内容的时候，实际的绘制过程取决于视图和它的配置。系统视图通常实现私有绘图方法来呈现其内容。这些相同的系统视图通常暴露接口，使用接口你可以配置视图的实际外观。对于自定义的<code>UIView</code>子类，你通常覆盖你视图的<code>drawRect:</code>方法，并使用该方法来绘制视图的内容。也有其他的方式来提供视图的内容，例如，直接设计内容底部的<code>layer</code>，但是覆盖<code>drawRect:</code>方法是最常用的技术。</p>
+<p>下面再来看下上面提到的三个方法：</p>
+<ul>
+<li><code>- setNeedsDisplay</code></li>
+</ul>
+<p><strong>声明：</strong></p>
+<p>SWIFT</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">func <span class="title">setNeedsDisplay</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+<p>OBJECTIVE-C</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setNeedsDisplay</span><br></pre></td></tr></table></figure>
+<p>你可以使用该方法或<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/index.html#//apple_ref/occ/instm/UIView/setNeedsDisplayInRect:" target="_blank" rel="external">setNeedsDisplayInRect:</a>方法来通知系统你的视图内容需要被重绘了。这个方法发起请求并立即返回。视图并不是真的在重绘直到下一个绘制周期，在该点所有失效的视图被更新。</p>
+<p>你应该只在视图的内容和外观改变时使用该方法来请求视图重绘。如果你只是简单地更改视图的几何结构，视图通常不会重新绘制。作为代替，它的现有内容基于视图的<code>contentMode</code>属性的值进行调整。重新显示现有的内容通过避免重绘并没有改变的内容而提供了性能。</p>
+<ul>
+<li><code>- setNeedsDisplayInRect:</code></li>
+</ul>
+<p><strong>声明：</strong></p>
+<p>SWIFT</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">func <span class="title">setNeedsDisplayInRect</span><span class="params">(_ invalidRect: CGRect)</span></span></span><br></pre></td></tr></table></figure>
+<p>OBJECTIVE-C</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setNeedsDisplayInRect:(CGRect)invalidRect</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>- drawRect:</code></li>
+</ul>
+<p><strong>声明：</strong></p>
+<p>SWIFT</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">func <span class="title">drawRect</span><span class="params">(_ rect: CGRect)</span></span></span><br></pre></td></tr></table></figure>
+<p>OBJECTIVE-C</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(CGRect)rect</span><br></pre></td></tr></table></figure>
+<p><strong>参数：</strong></p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>参数描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rect</td>
+<td>视图的边界部分。你的视图在第一绘制时，该矩形是通常是视图的整个可见边界。然而，在随后的绘制操作中，矩形可能被指定为视图的一部分。</td>
+</tr>
+</tbody>
+</table>
+<p>该方法的默认实现不做任何事情。使用技术，例如<code>Core Graphics</code>和<code>UIKit</code>来绘制它们的视图内容时，子类应该覆盖该方法并在该方法中实现它们的绘制代码。如果你的视图通过其他方式来设置它的内容，则你不需要覆盖该方法。例如，你不需要覆盖该方法如果你的视图仅显示一个背景颜色时或者你的视图通过底层的<code>layer</code>对象直接设置它们的内容。</p>
+<p>在该方法被调用时，<code>UIKit</code>已经正确的为您的视图配置好绘制环境，你可以简单的调用任何绘制方法和功能来渲染你的内容。具体来说，<code>UIKit</code>创建和配置了一个图形上下文来绘制和调整在那个上下文中的转换，从而它的原点匹配你视图边界矩形的原点。你可以通过<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKitFunctionReference/index.html#//apple_ref/c/func/UIGraphicsGetCurrentContext" target="_blank" rel="external">UIGraphicsGetCurrentContext</a>函数来获取到该图形上下文的引用，但是不要建立一个强引用到该图形上下文，因为它会因为<code>drawRect:</code>方法的调用被改变。</p>
+<p>需要注意的是，你永远不要直接调用该方法。我们可以通过<code>setNeedsDisplay</code>和<code>setNeedsDisplayInRect:</code>方法来告诉视图需要重绘。</p>
+<h2 id="Content_Mode">Content Mode</h2><p>每个视图有一个内容模式，它控制视图在响应视图的几何结构改变时如何回收其内容，以及是否回收其内容。当视图第一次显示时，它和平常一样渲染内容，且结果在底层的位图中被捕获。在那之后，更改视图的几何形状并不总是导致位图重新被创建。作为替代，<code>contentMode</code>属性的值决定了位图是否应该缩放以适应新的边界，或简单的固定到一个角落或视图的边缘。</p>
+<p>当你做以下事情时，一个视图的内容模式被应用：</p>
+<ul>
+<li>改变视图的<code>frame</code>或<code>bounds</code>矩形的宽度或高度</li>
+<li>分配一个包括一个伸缩因子的变换到视图的<code>transform</code>属性</li>
+</ul>
+<p>默认情况下，对于大多数视图的<code>contentMode</code>属性被设置为<code>UIViewContentModeScaleToFill</code>，这将导致视图的内容被伸缩以适应新的框架尺寸。下面的图显示了几个<code>contentMode</code>属性值之间的比较：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/scale_aspect.jpg" alt="enter image description here"></p>
+<p>内容模式有利于回收利用视图的内容，但是你也可以设置内容模式为<code>UIViewContentModeRedraw</code>，当你需要你的自定义视图在伸缩或调整操作时重绘它们自己。设置你的视图的内容模式为该值时，会强制系统调用你视图的<code>drawRect:</code>方法以响应几何尺寸的改变。一般情况下，只要有可能你应该避免使用这个值，你当然不应该在标准的系统视图中使用它。</p>
+<h2 id="内置动画支持（Built-In_Animation_Support）">内置动画支持（Built-In Animation Support）</h2><p>在每一个视图后面有一个<code>layer</code>对象的一个好处是，你可以轻松动画许多视图相关的改变。动画是一种将信息传达给用户的非常有用的方式，在您的应用程序的设计过程中应该始终考虑它。<code>UIView</code>类的许多属性是可动画的——也就是说，半自动的支持从一个值到另一个值的动画。为了对这些动画属性之一执行动画，你所要做的是：</p>
+<ol>
+<li>告诉<code>UIKit</code>你要执行的动画</li>
+<li>改变属性的值</li>
+</ol>
+<p><code>UIView</code>对象上你可以设置动画的属性为以下这些：</p>
+<ul>
+<li>frame：使用这个来动画视图的位置和尺寸</li>
+<li>bounds：使用这个来动画视图的尺寸</li>
+<li>center：使用这个来动画视图的位置</li>
+<li>transform：使用这个来旋转或伸缩视图</li>
+<li>alpha：使用这个来改变视图的透明性</li>
+<li>backgroundColor：使用这个来改变视图的背景色</li>
+<li>contentStretch：使用这个来改变视图如何伸缩</li>
+</ul>
+<h2 id="视图几何结构和坐标系统（View_Geometry_and_Coordinate_Systems）">视图几何结构和坐标系统（View Geometry and Coordinate Systems）</h2><p>在<code>UIKit</code>中默认的坐标系统有一个原点在左上角，且坐标轴向原点处往右和下延伸。坐标值是使用浮点数来代表，这使得精确布局和内容定位不考虑底层的屏幕分辨率。下图展示了相对于屏幕的坐标系统。</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/native_coordinate_system.jpg" alt="enter image description here"></p>
+<p>因为每个视图和<code>window</code>定义了它们自己的局部坐标系统，你需要知道在任何给定时间是哪个坐标系在起作用。任何时候你在视图中绘制或改变它的几何结构时，你这样做，相对于一些坐标系统。在正在绘制的情况下，你指定相对于视图自己的坐标系统的坐标。在几何结构改变的情况下，你指定相对于<code>superview</code>坐标系统的坐标。<code>UIWindow</code>和<code>UIView</code>类都包含了方法来帮助你从一个坐标系统转换为另一个。</p>
+<h3 id="frame、bounds和center属性之间的关系"><code>frame</code>、<code>bounds</code>和<code>center</code>属性之间的关系</h3><p>一个视图对象使用<code>frame</code>、<code>bounds</code>和<code>center</code>属性来跟踪它的尺寸和位置：</p>
+<ul>
+<li>frame：<code>frame</code>属性包含了框架矩形，它指定了视图相对于<code>superview</code>坐标系统的尺寸和位置</li>
+<li>bounds：<code>bounds</code>属性包含了边界矩形，它指定了视图相对于它的局部坐标系统的尺寸和位置</li>
+<li>center：<code>center</code>属性包含了视图在<code>superview</code>坐标系统的中电</li>
+</ul>
+<p>你使用<code>center</code>和<code>frame</code>属性主要用于操作当前视图的几何结构。例如，当你在构建你的视图层级或在运行时改变一个视图的位置和尺寸时，你可以使用这些属性。如果你仅仅只是想改变视图的位置，<code>center</code>属性是首选的方法。<code>center</code>属性的值始终是有效的，即使伸缩或旋转因素被添加到视图的变换中。在同样情况下，对于<code>frame</code>属性则不正确，这被认为是无效的，如果视图的变换不等于恒等变换。</p>
+<p>你使用<code>bounds</code>属性主要在绘制期间。边界矩形是在视图自己的局部坐标系统中的表示。该矩形的默认原点为<code>(0, 0)</code>，且它的尺寸匹配框架矩形的尺寸。任何你在该矩形中绘制的东西是视图可见内容的一部分。如果你改变边界矩形的原点，任何你在新的矩形中绘制的东西称为视图可见内容的一部分。</p>
+<p>下图显示了这三个属性之间的关系：</p>
+<p><img src="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/frame_bounds_rects.jpg" alt="enter image description here"></p>
+<p>虽然你改变<code>frame</code>、<code>bounds</code>和<code>center</code>属性独立于其他，但是改变其中一个属性会按以下方式来改变其他属性：</p>
+<ul>
+<li>当你设置<code>frame</code>属性，<code>bounds</code>属性中的尺寸值也相应改变以匹配框架矩形的新尺寸。<code>center</code>属性的值也同样改变以匹配框架矩形中xin的中点。</li>
+<li>当你设置<code>center</code>属性，在<code>frame</code>属性中的原点值也会相应改变。</li>
+<li>当你设置<code>bounds</code>属性的尺寸时，<code>frame</code>属性中的尺寸值也相应改变以匹配边界矩形中的新尺寸。</li>
+</ul>
+<p>默认情况下，一个视图的框架（frame）不会被其<code>superview</code>的框架剪切。你可以改变这种行为，通过设置<code>superview</code>的<code>clipToBounds</code>属性为<code>YES</code>。</p>
+<h3 id="坐标系统转换">坐标系统转换</h3><p>坐标系统转换提供了一种方式来更快和更简单的更新你的视图。一个仿射变换是一个数学矩阵，它指定了点如何从一个坐标系统映射到另一个坐标系统。你可以应用仿射变换到你的整个视图，以改变尺寸、位置或相对于其<code>superview</code>的方向。你也可以使用仿射变换在你的绘制代码中，去以单个块的渲染内容来执行相同类型的操作。如何应用仿射变换取决于上下文：</p>
+<ul>
+<li>要改变你的整个视图，改变你视图中<code>transform</code>属性的仿射变换。</li>
+<li>要改变你视图的<code>drawRect:</code>方法的指定块的内容，改变关联当前活跃图形上下文的仿射变换。</li>
+</ul>
+<p>通常，您可以修改视图的<code>transform</code>属性，当你想要实现动画时。例如，你可以使用该属性创建一个你视图围绕中点旋转的动画。你不能使用该属性永久改变你的视图，例如改变视图在它的<code>superview</code>坐标空间的尺寸和位置。对于那种类型的改变，你应该改变框架矩形作为替代。</p>
+<p>在你的<code>drawRect:</code>方法中，你可以使用仿射变换来定位和适应你计划绘制的元素。而不是固定在你视图某个位置的一个对象的位置，去创建相对于一个固定点的每个对象是非常简单的，通常<code>(0, 0)</code>，使用一个<code>transform</code>来定位该对象在立即绘制之前。在那种方式，该对象的位置在你的视图中改变，所有你所要做的就是修改变换，这是更快，更便宜的，相对于重新创建一个对象在它的新位置。你可以通过使用<code>CGContextGetCTM</code>函数来检索关联图形上下文的仿射变换，且你可以使用相关的<code>Core Graphics</code>函数在绘制期间设置和修改变换。</p>
+<p><code>当前变换矩阵（current transformation matrix (CTM)）</code>是在任何给定时间当前正在使用的仿射变换。当操作整个视图的几何结构时，<code>CTM</code>是储存在你视图的<code>transform</code>属性的仿射变换。在你的<code>drawRect:</code>方法中，<code>CTM</code>是关联当前活跃图形上下文的仿射变换。</p>
+<p>每个子视图的坐标系建立在其祖先的坐标系上。所以当你修改一个视图的<code>transform</code>属性时，这些改变会影响视图和它的所有子视图。然而，这些改变只影响视图在屏幕上的最后渲染。因为任何视图绘制它的内容和布局它的子视图是相对于它自己的边界，它在绘制和布局期间会忽略它的<code>superview</code>的变换。</p>
+<h2 id="创建和管理视图层次">创建和管理视图层次</h2><p>管理视图层次是开发应用程序用户界面的重要组成部分。你的视图的组织影响你的应用程序的外观和应用程序如何响应变化和事件。例如，在视图层次中的<code>父－子</code>关系决定了哪个对象可能处理某个指定的触摸事件。同样的，<code>父－子</code>关系定义了每个视图如何响应界面方向改变。</p>
+<h3 id="添加和移除子视图">添加和移除子视图</h3><p><code>Interface Builder</code>是建立视图层次的最方便的方式，因为你以图形化的方式组装视图，可以看到视图之间的关系，同样可以看到这些视图如何在运行时显示。当使用<code>Interface Builder</code>，你保存你的结果视图层级在一个<code>nib</code>文件中，你可以在运行时加载相应需要的视图。</p>
+<p>如果你更愿意以程序的方式来创建你的视图，你创建和初始化它们，然后使用以下方法安排它们到层次：</p>
+<ul>
+<li>要添加一个子视图到父亲，在父视图上调用<code>addSubview:</code>。该方法添加子视图到父视图的子视图列表的末尾。</li>
+<li>要插入一个子视图到父视图的子视图列表的中间，可以在父视图上调用任何和<code>insertSubview:...</code>相关的方法。</li>
+<li>要重排父视图中现有的子视图，调用父视图的<code>bringSubviewToFront:</code>、<code>sendSubviewToBack:</code>或<code>exchangeSubviewAtIndex:withSubviewAtIndex:</code>方法。使用这些方法比移除子视图或重新插入它们更快。</li>
+<li>要从父视图中移除一个子视图，在子视图上调用<code>removeFromSuperview</code>方法。</li>
+</ul>
+<p>添加一个子视图到另一个视图中最常见的例子发生在<code>application:didFinishLaunchingWithOptions:</code>方法中。下面显示了一个该方法的版本，它将视图从应用程序的主视图控制器安装到应用程序的<code>window</code>。<code>window</code>和视图控制器都是储存在应用程序的主<code>nib</code>文件中，它会在该方法调用前被加载。然而，由视图控制器管理的视图层级实际上不会加载，直到<code>view</code>属性被访问。</p>
+<p>添加一个子视图到<code>window</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (BOOL)application:(UIApplication *)application</span><br><span class="line">didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Override point for customization after application launch.</span></span><br><span class="line">    <span class="comment">// Add the view controller's view to the window and display.</span></span><br><span class="line">    [window addSubview:viewController.view];</span><br><span class="line">    [window makeKeyAndVisible];</span><br><span class="line"><span class="keyword">return</span> YES; &#125;</span><br></pre></td></tr></table></figure>
+<p>另一个常见的地方你可能添加子视图到视图层级中是在视图控制器的<code>loadView</code>和<code>viewDidLoad</code>方法中。如果你正在利用程序构建视图，你讲创建视图的代码放在视图控制器的<code>loadView</code>方法中。无论你是使用程序的方式，还是使用<code>nib</code>文件加载的方式来创建视图，你可能会在<code>viewDidLoad</code>方法中包含额外的视图配置代码。</p>
+<p>添加视图到已存在的视图层级：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">      [super viewDidLoad];</span><br><span class="line">      self.title = NSLocalizedString(@<span class="string">"TransitionsTitle"</span>, @<span class="string">""</span>);</span><br><span class="line"><span class="comment">// create the container view which we will use for transition animation (centered horizontally)</span></span><br><span class="line">      CGRect frame = CGRectMake(round((self.view.bounds.size.width - kImageWidth) /</span><br><span class="line">   <span class="number">2.0</span>),</span><br><span class="line">                                                        kTopPlacement, kImageWidth,</span><br><span class="line">   kImageHeight);</span><br><span class="line">      self.containerView = [[[UIView alloc] initWithFrame:frame] autorelease];</span><br><span class="line">      [self.view addSubview:self.containerView];</span><br><span class="line">      <span class="comment">// The container view can represent the images for accessibility.</span></span><br><span class="line">      [self.containerView setIsAccessibilityElement:YES];</span><br><span class="line">      [self.containerView setAccessibilityLabel:NSLocalizedString(@<span class="string">"ImagesTitle"</span>,</span><br><span class="line">  @<span class="string">""</span>)];</span><br><span class="line">      <span class="comment">// create the initial image view</span></span><br><span class="line">      frame = CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, kImageWidth, kImageHeight);</span><br><span class="line">      self.mainView = [[[UIImageView alloc] initWithFrame:frame] autorelease];</span><br><span class="line">      self.mainView.image = [UIImage imageNamed:@<span class="string">"scene1.jpg"</span>];</span><br><span class="line">      [self.containerView addSubview:self.mainView];</span><br><span class="line">      <span class="comment">// create the alternate image view (to transition between)</span></span><br><span class="line">CGRect imageFrame = CGRectMake(<span class="number">0.0</span>, <span class="number">0.0</span>, kImageWidth, kImageHeight); self.flipToView = [[[UIImageView alloc] initWithFrame:imageFrame] autorelease];</span><br><span class="line">      self.flipToView.image = [UIImage imageNamed:@<span class="string">"scene2.jpg"</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你添加子视图到另一个视图，<code>UIKit</code>通知父视图和子视图这些改变。如果你实现了自定义视图，你可以覆盖以下方法来拦截这些通知：<code>willMoveToSuperview:</code>、<code>willMoveToWindow:</code>、<code>willRemoveSubview:</code>、<code>didAddSubview:</code>、<code>didMoveToSuperview</code>或<code>didMoveToWindow</code>。您可以使用这些通知以更新与您的视图层次中相关的任何状态信息或执行其他任务。</p>
+<h3 id="隐藏视图">隐藏视图</h3><p>为了在视觉上隐藏视图，你可以通过设置<code>hidden</code>属性为<code>YES</code>或者设置<code>alpha</code>属性为<code>0.0</code>。一个隐藏的视图不从系统接收触摸事件。然而，隐藏的视图仍然参与到自动调整大小和其他关联视图层级的布局操作。因此，当你需要从视图层级移除视图，隐藏视图通常是一个方便的选择，特别是如果你计划在某个点再重新显示视图。</p>
+<p>如果你想动画一个视图，从可见过渡到隐藏（或者相反），你必须使用视图的<code>alpha</code>属性。因为<code>hidden</code>属性不是一个可动画的属性，所以你在上面做的改变会立即发生。</p>
+<h3 id="在视图层级中定位视图">在视图层级中定位视图</h3><p>有两种方法在视图层级中定位视图：</p>
+<ul>
+<li>在适合的位置存储任何有关视图的指针，例如，在拥有该视图的视图控制器。</li>
+<li>分配一个唯一的整数到每个视图的<code>tag</code>属性，然后使用<code>viewWithTag:</code>来定位它。</li>
+</ul>
+<p>储存相关视图的引用是最常见定位视图的方式，且使得访问这些视图非常容易。如果你使用<code>Interface Builder</code>来创建你的视图，你可以在你的<code>nib</code>文件中使用<code>outlets</code>连接对象到另一个。对于你用程序创建的视图，你可以在私有成员变量中保存这些视图的引用。无论你是使用<code>outlets</code>还是私有成员变量，你负责在需要时保留视图，或者释放它们。保证对象保留和释放最好的办法是使用声明的属性。</p>
+<p>标签是减少硬编码依赖和支持动态和灵活的解决方案的有效方式。而不是保存视图的指针，你可以使用<code>tag</code>来定位它。标签也是引用视图的一种更持久的方式。</p>
+<h3 id="平移，缩放和旋转视图">平移，缩放和旋转视图</h3><p>每个视图有一个关联的仿射变换，你可以使用它来平移、伸缩和旋转视图的内容。视图变换改变视图的最终渲染外观，且通常用于实现滚动，动画，或其他视觉效果。</p>
+<p><code>UIView</code>的<code>transform</code>属性包含了一个应用变换的<code>CGAffineTransform</code>结构。默认情况下，这个属性被设置为恒等变换，不修改视图的外观。你可以在任何时候给该属性赋一个新的变换。例如，将一个视图旋转45度，你可以使用以下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// M_PI/4.0 is one quarter of a half circle, or 45 degrees.</span></span><br><span class="line">CGAffineTransform xform = CGAffineTransformMakeRotation(M_PI/<span class="number">4.0</span>);</span><br><span class="line">self.view.transform = xform;</span><br></pre></td></tr></table></figure>
+<p><img src="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/Art/rotated_view.jpg" alt="enter image description here"></p>
+<h2 id="在视图层级中转换坐标">在视图层级中转换坐标</h2><p>在不同的时间，特别是处理事件时，应用程序可能需要从一个框架的引用到另一个之间转换坐标值。例如，触摸事件是在<code>window</code>坐标系统中报告每一次触摸的位置，但是视图对象通常在视图的局部坐标系统中需要这些信息。<code>UIView</code>类定义了以下方法来转换坐标：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">convertPoint:fromView:</span><br><span class="line">convertRect:fromView:</span><br><span class="line">convertPoint:toView:</span><br><span class="line">convertRect:toView:</span><br></pre></td></tr></table></figure>
+<p><code>convert...:fromView:</code>方法从其他视图坐标系统转换坐标到当前视图的局部坐标系统。相反的，<code>convert...:toView:</code>方法从当前视图坐标系统转换坐标到指定的视图的坐标系统。如果对于任何方法你指定<code>nil</code>为引用的视图，是从包含当前视图的<code>window</code>的坐标系统中转换。</p>
+<p>除了<code>UIView</code>的转换方法，<code>UIWindow</code>类也同样定义了几个转换方法。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">convertPoint:fromWindow:</span><br><span class="line">convertRect:fromWindow:</span><br><span class="line">convertPoint:toWindow:</span><br><span class="line">convertRect:toWindow:</span><br></pre></td></tr></table></figure>
+<p>未完待续。。。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/05/18/ios-uiview/" data-title="iOS UIView 学习 | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/04/18/objectivec-block/"  title="Objective-C基础学习之block">
+ <strong>下一篇：</strong><br/> 
+ <span>Objective-C基础学习之block
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/05/18/ios-uiview/" data-title="iOS UIView 学习" data-url="http://cookfront.github.io/2015/05/18/ios-uiview/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#视图绘制周期"><span class="toc-number">1.</span> <span class="toc-text">视图绘制周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Content_Mode"><span class="toc-number">2.</span> <span class="toc-text">Content Mode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内置动画支持（Built-In_Animation_Support）"><span class="toc-number">3.</span> <span class="toc-text">内置动画支持（Built-In Animation Support）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#视图几何结构和坐标系统（View_Geometry_and_Coordinate_Systems）"><span class="toc-number">4.</span> <span class="toc-text">视图几何结构和坐标系统（View Geometry and Coordinate Systems）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#frame、bounds和center属性之间的关系"><span class="toc-number">4.1.</span> <span class="toc-text">frame、bounds和center属性之间的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#坐标系统转换"><span class="toc-number">4.2.</span> <span class="toc-text">坐标系统转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建和管理视图层次"><span class="toc-number">5.</span> <span class="toc-text">创建和管理视图层次</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加和移除子视图"><span class="toc-number">5.1.</span> <span class="toc-text">添加和移除子视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐藏视图"><span class="toc-number">5.2.</span> <span class="toc-text">隐藏视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在视图层级中定位视图"><span class="toc-number">5.3.</span> <span class="toc-text">在视图层级中定位视图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#平移，缩放和旋转视图"><span class="toc-number">5.4.</span> <span class="toc-text">平移，缩放和旋转视图</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在视图层级中转换坐标"><span class="toc-number">6.</span> <span class="toc-text">在视图层级中转换坐标</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>2</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1e9fdadfaa36dffc9a8914a1220e8161' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
