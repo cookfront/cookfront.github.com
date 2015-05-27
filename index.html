@@ -80,6 +80,119 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/27/ios-nsurlsession/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-27T13:51:35.000Z" itemprop="datePublished"> 發表於 2015-05-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="iOS_NSURLSession">iOS NSURLSession</h1><p><code>NSURLSession</code>是<code>iOS7</code>中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：</p>
+<ul>
+<li>NSURLSessionConfiguration：在使用<code>NSURLSession</code>首先要创建一个<code>NSURLSessionConfiguration</code>来配置我们的<code>NSURLSession</code></li>
+<li>NSURLSession</li>
+<li>NSURLSessionTask：<ul>
+<li>NSURLSessionDataTask：处理一般的 NSData 数据对象，比如通过GET或POST方式从服务器获取JSON或XML返回等等，但不支持后台获取</li>
+<li>NSURLSessionUploadTask：用于上传文件，支持后台上传</li>
+<li>NSURLSessionDownloadTask：用于下载文件，支持后台下载</li>
+</ul>
+</li>
+</ul>
+<h2 id="NSURLSessionConfiguration">NSURLSessionConfiguration</h2><p>一个<code>NSURLSessionConfiguration</code>对象定义了当使用<code>NSURLSession</code>对象上传和下载数据时的行为和使用策略。当你需要上传和下载数据时，创建一个配置对象总是你必须采取的第一步。从指定可用网络，到 cookie，安全性，缓存策略，再到使用自定义协议，启动事件的设置，以及用于移动设备优化的几个新属性，你会发现使用 <code>NSURLSessionConfiguration</code>可以找到几乎任何你想要进行配置的选项。</p>
+<p><code>NSURLSession</code>在初始化时会把配置它的<code>NSURLSessionConfiguration</code>对象进行一次 copy，并保存到自己的<code>configuration</code>属性中，而且这个属性是只读的。因此之后再修改最初配置<code>session</code>的那个<code>configuration</code>对象对于<code>session</code>是没有影响的。也就是说，<code>configuration</code>只在初始化时被读取一次，之后都是不会变化的。</p>
+<p><code>NSURLSessionConfiguration</code>提供了三个工厂方法来创建我们的<code>Session Configuration</code>对象：</p>
+<ul>
+<li><code>+ defaultSessionConfiguration</code>：该方法返回创建的一个默认<code>Session Configuration</code>对象。默认的<code>Session Configuration</code>会使用磁盘来缓存数据并在用户的<code>keychain</code>中存储凭证。它同样会存储<code>cookie</code>。</li>
+<li><code>+ ephemeralSessionConfiguration</code>：返回一个<code>session configuration</code>，且不会使用缓存，<code>cookie</code>和凭证。使用<code>ephemeral sessions</code>主要的优点就是隐私。因此，它可以用于实现像秘密浏览这种功能。</li>
+<li><code>+ backgroundSessionConfigurationWithIdentifier:</code>：返回一个后台的<code>session configuration</code>。后台<code>session</code>不同于常规的，普通的<code>session</code>，它甚至可以在应用程序挂起，退出或者崩溃的情况下运行上传和下载任务。初始化时指定的标识符，被用于向任何可能在进程外恢复后台传输的守护进程（daemon）提供上下文。</li>
+</ul>
+<p>对于<code>NSURLSessionConfiguration</code>的属性配置，可以看这篇文章：<a href="http://objccn.io/issue-5-4/" target="_blank" rel="external">http://objccn.io/issue-5-4/</a>。</p>
+<h2 id="NSURLSession">NSURLSession</h2><p>创建好了<code>NSURLSessionConfiguration</code>对象，我们就可以使用它来创建我们的<code>NSURLSession</code>对象了。<code>NSURLSession</code>提供了三个工厂方法来创建我们的<code>session</code>对象：</p>
+<ul>
+<li><code>+ sessionWithConfiguration:</code>：使用指定的<code>session configuration</code>来创建一个<code>session</code>，且会创建一个序列的<code>NSOperationQueue</code>对象来处理所有的委托方法和完成处理程序的调用</li>
+<li><code>+ sessionWithConfiguration:delegate:delegateQueue:</code>：使用指定的<code>session configuration</code>、<code>delegate</code>和<code>operation queue.</code>来创建<code>session</code>。这个方法可以更细粒度的创建<code>session</code>，可以设定回调的<code>delegate</code>（注意这个回调delegate会被强引用），并且可以设定<code>delegate</code>在哪个<code>OperationQueue</code>回调，如果我们将其设置为<code>[NSOperationQueue mainQueue]</code>就能在主线程进行回调非常的方便。</li>
+<li><code>+ sharedSession</code>：返回一个共享的单例<code>session</code>对象</li>
+</ul>
+<h2 id="NSURLSessionTask">NSURLSessionTask</h2><p>通过上面创建的<code>session</code>，我们就可以安排三种类型的任务：检索数据到存储器的数据任务、下载文件到硬盘的下载任务和从硬盘上传文件的上传任务。</p>
+<p><code>NSURLSessionTask</code>是一个抽象类，其下有 3 个实体子类可以直接使用：<code>NSURLSessionDataTask</code>、<code>NSURLSessionUploadTask</code>、<code>NSURLSessionDownloadTask</code>。这 3 个子类封装了现代程序三个最基本的网络任务：获取数据，比如 JSON 或者 XML，上传文件和下载文件。</p>
+<p>所有的<code>task</code>都是可以取消，暂停或者恢复的。当一个 download task 取消时，可以通过选项来创建一个恢复数据（resume data），然后可以传递给下一次新创建的<code>download task</code>，以便继续之前的下载。</p>
+<p>这里的<code>task</code>不同于其他的<code>alloc-init</code>初始化方法，它是需要通过<code>session</code>来创建的，<code>NSURLSession</code>提供了多个方法来创建<code>task</code>：</p>
+<p><strong>Data Task：</strong></p>
+<ul>
+<li><code>- dataTaskWithURL:</code></li>
+<li><code>- dataTaskWithURL:completionHandler:</code></li>
+<li><code>- dataTaskWithRequest:</code></li>
+<li><code>- dataTaskWithRequest:completionHandler:</code></li>
+</ul>
+<p>实例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];</span><br><span class="line">NSURL *url = [NSURL URLWithString:@<span class="string">"http://demo.com"</span>];</span><br><span class="line">NSURLRequest *request = [NSURLRequest requestWithURL:url];</span><br><span class="line"></span><br><span class="line">NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];</span><br><span class="line">NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) &#123;</span><br><span class="line">     <span class="comment">// do something</span></span><br><span class="line">&#125;];</span><br><span class="line">[dataTask resume];</span><br></pre></td></tr></table></figure>
+<p><strong>Download Task：</strong></p>
+<ul>
+<li><code>- downloadTaskWithURL:</code></li>
+<li><code>- downloadTaskWithURL:completionHandler:</code></li>
+<li><code>- downloadTaskWithRequest:</code></li>
+<li><code>- downloadTaskWithRequest:completionHandler:</code></li>
+<li><code>- downloadTaskWithResumeData:</code></li>
+<li><code>- downloadTaskWithResumeData:completionHandler:</code></li>
+</ul>
+<p>实例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">NSURL *URL = [NSURL URLWithString:@<span class="string">"http://example.com/file.zip"</span>];</span><br><span class="line">NSURLRequest *request = [NSURLRequest requestWithURL:URL];</span><br><span class="line"></span><br><span class="line">NSURLSession *session = [NSURLSession sharedSession];</span><br><span class="line">NSURLSessionDownloadTask *downloadTask = [session downloadTaskWithRequest:request                                                    completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) &#123;</span><br><span class="line">        NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];</span><br><span class="line">        NSURL *documentsDirectoryURL = [NSURL fileURLWithPath:documentsPath];</span><br><span class="line">        NSURL *newFileLocation = [documentsDirectoryURL URLByAppendingPathComponent:[[response URL] lastPathComponent]];</span><br><span class="line">        [[NSFileManager defaultManager] copyItemAtURL:location toURL:newFileLocation error:nil];</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">[downloadTask resume];</span><br></pre></td></tr></table></figure>
+<p><strong>Upload Task：</strong></p>
+<ul>
+<li><code>- uploadTaskWithRequest:fromData:</code></li>
+<li><code>- uploadTaskWithRequest:fromData:completionHandler:</code></li>
+<li><code>- uploadTaskWithRequest:fromFile:</code></li>
+<li><code>- uploadTaskWithRequest:fromFile:completionHandler:</code></li>
+<li><code>- uploadTaskWithStreamedRequest:</code></li>
+</ul>
+<p>实例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSURL *URL = [NSURL URLWithString:@<span class="string">"http://example.com/upload"</span>];</span><br><span class="line">NSURLRequest *request = [NSURLRequest requestWithURL:URL];</span><br><span class="line">NSData *data = ...;</span><br><span class="line"></span><br><span class="line">NSURLSession *session = [NSURLSession sharedSession];</span><br><span class="line">NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:data completionHandler:</span><br><span class="line">     ^(NSData *data, NSURLResponse *response, NSError *error) &#123;</span><br><span class="line">         <span class="comment">// ...</span></span><br><span class="line">     &#125;];</span><br><span class="line">[uploadTask resume];</span><br></pre></td></tr></table></figure>
+<p>以上就是本文的全部内容啦。如有不对还请指出。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/27/ios-nsurlsession/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/27/ios-nsurlsession/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/18/ios-uiview/" title="iOS UIView 学习" itemprop="url">iOS UIView 学习</a>
   </h1>
   <p class="article-author">By
