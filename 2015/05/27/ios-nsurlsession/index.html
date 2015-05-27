@@ -4,34 +4,37 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Cookfront&#39;s Blog</title>
+    <title>iOS NSURLSession | Cookfront&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="cookfront@gmail.com">
     
 
     
-    <meta name="description" content="iOS NSURLSessionNSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
+    <meta name="description" content="NSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
 
 NSURLSessionConfiguration：在使用NSURLSession首先要创建一个NSURLSessionConfiguration来配置我们的NSURLSession
 NSURLSession
-NSURLS">
+NSURLSessionTask：
+NSUR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cookfront's Blog">
+<meta property="og:title" content="iOS NSURLSession">
 <meta property="og:url" content="http://cookfront.github.io/2015/05/27/ios-nsurlsession/index.html">
 <meta property="og:site_name" content="Cookfront's Blog">
-<meta property="og:description" content="iOS NSURLSessionNSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
+<meta property="og:description" content="NSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
 
 NSURLSessionConfiguration：在使用NSURLSession首先要创建一个NSURLSessionConfiguration来配置我们的NSURLSession
 NSURLSession
-NSURLS">
+NSURLSessionTask：
+NSUR">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cookfront's Blog">
-<meta name="twitter:description" content="iOS NSURLSessionNSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
+<meta name="twitter:title" content="iOS NSURLSession">
+<meta name="twitter:description" content="NSURLSession是iOS7中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：
 
 NSURLSessionConfiguration：在使用NSURLSession首先要创建一个NSURLSessionConfiguration来配置我们的NSURLSession
 NSURLSession
-NSURLS">
+NSURLSessionTask：
+NSUR">
 
     
     <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
@@ -90,14 +93,14 @@ NSURLS">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/05/27/ios-nsurlsession/" title="" itemprop="url"></a>
+      <a href="/2015/05/27/ios-nsurlsession/" title="iOS NSURLSession" itemprop="url">iOS NSURLSession</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
 		
   <p class="article-time">
-    <time datetime="2015-05-27T13:51:35.000Z" itemprop="datePublished"> 發表於 2015-05-27</time>
+    <time datetime="2015-05-27T10:07:42.000Z" itemprop="datePublished"> 發表於 2015-05-27</time>
     
   </p>
 </header>
@@ -106,11 +109,11 @@ NSURLS">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS_NSURLSession"><span class="toc-number">1.</span> <span class="toc-text">iOS NSURLSession</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionConfiguration"><span class="toc-number">1.1.</span> <span class="toc-text">NSURLSessionConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSession"><span class="toc-number">1.2.</span> <span class="toc-text">NSURLSession</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionTask"><span class="toc-number">1.3.</span> <span class="toc-text">NSURLSessionTask</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionConfiguration"><span class="toc-number">1.</span> <span class="toc-text">NSURLSessionConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSession"><span class="toc-number">2.</span> <span class="toc-text">NSURLSession</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionTask"><span class="toc-number">3.</span> <span class="toc-text">NSURLSessionTask</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="iOS_NSURLSession">iOS NSURLSession</h1><p><code>NSURLSession</code>是<code>iOS7</code>中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：</p>
+		<p><code>NSURLSession</code>是<code>iOS7</code>中新的网络接口，负责处理数据的加载以及文件和数据在客户端与服务端之间的上传和下载。本文将从以下几个方面介绍：</p>
 <ul>
 <li>NSURLSessionConfiguration：在使用<code>NSURLSession</code>首先要创建一个<code>NSURLSessionConfiguration</code>来配置我们的<code>NSURLSession</code></li>
 <li>NSURLSession</li>
@@ -176,6 +179,16 @@ NSURLS">
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/iOS/">iOS</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/iOS/">iOS</a>
+  </div>
 
 </div>
 
@@ -183,7 +196,7 @@ NSURLS">
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://cookfront.github.io/2015/05/27/ios-nsurlsession/" data-title="Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://cookfront.github.io/2015/05/27/ios-nsurlsession/" data-title="iOS NSURLSession | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -209,7 +222,7 @@ NSURLS">
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/05/27/ios-nsurlsession/" data-title="" data-url="http://cookfront.github.io/2015/05/27/ios-nsurlsession/"></div>
+	<div class="ds-thread" data-thread-key="2015/05/27/ios-nsurlsession/" data-title="iOS NSURLSession" data-url="http://cookfront.github.io/2015/05/27/ios-nsurlsession/"></div>
 </section>
 
 
@@ -219,7 +232,7 @@ NSURLS">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#iOS_NSURLSession"><span class="toc-number">1.</span> <span class="toc-text">iOS NSURLSession</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionConfiguration"><span class="toc-number">1.1.</span> <span class="toc-text">NSURLSessionConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSession"><span class="toc-number">1.2.</span> <span class="toc-text">NSURLSession</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionTask"><span class="toc-number">1.3.</span> <span class="toc-text">NSURLSessionTask</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionConfiguration"><span class="toc-number">1.</span> <span class="toc-text">NSURLSessionConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSession"><span class="toc-number">2.</span> <span class="toc-text">NSURLSession</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSURLSessionTask"><span class="toc-number">3.</span> <span class="toc-text">NSURLSessionTask</span></a></li></ol>
  
   </div>
 
@@ -241,7 +254,7 @@ NSURLS">
 		  
 		
 		  
-			<li><a href="/categories/iOS/" title="iOS">iOS<sup>2</sup></a></li>
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>3</sup></a></li>
 		  
 		
 		</ul>
@@ -258,7 +271,7 @@ NSURLS">
 			
 		
 			
-				<li><a href="/tags/iOS/" title="iOS">iOS<sup>2</sup></a></li>
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>3</sup></a></li>
 			
 		
 			
