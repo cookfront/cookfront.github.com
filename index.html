@@ -80,6 +80,95 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/05/28/es6-let-const/" title="每天学点ES6－let和const" itemprop="url">每天学点ES6－let和const</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-05-28T04:59:42.000Z" itemprop="datePublished"> 發表於 2015-05-28</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>今天学习的比较简单，主要学习<code>ES6</code>的<code>let</code>和<code>const</code>。</p>
+<p>我们知道在<code>ES6</code>之前，是没有块级作用域这一说的，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span><span class="params">(condition)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">        <span class="keyword">var</span> value = <span class="string">"blue"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other code</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// value exists here with a value of undefined</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// value exists here with a value of undefined</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可能会觉得在<code>else</code>里面无法访问到<code>value</code>变量，其实在<code>js</code>内部会造成变量提升，这意味着我们可以在<code>else</code>里面访问到<code>value</code>变量，只是它未初始化，所以其变量值为<code>undefined</code>。实际解析时代码可能像这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span><span class="params">(condition)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">        value = <span class="string">"blue"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other code</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>let</code>和<code>const</code>为我们带来了<code>块级作用域</code>，这意味着它只能在代码块内才能访问到，出了代码块就会抛出异常了，还有一点重要的是，<code>let</code>和<code>const</code>不会造成<code>变量提升</code>。</p>
+<h2 id="let">let</h2><p><code>let</code>定义变量时和<code>var</code>有两个区别：块级作用域、不会变量提升和不能定义在块中已有标识符同名的变量。</p>
+<p>我们用<code>let</code>来重新定义上面的函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getValue</span><span class="params">(condition)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">        <span class="keyword">let</span> value = <span class="string">"blue"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// other code</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// value doesn't exist here</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// value doesn't exist here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当用<code>let</code>定义<code>value</code>时，我们只能在<code>if</code>里面才能访问到<code>value</code>了，<code>value</code>变量也不会变量提升，从而我们在<code>else</code>里面不能访问到<code>value</code>。</p>
+<p><code>let</code>最常用的场景应该是<code>for</code>循环了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="块级作用域">块级作用域</h3><p>块级作用域就不用多说，就是用<code>let</code>定义的变量只在定义它的块中有效，出了这个块你就不能访问到它了。</p>
+<h3 id="变量提升">变量提升</h3><p>变量提升应该是在面试的时候会经常考到，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">  <span class="keyword">var</span> value = <span class="string">'something'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test2</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(fn);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn</span> <span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(fn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test2();</span><br></pre></td></tr></table></figure>
+<p>我们用<code>let</code>重新定义上面的<code>test()</code>函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">  <span class="keyword">let</span> value = <span class="string">'something'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test();</span><br></pre></td></tr></table></figure>
+<p>此时浏览器就会抱怨了，在<code>let</code>定义前是无法访问到我们的变量的。</p>
+<h3 id="同名变量">同名变量</h3><p>用<code>var</code>定义变量时，我们可以多次对它进行定义，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>这样的代码是不会报错的，在<code>let</code>定义的<code>相同块</code>中定义同名变量时就会报错了，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> a = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// or</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> a = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>要注意的是要与<code>let</code>定义时在相同的块中，下面的代码是不会出错的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span> (something) &#123;</span><br><span class="line">  let a = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="const">const</h2><p><code>const</code>除了具有<code>let</code>的块级作用域和不会变量提升外，还有就是它定义的是常量，在用<code>const</code>定义变量后，我们就不能修改它了，对变量的修改会默默的失败（在<code>iojs</code>中会抛出异常，在Chrome下会默默的失败）。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI = <span class="number">3.1415</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(PI);</span><br><span class="line"></span><br><span class="line">PI = <span class="number">22</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(PI);</span><br></pre></td></tr></table></figure>
+<p>参考链接：<a href="https://leanpub.com/understandinges6/read" target="_blank" rel="external">Understanding ECMAScript 6</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/05/28/es6-let-const/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/05/28/es6-let-const/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/27/ios-nsurlsession/" title="iOS NSURLSession" itemprop="url">iOS NSURLSession</a>
   </h1>
   <p class="article-author">By
@@ -2355,7 +2444,7 @@
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>2</sup></a></li>
 		  
 		
 		  
@@ -2380,11 +2469,11 @@
 			
 		
 			
-				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>2</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>1</sup></a></li>
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
 			
 		
 			
