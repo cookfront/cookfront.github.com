@@ -80,6 +80,93 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/06/02/es6-destructing/" title="每天学点ES6－变量解构" itemprop="url">每天学点ES6－变量解构</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-02T04:59:42.000Z" itemprop="datePublished"> 發表於 2015-06-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>在<code>ES5</code>时，我们经常会在代码中看到类似下面这样的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">(options)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = options.a;</span><br><span class="line">  <span class="keyword">var</span> b = options.b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有了变量解构，我们就不用这么麻烦了，用一行代码就能实现，特别是在有多个变量时，这样写还是很烦的。用变量结构我们可以像下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="params">(options)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> &#123;a, b&#125; = options;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>变量解构包括<code>对象解构</code>和<code>数组解构</code>，下面一一讲解。</p>
+<h2 id="对象解构">对象解构</h2><p>对象解构的语法是使用一个对象直接量在赋值操作符的左边，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;a: localA, b: localB&#125; = options;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(localA);</span><br><span class="line"><span class="built_in">console</span>.log(localB);</span><br></pre></td></tr></table></figure>
+<p>上面的代码中，<code>options.a</code>的值会存储在变量<code>localA</code>中，<code>options.b</code>会存储在变量<code>localB</code>中。在对象解构时，左边的对象直接量中，<code>key</code>对应了需要在对象中解构的属性，<code>value</code>则为存储属性值的变量名。</p>
+<p>如果你想使用对象中相同的属性名，你可以省略左边对象直接量中的冒号和后面的值，例如，对于上面的例子，你可以这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;a, b&#125; = options;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br></pre></td></tr></table></figure>
+<p>当给定的属性名不存在对象中时，局部变量会得到<code>undefined</code>的值，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;a, b, c&#125; = options;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="built_in">console</span>.log(c); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<p>对象解构也是可以嵌套的，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">  a: <span class="string">'a'</span>,</span><br><span class="line">  b: <span class="string">'b'</span>,</span><br><span class="line">  c: &#123;</span><br><span class="line">    d: <span class="string">'d'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> &#123;a, b, c: &#123;d&#125;&#125; = options;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="built_in">console</span>.log(d);</span><br></pre></td></tr></table></figure>
+<h2 id="数组解构">数组解构</h2><p>数组解构和对象解构差不多，是使用一个数组直接量在赋值操作符的左边，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> [a, b, c] = arr;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="built_in">console</span>.log(c);</span><br></pre></td></tr></table></figure>
+<p>要注意的是，数组解构时要按照元素在数组中的顺序。还有一点是数组解构不会修改原数组。</p>
+<p>数组解构也是可以嵌套解构的，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> colors = [ <span class="string">"red"</span>, [ <span class="string">"green"</span>, <span class="string">"lightgreen"</span> ], <span class="string">"blue"</span> ];</span><br><span class="line"></span><br><span class="line"><span class="comment">// later</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> [ firstColor, [ secondColor ] ] = colors;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(firstColor);        <span class="comment">// "red"</span></span><br><span class="line"><span class="built_in">console</span>.log(secondColor);       <span class="comment">// "green"</span></span><br></pre></td></tr></table></figure>
+<p>以上就是变量结构的内容了。</p>
+<p>参考链接：</p>
+<ol>
+<li><a href="https://leanpub.com/understandinges6/read" target="_blank" rel="external">https://leanpub.com/understandinges6/read</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/destructuring" target="_blank" rel="external">http://es6.ruanyifeng.com/#docs/destructuring</a></li>
+</ol>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/06/02/es6-destructing/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/06/02/es6-destructing/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/05/28/es6-let-const/" title="每天学点ES6－let和const" itemprop="url">每天学点ES6－let和const</a>
   </h1>
   <p class="article-author">By
@@ -2162,270 +2249,10 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/07/css3-media-query/" title="CSS3 Media Query" itemprop="url">CSS3 Media Query</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-07T03:47:42.000Z" itemprop="datePublished"> 發表於 2015-01-07</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里<a href="https://github.com/cookfront/learn-note/tree/master/blog-backup/2014" target="_blank" rel="external">2014‘s Blog</a>。</p>
-<p>下面就进入正题了，这篇文章主要是<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">W3C官方 Media Query</a>的一个学习和翻译。主要还是为了以后脑子不好使，可以回过头来看看复习复习。</p>
-<h2 id="摘要和背景">摘要和背景</h2><p>在<code>HTML4</code>和<code>CSS2</code>只支持对于不同的<a href="http://www.w3.org/TR/CSS2/media.html" target="_blank" rel="external">媒体类型</a>来设置样式，例如一个文档在屏幕（screen）上显示时使用<code>sans-serif</code>字体，而在打印（print）时使用<code>serif</code>字体，这里的<code>screen</code>和<code>print</code>是定义好的两种媒体类型。而<code>Media Query</code>扩充了<code>Media Type</code>的功能，并且使我们能够更精准的应用样式表。</p>
-<p>例如，在<code>HTML4</code>中：</p>
-<p><strong>实例一</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">media</span>=<span class="value">"screen"</span> <span class="attribute">href</span>=<span class="value">"sans-serif.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">media</span>=<span class="value">"print"</span> <span class="attribute">href</span>=<span class="value">"serif.css"</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>或者：</p>
-<p><strong>实例二</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen </span>&#123;</span><br><span class="line">  * <span class="rules">&#123; <span class="rule"><span class="attribute">font-family</span>:<span class="value"> sans-serif &#125;</span><br><span class="line">&#125;</span></span></span></span><br></pre></td></tr></table></figure>
-<p>一个<code>Media Query</code>包含了一个<code>Media Type</code>以及0个或多个来检查特定的媒体特性条件的表达式。在这些媒体特性中能在<code>Media Query</code>中被使用的是<code>width</code>，<code>height</code>和<code>color</code>。通过使用<code>Media Query</code>，页面的呈现可以在特定的终端中显示，而不需要去改变内容。</p>
-<h2 id="兼容性">兼容性</h2><p>在了解<code>Media Query</code>之前需要了解浏览器对它的支持情况，以便在项目中更好的使用。可以在这里看到<a href="http://caniuse.com/#search=media%20query" target="_blank" rel="external">Media Query</a>对于浏览器的一个支持情况。对于IE永远是坑爹的，它只有在<code>IE8+</code>才支持<code>Media Query</code>。</p>
-<p>那么在不支持的情况下有什么办法呢，社区的大牛给我们提供了<a href="https://github.com/scottjehl/Respond" target="_blank" rel="external">Respond.js</a>，它可以支持<code>IE8</code>及以下的浏览器。</p>
-<h2 id="Media_Queries">Media Queries</h2><p>就如上面摘要提到的，一个<code>Media Query</code>包含了一个<code>Media Type</code>以及0个或多个来检查特定的媒体特性条件的表达式。</p>
-<p>在本节中有关媒体<code>Media Query</code>的声明我们假设遵循了下面的<a href="#%E8%AF%AD%E6%B3%95">语法</a>章节。没有遵循语法的<code>Media Query</code>将在<a href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">错误处理</a>章节讲到。</p>
-<p><strong>实例三：</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"screen and (color)"</span> <span class="attribute">href</span>=<span class="value">"example.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这个实例表达了一个确定的样式表（example.css）应用于一个确定的媒体类型（screen）以及确定的特性（必须为彩色屏幕）</p>
-<p><strong>实例四：</strong></p>
-<p>对于上面的实例三，我们也可以用<code>@import</code>语句：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">import</span> <span class="function">url</span>(color.css) screen and (color)</span>;</span><br></pre></td></tr></table></figure>
-<p>一个<code>media queries</code>是一个逻辑表达式，它可能为真也可能为假。<code>media queries</code>为真当媒体类型匹配当前正在运行的用户代理所在设备的媒体类型，且在<code>media queries</code>中所有表达式为真时，我们的<code>media queries</code>就为真。</p>
-<p>对于媒体类型为<code>all</code>的<code>media queries</code>有一种简写法，也就是只有<code>@media and ()...</code>：</p>
-<p><strong>实例五：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 以下两个样式表是等价的 */</span></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (min-width:<span class="number">500px</span>) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width:<span class="number">500px</span>) </span>&#123; … &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 以下两个样式表是等价的 */</span></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> (orientation: portrait) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (orientation: portrait) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<p>许多的<code>media queries</code>可以构成一个媒体查询列表。对于以逗号分隔的<code>media queries</code>，只要其中一个或多个为<code>true</code>时我们的列表就为真，否则为<code>false</code>，在<code>media queries</code>语法中，逗号代表了逻辑或，而<code>and</code>关键字代表了逻辑与。</p>
-<p><strong>实例六：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (color), projection and (color) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<p>如果媒体查询列表为空（或者说为空字符串或空白），它将被认为为真：</p>
-<p><strong>实例七：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> all </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<p>逻辑否可以通过<code>not</code>关键字。其实就是和编程一样啦，大家懂的，加上了<code>not</code>，假就是真，真就是假。</p>
-<p><strong>实例八：</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"not screen and (color)"</span> <span class="attribute">href</span>=<span class="value">"example.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>关键字<code>only</code>是用于隐藏老的用户代理的样式表。它的功能仅仅在于此了。而对于其他用户代理，处理以<code>only</code>开头的<code>media queries</code>时，要像<code>only</code>不存在一样。</p>
-<p><strong>实例九：</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"only screen and (color)"</span> <span class="attribute">href</span>=<span class="value">"example.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p><code>media queries</code>语法可以用于<code>HTML</code>、<code>XHTML</code>、<code>XML</code>和<code>CSS</code>规则等<code>@media</code>和<code>@import</code>中。</p>
-<p><strong>实例十：</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> media=<span class="string">"screen and (color), projection and (color)"</span> rel=<span class="string">"stylesheet"</span> href=<span class="string">"example.css"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> media=<span class="string">"screen and (color), projection and (color)"</span> rel=<span class="string">"stylesheet"</span> href=<span class="string">"example.css"</span> /&gt;</span><br><span class="line"></span><br><span class="line">&lt;?xml-stylesheet media=<span class="string">"screen and (color), projection and (color)"</span> rel=<span class="string">"stylesheet"</span> href=<span class="string">"example.css"</span> ?&gt;</span><br><span class="line"></span><br><span class="line">@<span class="function">import <span class="title">url</span><span class="params">(example.css)</span> screen <span class="title">and</span> <span class="params">(color)</span>, projection <span class="title">and</span> <span class="params">(color)</span></span>;</span><br><span class="line"></span><br><span class="line">@<span class="function">media screen <span class="title">and</span> <span class="params">(color)</span>, projection <span class="title">and</span> <span class="params">(color)</span> </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<p>如果有一个媒体特性没有应用到当前正在运行的用户代理的设备上时，包含该表达式的媒体特性讲为假。</p>
-<p><strong>实例十一：</strong></p>
-<p>媒体特性<code>device-aspect-ratio</code>只应用于视觉设备，所以对于音频设备该表达式将永远为<code>false</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> media=<span class="string">"aural and (device-aspect-ratio: 16/9)"</span> href=<span class="string">"example.css"</span> /&gt;</span><br></pre></td></tr></table></figure>
-<p>如果衡量单位没有应用于当前设备，表达式也将永远为<code>false</code>。</p>
-<p><strong>实例十二：</strong></p>
-<p><code>px</code>没有应用于<code>speech</code>媒体类型，所以下面的媒体查询将永远为<code>false</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">"stylesheet"</span> media=<span class="string">"speech and (min-device-width: 800px)"</span> href=<span class="string">"example.css"</span> /&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="语法">语法</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">media_query_list</span><br><span class="line"> : S* [media_query [ <span class="string">','</span> S* media_query ]* ]?</span><br><span class="line"> ;</span><br><span class="line">media_query</span><br><span class="line"> : [ONLY | NOT]? S* media_type S* [ AND S* expression ]*</span><br><span class="line"> | expression [ AND S* expression ]*</span><br><span class="line"> ;</span><br><span class="line">media_type</span><br><span class="line"> : IDENT</span><br><span class="line"> ;</span><br><span class="line">expression</span><br><span class="line"> : <span class="string">'('</span> S* media_feature S* [ <span class="string">':'</span> S* expr ]? <span class="string">')'</span> S*</span><br><span class="line"> ;</span><br><span class="line">media_feature</span><br><span class="line"> : IDENT</span><br><span class="line"> ;</span><br></pre></td></tr></table></figure>
-<h2 id="错误处理">错误处理</h2><p>对于不遵循用户代理的<code>media queries</code>需要遵守本节中描述的规则。</p>
-<ul>
-<li>未知媒体类型：未知媒体类型被计算为<code>false</code>。它可以有效的被认为是不匹配当前设备类型的媒体类型。</li>
-<li>未知媒体特性：当某个指定的媒体特性不知道时，用户代理将媒体查询相当于<code>not all</code></li>
-</ul>
-<p><strong>实例十五：</strong></p>
-<p>在这个例子中，第一个媒体查询将相当于<code>not all</code>，并且计算为<code>false</code>，第二个媒体查询计算时就好像第一个媒体查询不存在。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-weight: 3kg) and (color), (color)"</span> <span class="attribute">href</span>=<span class="value">"example.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>未知媒体特性值：和未知媒体特性一样，用户代理会将媒体查询相当于<code>not all</code>，当某个媒体特性值不知道时。</li>
-</ul>
-<p><strong>实例：</strong></p>
-<p>因为在<code>max-width</code>中负值是不允许的，所以相当于<code>not all</code></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> (min-width: -<span class="number">100px</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>畸形的媒体查询：具有意外的<code>token</code>的媒体查询相当于<code>not all</code>。</li>
-</ul>
-<p><strong>实例：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> (example, all,), speech </span>&#123; <span class="comment">/* only applicable to speech devices */</span> &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> &amp;test, screen           </span>&#123; <span class="comment">/* only applicable to screen devices */</span> &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="媒体特性">媒体特性</h2><p>在句法上，媒体特性类似于<code>CSS</code>属性：它们有名字并且接受确定的值。然而，属性和媒体特性之间也有几点重要到不同：</p>
-<ul>
-<li>属性被用于声明给文档提供信息从而如何呈现文档。而媒体特性则是一些表达式用于描述对于输出设备的要求。</li>
-<li>许多的媒体特性能够接受可选的<code>min-</code>和<code>max-</code>前缀来表达<code>大于等于</code>或<code>小于等于</code>。这种语法的使用是为了阻止<code>&lt;</code>和<code>&gt;</code>字符与<code>HTML</code>和<code>XML</code>冲突。这些媒体特性经常使用前缀来使用，当然也会单独使用了。</li>
-<li>属性总是需要一个值才能形成一个声明，另一方面，媒体特性也能不需要值。对于一个媒体特性，如果<code>(feature: x)</code>有一个值<code>x</code>，且<code>x</code>是除了0或0加上一个单位的值时，则<code>(feature)</code>会计算为<code>true</code>。而对于使用<code>min-</code>和<code>max-</code>前缀的媒体特性则必须使用一个值。当一个媒体特性用到了<code>min-</code>和<code>max-</code>前缀时，这会被认为是一个畸形的媒体查询。</li>
-<li>属性可以接收更多复杂的值，例如，通过其他值计算出来的值。而媒体特性只能接受单一的值：一个关键字、一个数字或者一个数字带有一个单位。</li>
-</ul>
-<h3 id="width">width</h3><ul>
-<li>取值：<code>&lt;length&gt;</code></li>
-<li>应用于：视觉或触觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>width</code>媒体特性描述了输出设备目标显示区域的宽度。对于一个连续媒体，这个就是视口(<code>viewport</code>)的宽度，并且包含了滚动条的宽度（如果有的话）。对于分页媒体，这是页框的宽度。</p>
-<p>需要注意的是，<code>&lt;length&gt;</code>不能为负值。</p>
-<p><strong>实例：</strong></p>
-<p>下面的实例说明样式表只能应用于打印输出大于25cm的设备。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"print and (min-width: 25cm)"</span> <span class="attribute">href</span>=<span class="value">"http://…"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>实例：</strong></p>
-<p>这个实例说明样式表只能应用于视口宽度在<code>400px</code>和<code>700px</code>之间的设备。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (min-width: <span class="number">400px</span>) and (max-width: <span class="number">700px</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<p><strong>实例：</strong></p>
-<p>这个实例说明样式应用于<code>handheld</code>和<code>screen</code>媒体类型，且最小宽度为<code>20em</code>，<code>em</code>是相对于初始的<code>font-size</code>值。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> handheld and (min-width: <span class="number">20em</span>), </span><br><span class="line">  screen and (min-width: <span class="number">20em</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="height">height</h3><ul>
-<li>取值：<code>&lt;length&gt;</code></li>
-<li>应用于：视觉或触觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>height</code>媒体特性和<code>width</code>几乎一样（但是height不常用），只是宽度与高度的区别，它同样包含了页面的水平方向滚动条的高度（如果有的话）。</p>
-<p>负值也是不允许对。</p>
-<h3 id="device-width">device-width</h3><ul>
-<li>取值：<code>&lt;length&gt;</code></li>
-<li>应用于：视觉或触觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>device-width</code>媒体特性描述的是输出设备呈现表面的宽度（和<code>width</code>还是有很大区别的，对于连续媒体，<code>width</code>是指视口的宽度）。对于连续媒体，<code>device-width</code>指的是屏幕的宽度，对于分页媒体，这是页面纸张尺寸的宽度。</p>
-<p>负值是不允许的。</p>
-<p><code>device-width</code>一般是用于移动端。</p>
-<p>实例：</p>
-<p>下面的例子表明样式表应用于媒体类型为<code>screen</code>，且水平宽度为<code>800px</code>的设备。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (device-width: <span class="number">800px</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="device-height">device-height</h3><ul>
-<li>取值：<code>&lt;length&gt;</code></li>
-<li>应用于：视觉或触觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>device-height</code>媒体特性描述的是输出设备呈现表面的高度。对于连续的媒体，这是屏幕的高度。对于分页媒体，这是页面纸张尺寸的高度。</p>
-<p>负值是不允许的。</p>
-<p><strong>实例：</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"screen and (device-height: 600px)"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="orientation">orientation</h3><ul>
-<li>取值：<code>portrait | landscape</code></li>
-<li>应用于：位图媒体类型</li>
-<li>接受<code>min/max</code>前缀：否</li>
-</ul>
-<p><code>orientation</code>一般是用于检测移动端是横向还是竖向的。当<code>height</code>的值大于等于<code>width</code>的媒体特性值时，<code>orientation</code>的值为<code>portrait</code>，否则为<code>landscape</code>。</p>
-<p>实例：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (orientation:portrait) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (orientation:landscape) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="aspect-ratio">aspect-ratio</h3><ul>
-<li>取值：<code>&lt;value&gt;</code></li>
-<li>应用于：位图媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>aspect-ratio</code>描述了输出设备目标显示区域的宽高比。该值包含两个以<code>/</code>分隔的正整数。代表了水平像素数（第一个值）与垂直像素数（第二个值）的比例。</p>
-<p><strong>实例：</strong></p>
-<p>下面为显示区域宽高至少为一比一的设备选择了一个特殊的样式表。</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (min-aspect-ratio: <span class="number">1</span>/<span class="number">1</span>) </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="device-aspect-ratio">device-aspect-ratio</h3><ul>
-<li>取值：<code>&lt;value&gt;</code></li>
-<li>应用于：位图媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p>这个和<code>aspect-ratio</code>很类似，描述的是输出设备的宽高比。该值包含两个以<code>/</code>分隔的正整数。代表了水平像素数（第一个值）与垂直像素数（第二个值）的比例。</p>
-<p><strong>实例：</strong></p>
-<p>例如，如果一个设备的屏幕媒体特性中，宽度为<code>1280px</code>，高度为<code>720px</code>，也就是等于<code>16/9</code>，则以下的所有媒体查询将匹配它：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (device-aspect-ratio: <span class="number">16</span>/<span class="number">9</span>) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (device-aspect-ratio: <span class="number">32</span>/<span class="number">18</span>) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (device-aspect-ratio: <span class="number">1280</span>/<span class="number">720</span>) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (device-aspect-ratio: <span class="number">2560</span>/<span class="number">1440</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="color">color</h3><ul>
-<li>取值：<code>&lt;integer&gt;</code></li>
-<li>应用于：视觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>color</code>指定输出设备每个像素单元的比特值。如果设备不支持输出颜色，则该值为0。</p>
-<p><code>&lt;integet&gt;</code>不能为负值。</p>
-<p>这个媒体特性用的也是比较少的。</p>
-<p><strong>实例：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (color) </span>&#123; … &#125;</span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (min-color: <span class="number">1</span>) </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="color-index">color-index</h3><ul>
-<li>取值：<code>&lt;integer&gt;</code></li>
-<li>应用于：视觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>color-index</code>指定了输出设备中颜色查询表中的条目数量。</p>
-<p><strong>实例：</strong></p>
-<p>向所有使用至少256个索引颜色的设备应用样式表：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel="stylesheet" media="all and (min-color-index: 256)" href="http://foo.bar.com/stylesheet.css" /&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="monochrome">monochrome</h3><ul>
-<li>取值：<code>&lt;integer&gt;</code></li>
-<li>应用于：视觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p>指定了一个黑白（灰度）设备每个像素的比特数。如果不是黑白设备，值为0。</p>
-<p><strong>实例：</strong></p>
-<p>向每个像素至少8比特的黑白设备应用样式表：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> all and (min-monochrome: <span class="number">8</span>) </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="resolution">resolution</h3><ul>
-<li>取值：<code>&lt;resolution&gt;</code></li>
-<li>应用于：位图媒体类型</li>
-<li>接受<code>min/max</code>前缀：是</li>
-</ul>
-<p><code>resolution</code>指定输出设备的分辨率（像素密度）。分辨率可以用每英寸（dpi）或每厘米（dpcm）的点数来表示。</p>
-<p><strong>实例：</strong></p>
-<p>为每英寸至多300点的打印机应用样式：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> print and (min-resolution: <span class="number">300dpi</span>) </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="scan">scan</h3><ul>
-<li>取值：<code>progressive | interlace</code></li>
-<li>应用于：<code>tv</code>媒体类型</li>
-<li>接受<code>min/max</code>前缀：否</li>
-</ul>
-<p><code>scan</code>描述了电视输出设备的扫描过程。</p>
-<p><strong>实例：</strong></p>
-<p>向以顺序方式扫描的电视机上应用样式表：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> tv and (scan: progressive) </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="grid">grid</h3><ul>
-<li>取值：<code>&lt;integer&gt;</code></li>
-<li>应用于：视觉或触觉媒体类型</li>
-<li>接受<code>min/max</code>前缀：否</li>
-</ul>
-<p><code>grid</code>判断输出设备是网格设备还是位图设备。如果设备是基于网格的（例如电传打字机终端或只能显示一种字形的电话），该值为1，否则为0。</p>
-<p>对于<code>grid</code>，有效的值只有<code>1</code>和<code>0</code>。其他一切都会创建一个畸形都媒体查询。</p>
-<p><strong>实例：</strong></p>
-<p>向一个15字符宽度或更窄的手持设备应用样式：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> handheld and (grid) and (max-width: <span class="number">15em</span>) </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure>
-<p>标准中还包括了一些值、单位的介绍，这里就不一一说了，具体还是<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">点我吧</a></p>
-<p>需要看媒体查询的一些例子，可以看看这里：<a href="http://mediaqueri.es/" target="_blank" rel="external">http://mediaqueri.es/</a></p>
-<p>还可以看看W3Cplus的文章：<a href="http://www.w3cplus.com/content/css3-media-queries" target="_blank" rel="external">http://www.w3cplus.com/content/css3-media-queries</a></p>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/CSS/">CSS</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/CSS3/">CSS3</a><a href="/tags/Media-Query/">Media Query</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/01/07/css3-media-query/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/01/07/css3-media-query/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
 
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
@@ -2444,7 +2271,7 @@
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>2</sup></a></li>
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>3</sup></a></li>
 		  
 		
 		  
@@ -2469,7 +2296,7 @@
 			
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>2</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>3</sup></a></li>
 			
 		
 			

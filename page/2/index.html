@@ -4,28 +4,22 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>CSS3 Media Query | Cookfront&#39;s Blog</title>
+    <title>Cookfront&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="cookfront@gmail.com">
     
 
     
-    <meta name="description" content="2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里2014‘s Blog。
-下面就进入正题了，这篇文章主要是W3C官方 Media Query的一个学习和翻译。主要还是为了以后脑子不好使，可以回过头来看看复习复习。
-摘要和背景在HTML4和CSS2只支持对于不同的媒体类型来设置样式，例如一个文档在屏幕（screen）上显示时使用sans-">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CSS3 Media Query">
-<meta property="og:url" content="http://cookfront.github.io/2015/01/07/css3-media-query/index.html">
+    <meta name="description" content="Cookfront&apos;s Blog，前端开发，HTML，CSS，JavaScript，jQuery，HTML5，CSS3，Sass Compass，Node.js">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cookfront's Blog">
+<meta property="og:url" content="http://cookfront.github.io/page/2/index.html">
 <meta property="og:site_name" content="Cookfront's Blog">
-<meta property="og:description" content="2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里2014‘s Blog。
-下面就进入正题了，这篇文章主要是W3C官方 Media Query的一个学习和翻译。主要还是为了以后脑子不好使，可以回过头来看看复习复习。
-摘要和背景在HTML4和CSS2只支持对于不同的媒体类型来设置样式，例如一个文档在屏幕（screen）上显示时使用sans-">
+<meta property="og:description" content="Cookfront&apos;s Blog，前端开发，HTML，CSS，JavaScript，jQuery，HTML5，CSS3，Sass Compass，Node.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CSS3 Media Query">
-<meta name="twitter:description" content="2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里2014‘s Blog。
-下面就进入正题了，这篇文章主要是W3C官方 Media Query的一个学习和翻译。主要还是为了以后脑子不好使，可以回过头来看看复习复习。
-摘要和背景在HTML4和CSS2只支持对于不同的媒体类型来设置样式，例如一个文档在屏幕（screen）上显示时使用sans-">
+<meta name="twitter:title" content="Cookfront's Blog">
+<meta name="twitter:description" content="Cookfront&apos;s Blog，前端开发，HTML，CSS，JavaScript，jQuery，HTML5，CSS3，Sass Compass，Node.js">
 
     
     <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
@@ -78,10 +72,12 @@
 </div>
     </header>
     <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
-  
-	<article itemprop="articleBody"> 
-		<header class="article-info clearfix">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2015/01/07/css3-media-query/" title="CSS3 Media Query" itemprop="url">CSS3 Media Query</a>
@@ -95,16 +91,9 @@
     
   </p>
 </header>
-	<div class="article-content">
-		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目錄</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要和背景"><span class="toc-number">1.</span> <span class="toc-text">摘要和背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#兼容性"><span class="toc-number">2.</span> <span class="toc-text">兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Media_Queries"><span class="toc-number">3.</span> <span class="toc-text">Media Queries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">4.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理"><span class="toc-number">5.</span> <span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#媒体特性"><span class="toc-number">6.</span> <span class="toc-text">媒体特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#width"><span class="toc-number">6.1.</span> <span class="toc-text">width</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#height"><span class="toc-number">6.2.</span> <span class="toc-text">height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-width"><span class="toc-number">6.3.</span> <span class="toc-text">device-width</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-height"><span class="toc-number">6.4.</span> <span class="toc-text">device-height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orientation"><span class="toc-number">6.5.</span> <span class="toc-text">orientation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aspect-ratio"><span class="toc-number">6.6.</span> <span class="toc-text">aspect-ratio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-aspect-ratio"><span class="toc-number">6.7.</span> <span class="toc-text">device-aspect-ratio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color"><span class="toc-number">6.8.</span> <span class="toc-text">color</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color-index"><span class="toc-number">6.9.</span> <span class="toc-text">color-index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#monochrome"><span class="toc-number">6.10.</span> <span class="toc-text">monochrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resolution"><span class="toc-number">6.11.</span> <span class="toc-text">resolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scan"><span class="toc-number">6.12.</span> <span class="toc-text">scan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid"><span class="toc-number">6.13.</span> <span class="toc-text">grid</span></a></li></ol></li></ol>
-		
-		</div>
-		
-		<p>2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里<a href="https://github.com/cookfront/learn-note/tree/master/blog-backup/2014" target="_blank" rel="external">2014‘s Blog</a>。</p>
+    <div class="article-content">
+        
+        <p>2015年的第一篇文章，新的一年更加努力的学习前端，重新开始，之前翻译的文章以及自己写的和一些笔记都放在了这里<a href="https://github.com/cookfront/learn-note/tree/master/blog-backup/2014" target="_blank" rel="external">2014‘s Blog</a>。</p>
 <p>下面就进入正题了，这篇文章主要是<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">W3C官方 Media Query</a>的一个学习和翻译。主要还是为了以后脑子不好使，可以回过头来看看复习复习。</p>
 <h2 id="摘要和背景">摘要和背景</h2><p>在<code>HTML4</code>和<code>CSS2</code>只支持对于不同的<a href="http://www.w3.org/TR/CSS2/media.html" target="_blank" rel="external">媒体类型</a>来设置样式，例如一个文档在屏幕（screen）上显示时使用<code>sans-serif</code>字体，而在打印（print）时使用<code>serif</code>字体，这里的<code>screen</code>和<code>print</code>是定义好的两种媒体类型。而<code>Media Query</code>扩充了<code>Media Type</code>的功能，并且使我们能够更精准的应用样式表。</p>
 <p>例如，在<code>HTML4</code>中：</p>
@@ -306,9 +295,14 @@
 <p>标准中还包括了一些值、单位的介绍，这里就不一一说了，具体还是<a href="http://www.w3.org/TR/css3-mediaqueries/" target="_blank" rel="external">点我吧</a></p>
 <p>需要看媒体查询的一些例子，可以看看这里：<a href="http://mediaqueri.es/" target="_blank" rel="external">http://mediaqueri.es/</a></p>
 <p>还可以看看W3Cplus的文章：<a href="http://www.w3cplus.com/content/css3-media-queries" target="_blank" rel="external">http://www.w3cplus.com/content/css3-media-queries</a></p>
-  
-	</div>
-		<footer class="article-footer clearfix">
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
 <div class="article-catetags">
 
 <div class="article-categories">
@@ -326,47 +320,31 @@
 
 
 
-	<div class="article-share" id="share">
-	
-	  <div data-url="http://cookfront.github.io/2015/01/07/css3-media-query/" data-title="CSS3 Media Query | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
-	  </div>
-	
-	</div>
 
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/01/07/css3-media-query/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/01/07/css3-media-query/" data-count-type="comments">&nbsp;</a>
+	
+</div>
 
 </footer>
 
-   	       
-	</article>
-	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2015/01/13/css-flexbox/" title="CSS3 Flexbox">
-  <strong>上一篇：</strong><br/>
-  <span>
-  CSS3 Flexbox</span>
-</a>
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 </div>
-
-
-</nav>
-
-	
-<section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/01/07/css3-media-query/" data-title="CSS3 Media Query" data-url="http://cookfront.github.io/2015/01/07/css3-media-query/"></div>
-</section>
-
-
-</div>  
       <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目錄</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要和背景"><span class="toc-number">1.</span> <span class="toc-text">摘要和背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#兼容性"><span class="toc-number">2.</span> <span class="toc-text">兼容性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Media_Queries"><span class="toc-number">3.</span> <span class="toc-text">Media Queries</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#语法"><span class="toc-number">4.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#错误处理"><span class="toc-number">5.</span> <span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#媒体特性"><span class="toc-number">6.</span> <span class="toc-text">媒体特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#width"><span class="toc-number">6.1.</span> <span class="toc-text">width</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#height"><span class="toc-number">6.2.</span> <span class="toc-text">height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-width"><span class="toc-number">6.3.</span> <span class="toc-text">device-width</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-height"><span class="toc-number">6.4.</span> <span class="toc-text">device-height</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#orientation"><span class="toc-number">6.5.</span> <span class="toc-text">orientation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aspect-ratio"><span class="toc-number">6.6.</span> <span class="toc-text">aspect-ratio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#device-aspect-ratio"><span class="toc-number">6.7.</span> <span class="toc-text">device-aspect-ratio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color"><span class="toc-number">6.8.</span> <span class="toc-text">color</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#color-index"><span class="toc-number">6.9.</span> <span class="toc-text">color-index</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#monochrome"><span class="toc-number">6.10.</span> <span class="toc-text">monochrome</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resolution"><span class="toc-number">6.11.</span> <span class="toc-text">resolution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scan"><span class="toc-number">6.12.</span> <span class="toc-text">scan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#grid"><span class="toc-number">6.13.</span> <span class="toc-text">grid</span></a></li></ol></li></ol>
- 
-  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
@@ -535,69 +513,12 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
-  });
-});
-</script>
-
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var $this = $('.share'),
-      url = $this.attr('data-url'),
-      encodedUrl = encodeURIComponent(url),
-      title = $this.attr('data-title'),
-      tsina = $this.attr('data-tsina'),
-      description = $this.attr('description');
-  var html = [
-  '<a href="#" class="overlay" id="qrcode"></a>',
-  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
-  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
-  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
-  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
-  '<span title="Share to"></span>'
-  ].join('');
-  $this.append(html);
-  $('.article-share-qrcode').click(function(){
-    var imgSrc = $('#qrcode-pic').attr('data-src');
-    $('#qrcode-pic').attr('src', imgSrc);
-    $('#qrcode-pic').load(function(){
-        $('.qrcode strong').text(' ');
-    });
-  });
-});     
-</script>
 
 
 
@@ -618,27 +539,6 @@ $(document).ready(function(){
 
 
 
-
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){ 
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-}); 
-</script>
 
 
 
@@ -675,4 +575,4 @@ document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3
 <!-- Tiny_search End -->
 
   </body>
-</html>
+ </html>
