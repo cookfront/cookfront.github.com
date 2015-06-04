@@ -1,0 +1,514 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>每天学点ES6－字符串 | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="ES6中对字符串进行了很多扩展，包括加强了Unicode的支持、
+更好的Unicode支持在ES6之前，JavaScript的字符串是完全基于16位字符编码的想法。所有字符串的属性和方法，例如：length和charAt()，都是基于16位序列代表单个字符的想法。ES5还允许Javascript引擎决定使用哪种编码方式，UCS-2或UTF-16。
+对于Unicode的既定目标，保持在16位是不可能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每天学点ES6－字符串">
+<meta property="og:url" content="http://cookfront.github.io/2015/06/04/es6-string/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="ES6中对字符串进行了很多扩展，包括加强了Unicode的支持、
+更好的Unicode支持在ES6之前，JavaScript的字符串是完全基于16位字符编码的想法。所有字符串的属性和方法，例如：length和charAt()，都是基于16位序列代表单个字符的想法。ES5还允许Javascript引擎决定使用哪种编码方式，UCS-2或UTF-16。
+对于Unicode的既定目标，保持在16位是不可能">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="每天学点ES6－字符串">
+<meta name="twitter:description" content="ES6中对字符串进行了很多扩展，包括加强了Unicode的支持、
+更好的Unicode支持在ES6之前，JavaScript的字符串是完全基于16位字符编码的想法。所有字符串的属性和方法，例如：length和charAt()，都是基于16位序列代表单个字符的想法。ES5还允许Javascript引擎决定使用哪种编码方式，UCS-2或UTF-16。
+对于Unicode的既定目标，保持在16位是不可能">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/04/es6-string/" title="每天学点ES6－字符串" itemprop="url">每天学点ES6－字符串</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-04T05:19:42.000Z" itemprop="datePublished"> 發表於 2015-06-04</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#更好的Unicode支持"><span class="toc-number">1.</span> <span class="toc-text">更好的Unicode支持</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#codePointAt()"><span class="toc-number">1.1.</span> <span class="toc-text">codePointAt()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-fromCodePoint()"><span class="toc-number">1.2.</span> <span class="toc-text">String.fromCodePoint()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码非BMP字符"><span class="toc-number">1.3.</span> <span class="toc-text">编码非BMP字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式u修饰符"><span class="toc-number">1.4.</span> <span class="toc-text">正则表达式u修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新增的String方法"><span class="toc-number">2.</span> <span class="toc-text">新增的String方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#includes()"><span class="toc-number">2.1.</span> <span class="toc-text">includes()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#startsWith()"><span class="toc-number">2.2.</span> <span class="toc-text">startsWith()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#endsWith()"><span class="toc-number">2.3.</span> <span class="toc-text">endsWith()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#repeat()"><span class="toc-number">2.4.</span> <span class="toc-text">repeat()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式修饰符y"><span class="toc-number">3.</span> <span class="toc-text">正则表达式修饰符y</span></a></li></ol>
+		
+		</div>
+		
+		<p><code>ES6</code>中对字符串进行了很多扩展，包括加强了<code>Unicode</code>的支持、</p>
+<h2 id="更好的Unicode支持">更好的Unicode支持</h2><p>在<code>ES6</code>之前，<code>JavaScript</code>的字符串是完全基于16位字符编码的想法。所有字符串的属性和方法，例如：<code>length</code>和<code>charAt()</code>，都是基于16位序列代表单个字符的想法。<code>ES5</code>还允许<code>Javascript</code>引擎决定使用哪种编码方式，<code>UCS-2</code>或<code>UTF-16</code>。</p>
+<p>对于<code>Unicode</code>的既定目标，保持在16位是不可能的为全世界的每一个字符提供一个全局唯一的标识符。这些全局唯一标志服被称之为<code>code point</code>，且从0开始。一个字符串编码有责任编码一个<code>code point</code>为<code>code unit</code>，且保持内部一致。</p>
+<p>第一个<code>2^16</code>个<code>code point</code>在<code>UTF-16</code>中被表示为单一的16位<code>code unit</code>。这被称之为<code>Basic Multilingual Plane (BMP)</code>。超出该范围的被认为是在一个辅助平面，<code>code point</code>已不能仅仅用16位来表示了。<code>UTF-16</code>通过引入<code>surrogate pairs(代理对)</code>来解决这个问题，一个<code>code point</code>可以由两个16位的<code>code unit</code>来表示。这意味着字符串中的任何单个字符可以由一个<code>code unit</code>或两个来表示。</p>
+<p>在<code>ES5</code>中所有的操作都是基于16位的<code>code unit</code>，这意味着你在处理包含<code>代理对</code>的字符串时会出现意想不到的结果。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">"𠮷"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(text.length);           <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="regexp">/^.$/</span>.test(text));      <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charAt(<span class="number">0</span>));        <span class="comment">// ""</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charAt(<span class="number">1</span>));        <span class="comment">// ""</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charCodeAt(<span class="number">0</span>));    <span class="comment">// 55362</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charCodeAt(<span class="number">1</span>));    <span class="comment">// 57271</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，单个<code>Unicode</code>字符是使用<code>代理对</code>来表示的，<code>JavaScript</code>字符操作会认为字符串由两个16位的字符组成。这意味着<code>length</code>为2，通过正则表达式匹配单个字符也失败了，<code>charAt()</code>也无法读取字符。<code>charCodeAt()</code>方法为每个<code>code unit</code>返回了正确的16为数字。</p>
+<p>在<code>ES6</code>中强制使用<code>UTF-16</code>来编码字符串。</p>
+<h3 id="codePointAt()">codePointAt()</h3><p><code>codePointAt()</code>接受<code>code unit</code>的位置，并返回一个整数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">"𠮷a"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(text.charCodeAt(<span class="number">0</span>));    <span class="comment">// 55362</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charCodeAt(<span class="number">1</span>));    <span class="comment">// 57271</span></span><br><span class="line"><span class="built_in">console</span>.log(text.charCodeAt(<span class="number">2</span>));    <span class="comment">// 97</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(text.codePointAt(<span class="number">0</span>));   <span class="comment">// 134071</span></span><br><span class="line"><span class="built_in">console</span>.log(text.codePointAt(<span class="number">1</span>));   <span class="comment">// 57271</span></span><br><span class="line"><span class="built_in">console</span>.log(text.codePointAt(<span class="number">2</span>));   <span class="comment">// 97</span></span><br></pre></td></tr></table></figure>
+<p>当字符为<code>BMP</code>范围内的字符时，<code>codePointAt()</code>和<code>charCodeAt()</code>的行为是一样的，在非<code>BMP</code>字符时，<code>charCodeAt()</code>仅仅返回了位置<code>0</code>的<code>code unit</code>，但是<code>codePointAt()</code>返回了整个<code>code point</code>，即使横跨多个<code>code unit</code>。对于位置1和位置2的，它俩返回值是相同的。</p>
+<p>用以下方法可以判断是否为16位，还是32位：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">is32Bit</span><span class="params">(c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c.codePointAt(<span class="number">0</span>) &gt; <span class="number">0xFFFF</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(is32Bit(<span class="string">"𠮷"</span>));         <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(is32Bit(<span class="string">"a"</span>));          <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-fromCodePoint()">String.fromCodePoint()</h3><p><code>String.fromCodePoint()</code>就是和<code>codePointAt()</code>做相反的操作了。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">String</span>.fromCodePoint(<span class="number">134071</span>));  <span class="comment">// "𠮷"</span></span><br></pre></td></tr></table></figure>
+<h3 id="编码非BMP字符">编码非<code>BMP</code>字符</h3><p>在<code>ES5</code>中允许字符包含用编码序列代表的16位<code>Unicode</code>字符。编码序列是通过<code>\u</code>加上4个16进制值，例如<code>\u0061</code>代表字符<code>a</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"\u0061"</span>);      <span class="comment">// "a"</span></span><br></pre></td></tr></table></figure>
+<p>但是当你用编码序列来代表大于<code>FFFF</code>的字符时，你会得到意想不到的结果：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"\u20BB7"</span>);</span><br></pre></td></tr></table></figure>
+<p>因为<code>Unicode</code>编码序列总是包含4个16进制字符，<code>ECMAScript</code>计算<code>\u20BB7</code>为两个字符：<code>\u20BB</code>和<code>7</code>。第一个字符为非打印的，第二个为数字7。</p>
+<p><code>ES6</code>通过引入扩展的<code>Unicode</code>编码序列解决了这个问题，将16进制数字包含在花括号内。这使得任何数量的十六进制字符可以指定为单个字符：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">"\u&#123;20BB7&#125;"</span>);     <span class="comment">// "𠮷"</span></span><br></pre></td></tr></table></figure>
+<p>通过下面的函数可以判断是否支持这种写法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">supportsExtendedEscape</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="built_in">eval</span>(<span class="string">"'\\u&#123;00FF1&#125;'"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="正则表达式u修饰符">正则表达式<code>u</code>修饰符</h3><p>正则表达式也是基于16位的<code>code unit</code>来代表单个字符，这就对于<code>𠮷</code>在<code>/^.$/</code>的正则表达式中不能匹配，<code>ES6</code>为正则表达式定义了一个新的修饰符，<code>u</code>也即<code>Unicode</code>。当一个正则表达式设置了<code>u</code>修饰符时，它将切换模式为工作在字符串，而不是<code>code unit</code>。这意味着正则表达式在包含<code>代理对</code>的字符串中不会迷惑。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">"𠮷"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(text.length);           <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="regexp">/^.$/</span>.test(text));      <span class="comment">// false</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="regexp">/^.$/u</span>.test(text));     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>在添加了<code>u</code>修饰符的正则表达式能以字符的方式来匹配字符串，而不是<code>code unit</code>。</p>
+<h2 id="新增的String方法">新增的<code>String</code>方法</h2><h3 id="includes()">includes()</h3><p>如果给定字符在字符串的任何位置被找到，则返回<code>true</code>，否则返回<code>false</code>。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> msg = <span class="string">"Hello world!"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(msg.includes(<span class="string">"ello"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="startsWith()">startsWith()</h3><p>如果字符串以给定字符开始，则返回<code>true</code>，否则返回<code>false</code>。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> msg = <span class="string">"Hello world!"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(msg.startsWith(<span class="string">"Hello"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="endsWith()">endsWith()</h3><p>如果字符串以给定字符结束，则返回<code>true</code>，否则返回<code>false</code>。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> msg = <span class="string">"Hello world!"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(msg.endsWith(<span class="string">"world!"</span>));</span><br></pre></td></tr></table></figure>
+<h3 id="repeat()">repeat()</h3><p>该方法接受一个数字作为参数，表示将原字符串重复的次数。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">"cookfront"</span>;</span><br><span class="line"><span class="built_in">console</span>.log(str.repeat(<span class="number">3</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="正则表达式修饰符y">正则表达式修饰符<code>y</code></h2><p><code>ES6</code>引入了新的正则表达式修饰符<code>y</code>，也即<code>粘连</code>，它与<code>g</code>修饰符比较类似，但是不同之处在于，<code>g</code>修饰符只确保剩余位置中存在匹配，而<code>y</code>修饰符确保匹配必须从剩余的第一个位置开始，这也就是<code>粘连</code>的涵义。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> text = <span class="string">"hello1 hello2 hello3"</span>,</span><br><span class="line">    pattern = <span class="regexp">/hello\d\s?/</span>,</span><br><span class="line">    result = pattern.exec(text),</span><br><span class="line">    globalPattern = <span class="regexp">/hello\d\s?/g</span>,</span><br><span class="line">    globalResult = globalPattern.exec(text),</span><br><span class="line">    stickyPattern = <span class="regexp">/hello\d\s?/y</span>,</span><br><span class="line">    stickyResult = stickyPattern.exec(text);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result[<span class="number">0</span>]);         <span class="comment">// "hello1 "</span></span><br><span class="line"><span class="built_in">console</span>.log(globalResult[<span class="number">0</span>]);   <span class="comment">// "hello1 "</span></span><br><span class="line"><span class="built_in">console</span>.log(stickyResult[<span class="number">0</span>]);   <span class="comment">// "hello1 "</span></span><br><span class="line"></span><br><span class="line">pattern.lastIndex = <span class="number">1</span>;</span><br><span class="line">globalPattern.lastIndex = <span class="number">1</span>;</span><br><span class="line">stickyPattern.lastIndex = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">result = pattern.exec(text);</span><br><span class="line">globalResult = globalPattern.exec(text);</span><br><span class="line">stickyResult = stickyPattern.exec(text);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(result[<span class="number">0</span>]);         <span class="comment">// "hello1 "</span></span><br><span class="line"><span class="built_in">console</span>.log(globalResult[<span class="number">0</span>]);   <span class="comment">// "hello2 "</span></span><br><span class="line"><span class="built_in">console</span>.log(stickyResult[<span class="number">0</span>]);   <span class="comment">// Error! stickyResult is null</span></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，使用了三个正则表达式，一个使用了<code>y</code>修饰符，一个使用了<code>g</code>修饰符，一个没有使用修饰符。第一次匹配时我们可以看到结果都为<code>hello1</code>，匹配后我们将<code>lastIndex</code>置为1，即从第二个字符开始匹配，我们可以看到第二次匹配的结果没有修饰符的还是匹配<code>hello1</code>，<code>g</code>修饰符的匹配<code>hello2</code>，<code>y</code>修饰符在从第二个字符开始没有匹配任何东西所以返回<code>null</code>。我们也可以看出了<code>y</code>修饰符号隐含了头部匹配的标志<code>^</code>。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/06/04/es6-string/" data-title="每天学点ES6－字符串 | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/06/02/es6-destructing/"  title="每天学点ES6－变量解构">
+ <strong>下一篇：</strong><br/> 
+ <span>每天学点ES6－变量解构
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/06/04/es6-string/" data-title="每天学点ES6－字符串" data-url="http://cookfront.github.io/2015/06/04/es6-string/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#更好的Unicode支持"><span class="toc-number">1.</span> <span class="toc-text">更好的Unicode支持</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#codePointAt()"><span class="toc-number">1.1.</span> <span class="toc-text">codePointAt()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-fromCodePoint()"><span class="toc-number">1.2.</span> <span class="toc-text">String.fromCodePoint()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编码非BMP字符"><span class="toc-number">1.3.</span> <span class="toc-text">编码非BMP字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则表达式u修饰符"><span class="toc-number">1.4.</span> <span class="toc-text">正则表达式u修饰符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#新增的String方法"><span class="toc-number">2.</span> <span class="toc-text">新增的String方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#includes()"><span class="toc-number">2.1.</span> <span class="toc-text">includes()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#startsWith()"><span class="toc-number">2.2.</span> <span class="toc-text">startsWith()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#endsWith()"><span class="toc-number">2.3.</span> <span class="toc-text">endsWith()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#repeat()"><span class="toc-number">2.4.</span> <span class="toc-text">repeat()</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#正则表达式修饰符y"><span class="toc-number">3.</span> <span class="toc-text">正则表达式修饰符y</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>4</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1e9fdadfaa36dffc9a8914a1220e8161' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
