@@ -1,0 +1,514 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cookfront's Blog">
+<meta property="og:url" content="http://cookfront.github.io/2015/06/07/es6-object/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cookfront's Blog">
+<meta name="twitter:description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/07/es6-object/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-07T10:51:55.000Z" itemprop="datePublished"> 發表於 2015-06-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每天学点ES6－对象"><span class="toc-number">1.</span> <span class="toc-text">每天学点ES6－对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">1.2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">1.3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">1.4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">1.5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">1.6.</span> <span class="toc-text">super引用</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h1 id="每天学点ES6－对象">每天学点ES6－对象</h1><p>本文内容来自于：<a href="https://leanpub.com/understandinges6/read#leanpub-auto-objectis" target="_blank" rel="external">https://leanpub.com/understandinges6/read#leanpub-auto-objectis</a>。内容有删减，有不懂的地方可以看原文哟。</p>
+<p><code>ES6</code>对对象也进行了很多扩展，比如属性和方法的简写方式、<code>Object.assign()</code>等。下面来一一介绍<code>ES6</code>中对象的扩展。</p>
+<h2 id="属性和方法的简写">属性和方法的简写</h2><p>在<code>ES5</code>或者更早时，对象直接量其实就是简单的<code>名－值</code>对集合，这意味着当属性值被初始化时可能会有一些重复。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span><span class="params">(name, age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name: name,</span><br><span class="line">        age: age</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>createPerson()</code>创建了一个对象，这个对象的属性名称和函数的参数名称是一样的。其结果是导致了<code>name</code>和<code>age</code>的复制，尽管每个表示一个过程的不同方面。</p>
+<p>在<code>ES6</code>中，当属性名和局部变量名是一样时，我们可以省略它后面的冒号和值。例如，上面的例子可以重写为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span><span class="params">(name, age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name,</span><br><span class="line">        age</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当一个对象直接量的一个属性只有名称没有值时，<code>JavaScript</code>引擎会在周围作用域中寻找和属性名有相同名称的变量。如果找到，值就被赋给对象直接量中相同名的属性。所以在这个例子中，对象直接量的属性<code>name</code>被赋值为局部变量<code>name</code>的值。</p>
+<p>除了属性可以简写外，方法也是可以简写的。在<code>ES5</code>或之前，我们定义方法必须像下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    sayName: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但在<code>ES6</code>中，通过省略冒号和<code>function</code>关键字，使语法变得更加简洁。你可以重写之前的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    sayName() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="计算属性名">计算属性名</h2><p>在<code>JavaScript</code>中，我们定义属性时，有两种方式：中括号<code>[]</code>或<code>.</code>的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">obj.foo = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">obj[<span class="string">'a'</span>+<span class="string">'bc'</span>] = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<p><code>.</code>运算符具有很大的局限性，比如<code>first name</code>这种属性只能通过中括号的方式来定义。中括号的方式允许我们使用变量或者在使用标识符时会导致语法错误的字符串直接量来定义属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;&#125;,</span><br><span class="line">    lastName = <span class="string">"last name"</span>;</span><br><span class="line"></span><br><span class="line">person[<span class="string">"first name"</span>] = <span class="string">"Nicholas"</span>;</span><br><span class="line">person[lastName] = <span class="string">"Zakas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br><span class="line"><span class="built_in">console</span>.log(person[lastName]);          <span class="comment">// "Zakas"</span></span><br></pre></td></tr></table></figure>
+<p>这两种方式只能通过中括号的方式来定义的。在<code>ES5</code>中，你可以在对象直接量中使用字符串直接量作为属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Nicholas"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure>
+<p>但是当我们的属性名存在一个变量中或者需要计算时，使用对象直接量是无法定义属性的。但是在<code>ES6</code>中计算属性名语法，同样是通过中括号的方式。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lastName = <span class="string">"last name"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Nicholas"</span>,</span><br><span class="line">    [lastName]: <span class="string">"Zakas"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br><span class="line"><span class="built_in">console</span>.log(person[lastName]);          <span class="comment">// "Zakas"</span></span><br></pre></td></tr></table></figure>
+<p>在对象直接量中的中括号表明属性名是需要被计算的，它的内容被计算为字符串。</p>
+<h2 id="Object-assign()">Object.assign()</h2><p>对于对象构成最流行的模式之一可能是<code>mixin</code>，一个对象从另一个对象中接收属性和方法。许多<code>JavaScript</code>库都有一个类似下面的<code>mixin</code>方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mixin</span><span class="params">(receiver, supplier)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(supplier).forEach(<span class="function"><span class="keyword">function</span><span class="params">(key)</span> </span>&#123;</span><br><span class="line">        receiver[key] = supplier[key];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> receiver;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>mixin()</code>方法遍历<code>supplier</code>对象的自有属性，并将其拷贝到<code>receiver</code>。这就使得<code>receiver</code>没有通过继承就获得了新的行为。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventTarget</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">EventTarget.prototype = &#123;</span><br><span class="line">    constructor: EventTarget,</span><br><span class="line">    emit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;,</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;;</span><br><span class="line">mixin(myObject, EventTarget.prototype);</span><br><span class="line"></span><br><span class="line">myObject.emit(<span class="string">"somethingChanged"</span>);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>myObject</code>从<code>EventTarget.prototype</code>接收了新的行为。</p>
+<p>为此在<code>ES6</code>中添加了<code>Object.assign()</code>，它和<code>mixin()</code>的行为一样。但不同之处在于，<code>mixin()</code>使用赋值运算符<code>=</code>来拷贝，它不能拷贝访问属性<code>accessor properties</code>到接受者作为访问属性。<code>Object.assign()</code>是可以做到这点的。</p>
+<p>我们可以使用<code>Object.assign()</code>重写上面的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventTarget</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">EventTarget.prototype = &#123;</span><br><span class="line">    constructor: EventTarget,</span><br><span class="line">    emit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;,</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.assign(myObject, EventTarget.prototype);</span><br><span class="line"></span><br><span class="line">myObject.emit(<span class="string">"somethingChanged"</span>);</span><br></pre></td></tr></table></figure>
+<p><code>Object.assign()</code>可以接受任意多个提供属性的对象，接收者则按顺序从提供者接收属性，这可能会导致第二个提供者会覆盖第一个提供者提供给接收者的属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> receiver = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(receiver, &#123;</span><br><span class="line">        type: <span class="string">"js"</span>,</span><br><span class="line">        name: <span class="string">"file.js"</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        type: <span class="string">"css"</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(receiver.type);     <span class="comment">// "css"</span></span><br><span class="line"><span class="built_in">console</span>.log(receiver.name);     <span class="comment">// "file.js"</span></span><br></pre></td></tr></table></figure>
+<p>下面再看看<code>Object.assign()</code>用于访问属性的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> receiver = &#123;&#125;,</span><br><span class="line">    supplier = &#123;</span><br><span class="line">        get name() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"file.js"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(receiver, supplier);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(receiver, <span class="string">"name"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(descriptor.value);      <span class="comment">// "file.js"</span></span><br><span class="line"><span class="built_in">console</span>.log(descriptor.get);        <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<h2 id="重复对象字面量属性">重复对象字面量属性</h2><p>在<code>ES5</code>的严格模式中，引入了一个对重复对象字面量属性的检查，它会抛出一个错误如果发现了重复属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    name: <span class="string">"Greg"</span>        <span class="comment">// syntax error in ES5 strict mode</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是在<code>ES6</code>中，重复属性检查已经被移除了。不管是<code>strict</code>和<code>nostrict</code>模式都不会取检查重复属性，它会取给定名称的最后一个属性作为实际值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    name: <span class="string">"Greg"</span>        <span class="comment">// not an error in ES6</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name);       <span class="comment">// "Greg"</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>person.name</code>的值为<code>Greg</code>，因为它是赋给该属性的最后一个值。</p>
+<h2 id="改变原型">改变原型</h2><p>原型是<code>JavaScript</code>继承时的基础，因此，<code>ES6</code>使得原型更强大。<code>ES5</code>中添加了<code>Object.getPrototypeOf()</code>方法来检索任何给定对象的原型。在<code>ES6</code>中添加了相反操作的方法，<code>Object.setPrototypeOf()</code>，它允许我们改变任何给定对象的原型。</p>
+<p>在<code>ES6</code>之前，我们无法在对象创建后来改变其原型，<code>ES6</code>的<code>Object.setPrototypeOf()</code>打破了这一情况。<code>Object.setPrototypeOf()</code>接收两个参数，第一个参数为要改变原型的对象，第二个参数为被设置为第一个对象的原型的对象。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Woof"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype is person</span></span><br><span class="line"><span class="keyword">let</span> friend = <span class="built_in">Object</span>.create(person);</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Hello"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === person);  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// set prototype to dog</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(friend, dog);</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Woof"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === dog);     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这段代码中，我们有两个基本对象：<code>person</code>和<code>dog</code>，两个对象都有一个<code>getGreeting()</code>的方法，对象<code>friend</code>首先从<code>person</code>中继承，意味着调用<code>getGreeting()</code>会输出<code>Hello</code>。当我们改变<code>friend</code>的原型为<code>dog</code>时，此时<code>getGreeting()</code>输出<code>Woof</code>。</p>
+<p>一个对象的原型的实际值是存储在一个内部属性<code>[[Prototype]]</code>中。<code>Object.getPrototypeOf()</code>方法返回存储在<code>[[Prototype]]</code>的值，而<code>Object.setPrototypeOf()</code>改变存储在<code>[[Prototype]]</code>上的值。</p>
+<h2 id="super引用"><code>super</code>引用</h2><p>在<code>ES6</code>中我们可以通过<code>super</code>引用来调用原型上的方法。例如，如果你想覆盖一个对象实例上的方法，但它同样需要去调用相同名字的原型方法，在<code>ES5</code>中我们可以通过以下方式来实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Woof"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype is person</span></span><br><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    __proto__: person,</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="comment">// same as this.__proto__.getGreeting.call(this)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.getPrototypeOf(<span class="keyword">this</span>).getGreeting.call(<span class="keyword">this</span>) + <span class="string">", hi!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Hello, hi!"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === person);  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(friend.__proto__ === person);               <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// set prototype to dog</span></span><br><span class="line">friend.__proto__ = dog;</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Woof, hi!"</span></span><br><span class="line"><span class="built_in">console</span>.log(friend.__proto__ === dog);                  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === dog);     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到是通过<code>Object.getPrototypeOf(this).getGreeting.call(this)</code>的方式来实现的，但是在<code>ES6</code>中，我们不用这么复杂，只需要<code>super</code>就行了，下面是重写后的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    __proto__: person,</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="comment">// same as Object.getPrototypeOf(this).getGreeting.call(this)</span></span><br><span class="line">        <span class="comment">// or this.__proto__.getGreeting.call(this)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getGreeting() + <span class="string">", hi!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上就是本文的全部内容啦。</p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/06/07/es6-object/" data-title="Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/06/06/es6-function/"  title="每天学点ES6－函数">
+ <strong>下一篇：</strong><br/> 
+ <span>每天学点ES6－函数
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/06/07/es6-object/" data-title="" data-url="http://cookfront.github.io/2015/06/07/es6-object/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每天学点ES6－对象"><span class="toc-number">1.</span> <span class="toc-text">每天学点ES6－对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">1.2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">1.3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">1.4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">1.5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">1.6.</span> <span class="toc-text">super引用</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1e9fdadfaa36dffc9a8914a1220e8161' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

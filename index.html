@@ -80,6 +80,106 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/06/07/es6-object/" title="" itemprop="url"></a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-07T10:51:55.000Z" itemprop="datePublished"> 發表於 2015-06-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h1 id="每天学点ES6－对象">每天学点ES6－对象</h1><p>本文内容来自于：<a href="https://leanpub.com/understandinges6/read#leanpub-auto-objectis" target="_blank" rel="external">https://leanpub.com/understandinges6/read#leanpub-auto-objectis</a>。内容有删减，有不懂的地方可以看原文哟。</p>
+<p><code>ES6</code>对对象也进行了很多扩展，比如属性和方法的简写方式、<code>Object.assign()</code>等。下面来一一介绍<code>ES6</code>中对象的扩展。</p>
+<h2 id="属性和方法的简写">属性和方法的简写</h2><p>在<code>ES5</code>或者更早时，对象直接量其实就是简单的<code>名－值</code>对集合，这意味着当属性值被初始化时可能会有一些重复。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span><span class="params">(name, age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name: name,</span><br><span class="line">        age: age</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>createPerson()</code>创建了一个对象，这个对象的属性名称和函数的参数名称是一样的。其结果是导致了<code>name</code>和<code>age</code>的复制，尽管每个表示一个过程的不同方面。</p>
+<p>在<code>ES6</code>中，当属性名和局部变量名是一样时，我们可以省略它后面的冒号和值。例如，上面的例子可以重写为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span><span class="params">(name, age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name,</span><br><span class="line">        age</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当一个对象直接量的一个属性只有名称没有值时，<code>JavaScript</code>引擎会在周围作用域中寻找和属性名有相同名称的变量。如果找到，值就被赋给对象直接量中相同名的属性。所以在这个例子中，对象直接量的属性<code>name</code>被赋值为局部变量<code>name</code>的值。</p>
+<p>除了属性可以简写外，方法也是可以简写的。在<code>ES5</code>或之前，我们定义方法必须像下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    sayName: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但在<code>ES6</code>中，通过省略冒号和<code>function</code>关键字，使语法变得更加简洁。你可以重写之前的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    sayName() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="计算属性名">计算属性名</h2><p>在<code>JavaScript</code>中，我们定义属性时，有两种方式：中括号<code>[]</code>或<code>.</code>的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法一</span></span><br><span class="line">obj.foo = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法二</span></span><br><span class="line">obj[<span class="string">'a'</span>+<span class="string">'bc'</span>] = <span class="number">123</span>;</span><br></pre></td></tr></table></figure>
+<p><code>.</code>运算符具有很大的局限性，比如<code>first name</code>这种属性只能通过中括号的方式来定义。中括号的方式允许我们使用变量或者在使用标识符时会导致语法错误的字符串直接量来定义属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;&#125;,</span><br><span class="line">    lastName = <span class="string">"last name"</span>;</span><br><span class="line"></span><br><span class="line">person[<span class="string">"first name"</span>] = <span class="string">"Nicholas"</span>;</span><br><span class="line">person[lastName] = <span class="string">"Zakas"</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br><span class="line"><span class="built_in">console</span>.log(person[lastName]);          <span class="comment">// "Zakas"</span></span><br></pre></td></tr></table></figure>
+<p>这两种方式只能通过中括号的方式来定义的。在<code>ES5</code>中，你可以在对象直接量中使用字符串直接量作为属性，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Nicholas"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br></pre></td></tr></table></figure>
+<p>但是当我们的属性名存在一个变量中或者需要计算时，使用对象直接量是无法定义属性的。但是在<code>ES6</code>中计算属性名语法，同样是通过中括号的方式。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> lastName = <span class="string">"last name"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    <span class="string">"first name"</span>: <span class="string">"Nicholas"</span>,</span><br><span class="line">    [lastName]: <span class="string">"Zakas"</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person[<span class="string">"first name"</span>]);      <span class="comment">// "Nicholas"</span></span><br><span class="line"><span class="built_in">console</span>.log(person[lastName]);          <span class="comment">// "Zakas"</span></span><br></pre></td></tr></table></figure>
+<p>在对象直接量中的中括号表明属性名是需要被计算的，它的内容被计算为字符串。</p>
+<h2 id="Object-assign()">Object.assign()</h2><p>对于对象构成最流行的模式之一可能是<code>mixin</code>，一个对象从另一个对象中接收属性和方法。许多<code>JavaScript</code>库都有一个类似下面的<code>mixin</code>方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mixin</span><span class="params">(receiver, supplier)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">Object</span>.keys(supplier).forEach(<span class="function"><span class="keyword">function</span><span class="params">(key)</span> </span>&#123;</span><br><span class="line">        receiver[key] = supplier[key];</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> receiver;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>mixin()</code>方法遍历<code>supplier</code>对象的自有属性，并将其拷贝到<code>receiver</code>。这就使得<code>receiver</code>没有通过继承就获得了新的行为。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventTarget</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">EventTarget.prototype = &#123;</span><br><span class="line">    constructor: EventTarget,</span><br><span class="line">    emit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;,</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;;</span><br><span class="line">mixin(myObject, EventTarget.prototype);</span><br><span class="line"></span><br><span class="line">myObject.emit(<span class="string">"somethingChanged"</span>);</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>myObject</code>从<code>EventTarget.prototype</code>接收了新的行为。</p>
+<p>为此在<code>ES6</code>中添加了<code>Object.assign()</code>，它和<code>mixin()</code>的行为一样。但不同之处在于，<code>mixin()</code>使用赋值运算符<code>=</code>来拷贝，它不能拷贝访问属性<code>accessor properties</code>到接受者作为访问属性。<code>Object.assign()</code>是可以做到这点的。</p>
+<p>我们可以使用<code>Object.assign()</code>重写上面的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">EventTarget</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">EventTarget.prototype = &#123;</span><br><span class="line">    constructor: EventTarget,</span><br><span class="line">    emit: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;,</span><br><span class="line">    on: <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123; <span class="comment">/*...*/</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> myObject = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.assign(myObject, EventTarget.prototype);</span><br><span class="line"></span><br><span class="line">myObject.emit(<span class="string">"somethingChanged"</span>);</span><br></pre></td></tr></table></figure>
+<p><code>Object.assign()</code>可以接受任意多个提供属性的对象，接收者则按顺序从提供者接收属性，这可能会导致第二个提供者会覆盖第一个提供者提供给接收者的属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> receiver = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(receiver, &#123;</span><br><span class="line">        type: <span class="string">"js"</span>,</span><br><span class="line">        name: <span class="string">"file.js"</span></span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        type: <span class="string">"css"</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(receiver.type);     <span class="comment">// "css"</span></span><br><span class="line"><span class="built_in">console</span>.log(receiver.name);     <span class="comment">// "file.js"</span></span><br></pre></td></tr></table></figure>
+<p>下面再看看<code>Object.assign()</code>用于访问属性的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> receiver = &#123;&#125;,</span><br><span class="line">    supplier = &#123;</span><br><span class="line">        get name() &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"file.js"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(receiver, supplier);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(receiver, <span class="string">"name"</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(descriptor.value);      <span class="comment">// "file.js"</span></span><br><span class="line"><span class="built_in">console</span>.log(descriptor.get);        <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+<h2 id="重复对象字面量属性">重复对象字面量属性</h2><p>在<code>ES5</code>的严格模式中，引入了一个对重复对象字面量属性的检查，它会抛出一个错误如果发现了重复属性。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    name: <span class="string">"Greg"</span>        <span class="comment">// syntax error in ES5 strict mode</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是在<code>ES6</code>中，重复属性检查已经被移除了。不管是<code>strict</code>和<code>nostrict</code>模式都不会取检查重复属性，它会取给定名称的最后一个属性作为实际值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">    name: <span class="string">"Nicholas"</span>,</span><br><span class="line">    name: <span class="string">"Greg"</span>        <span class="comment">// not an error in ES6</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(person.name);       <span class="comment">// "Greg"</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<code>person.name</code>的值为<code>Greg</code>，因为它是赋给该属性的最后一个值。</p>
+<h2 id="改变原型">改变原型</h2><p>原型是<code>JavaScript</code>继承时的基础，因此，<code>ES6</code>使得原型更强大。<code>ES5</code>中添加了<code>Object.getPrototypeOf()</code>方法来检索任何给定对象的原型。在<code>ES6</code>中添加了相反操作的方法，<code>Object.setPrototypeOf()</code>，它允许我们改变任何给定对象的原型。</p>
+<p>在<code>ES6</code>之前，我们无法在对象创建后来改变其原型，<code>ES6</code>的<code>Object.setPrototypeOf()</code>打破了这一情况。<code>Object.setPrototypeOf()</code>接收两个参数，第一个参数为要改变原型的对象，第二个参数为被设置为第一个对象的原型的对象。例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Woof"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype is person</span></span><br><span class="line"><span class="keyword">let</span> friend = <span class="built_in">Object</span>.create(person);</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Hello"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === person);  <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// set prototype to dog</span></span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(friend, dog);</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Woof"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === dog);     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>这段代码中，我们有两个基本对象：<code>person</code>和<code>dog</code>，两个对象都有一个<code>getGreeting()</code>的方法，对象<code>friend</code>首先从<code>person</code>中继承，意味着调用<code>getGreeting()</code>会输出<code>Hello</code>。当我们改变<code>friend</code>的原型为<code>dog</code>时，此时<code>getGreeting()</code>输出<code>Woof</code>。</p>
+<p>一个对象的原型的实际值是存储在一个内部属性<code>[[Prototype]]</code>中。<code>Object.getPrototypeOf()</code>方法返回存储在<code>[[Prototype]]</code>的值，而<code>Object.setPrototypeOf()</code>改变存储在<code>[[Prototype]]</code>上的值。</p>
+<h2 id="super引用"><code>super</code>引用</h2><p>在<code>ES6</code>中我们可以通过<code>super</code>引用来调用原型上的方法。例如，如果你想覆盖一个对象实例上的方法，但它同样需要去调用相同名字的原型方法，在<code>ES5</code>中我们可以通过以下方式来实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> person = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> dog = &#123;</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Woof"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// prototype is person</span></span><br><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    __proto__: person,</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="comment">// same as this.__proto__.getGreeting.call(this)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.getPrototypeOf(<span class="keyword">this</span>).getGreeting.call(<span class="keyword">this</span>) + <span class="string">", hi!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Hello, hi!"</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === person);  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(friend.__proto__ === person);               <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// set prototype to dog</span></span><br><span class="line">friend.__proto__ = dog;</span><br><span class="line"><span class="built_in">console</span>.log(friend.getGreeting());                      <span class="comment">// "Woof, hi!"</span></span><br><span class="line"><span class="built_in">console</span>.log(friend.__proto__ === dog);                  <span class="comment">// true</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(friend) === dog);     <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>我们可以看到是通过<code>Object.getPrototypeOf(this).getGreeting.call(this)</code>的方式来实现的，但是在<code>ES6</code>中，我们不用这么复杂，只需要<code>super</code>就行了，下面是重写后的代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> friend = &#123;</span><br><span class="line">    __proto__: person,</span><br><span class="line">    getGreeting() &#123;</span><br><span class="line">        <span class="comment">// same as Object.getPrototypeOf(this).getGreeting.call(this)</span></span><br><span class="line">        <span class="comment">// or this.__proto__.getGreeting.call(this)</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.getGreeting() + <span class="string">", hi!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以上就是本文的全部内容啦。</p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/06/07/es6-object/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/06/07/es6-object/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/06/06/es6-function/" title="每天学点ES6－函数" itemprop="url">每天学点ES6－函数</a>
   </h1>
   <p class="article-author">By
@@ -1518,248 +1618,6 @@
 	
 	  	<span></span>
 		<a href="/2015/02/05/css-selectors/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/02/05/css-selectors/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/01/21/css3-animation/" title="CSS3 Animation" itemprop="url">CSS3 Animation</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
-		
-  <p class="article-time">
-    <time datetime="2015-01-21T05:47:42.000Z" itemprop="datePublished"> 發表於 2015-01-21</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>本文是<a href="http://www.w3.org/TR/web-animations/" target="_blank" rel="external">Web Animations 1.0</a>的学习和翻译，如有翻译不好的可以看看原文哟。</p>
-<h2 id="1_介绍">1 介绍</h2><p><code>CSS</code>的<a href="http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS" target="_blank" rel="external">transition</a>提供了一种在它们基本属性改变时插入<code>CSS</code>属性值的方式。这提供了一种简单的方法来实现一些简单的动画，但动画的开始和结束状态是由现有的属性值来控制，<code>transition</code>在动画如何进行上给作者提供了很少的控制。</p>
-<p>该提案中介绍了定义动画，其中作者可以使用<code>keyframe</code>来指定<code>CSS</code>属性随着时间的变化。<code>Animation</code>类似于<code>transition</code>，因为它们随时间改变CSS属性的表象值（presentational value）。主要的区别是，<code>transition</code>是当属性值改变时触发，<code>animation</code>是在<code>animation</code>属性被应用后明确的执行。正因为如此，<code>animations</code>对于正在被动画的属性需要明确的值。这些值是使用动画关键帧（keyframes）来指定的，将在下面描述。</p>
-<p>动画的许多方面可以被控制，包括多少次动画迭代，是否交替开始和结束之间的值，动画是否应该运行还是暂停。动画同样可以延迟它的开始时间。</p>
-<h2 id="2_取值">2 取值</h2><p>该规范遵循<a href="http://www.w3.org/TR/css3-animations/#CSS21" target="_blank" rel="external">CSS21</a>中的<a href="http://www.w3.org/TR/CSS21/about.html#property-defs" target="_blank" rel="external">CSS属性定义约定</a>。在该规范中没有定义的值的类型被定义在<code>CSS Level 2 Revision 1</code><a href="http://www.w3.org/TR/css3-animations/#CSS21" target="_blank" rel="external">[CSS21]</a>。其他CSS模块可能扩展这些值类型的定义：例如<a href="http://www.w3.org/TR/css3-animations/#CSS3VAL" target="_blank" rel="external">[CSS3VAL)]</a>，当与该模块结合时，扩展<code>&lt;length&gt;</code>值类型的定义将在本规范中使用。</p>
-<p>除了在它们的定义中列出的属性的特定值，在该规范中定义的所有属性也接受了<a href="http://dev.w3.org/csswg/css3-values/#common-keywords" target="_blank" rel="external">initial</a>和<a href="http://www.w3.org/TR/CSS21/cascade.html#value-def-inherit" target="_blank" rel="external">inherit</a>关键字作为他们的属性值。因为可读性原因，并未明确重复。</p>
-<h2 id="3_动画">3 动画</h2><p><code>CSS</code>动画影响属性的计算值。在动画的执行期间，对于属性的计算值是由动画控制。这将会覆盖在正常样式系统中指定的值。动画覆盖所有一般规则，但会被<code>!important</code>规则所覆盖。</p>
-<p>如果在一个时间点有多个动画为同一个属性指定了行为，则该动画名出现在<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>值的最后一个会覆盖其他动画。</p>
-<p>一个动画在动画应用程序之前、动画延迟到期前和动画结束后不会影响计算值。</p>
-<center><br><img src="http://www.w3.org/TR/css3-animations/sandwich.png" alt="enter image description here"><br></center>
-
-<center><br>图片1：动画属性值的计算<br></center>
-
-<p>上图显示了属性值如何计算。本身的样式显示在图的顶部，当动画没有运行和动画被延迟时，计算值是从本身样式衍生而来。在动画运行期间，计算样式是由动画值衍生而来。</p>
-<p>动画的开始时间是后面的两个时刻：样式被解析出指定了动画的时间，或文档的<code>load</code>事件被触发。因此，在文档的样式表中指定的动画是在文档加载后开始。通过修改元素样式的指定动画会在文档被加载后且该样式被解析后开始。这可能在伪元素样式规则下立即执行，例如<code>hover</code>，或者是脚本引擎将控制返回给浏览器。</p>
-<p>当元素有一个<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>的值引用了一个有效的<code>keyframes</code>规则时，动画才会应用到元素上。一旦动画开始，它会继续直到结束，或者<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>被移除。用于关键帧和动画属性的值当动画开始时被快照。在动画执行期间改变它们是没有效果的。另外要注意，改变<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>的值并不一定会重新启动动画（例如：如果一个动画列表被应用，且其中一个从列表中移除，只有那个动画会暂停，其他动画会继续运行）。为了重新启动动画，它必须被移除，然后重新应用。</p>
-<p>动画的结束是由<a href="http://www.w3.org/TR/css3-animations/#animation-duration" target="_blank" rel="external">animation-duration</a>、<a href="http://www.w3.org/TR/css3-animations/#animation-iteration-count" target="_blank" rel="external">animation-iteration-count</a>和<a href="http://www.w3.org/TR/css3-animations/#animation-fill-mode" target="_blank" rel="external">animatioin-fill-mode</a>属性结合一起定义的。</p>
-<p><strong>实例1：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">div</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-name</span>:<span class="value"> diagonal-slide</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-duration</span>:<span class="value"> <span class="number">5s</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">animation-iteration-count</span>:<span class="value"> <span class="number">10</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> diagonal-slide </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="tag">from</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">to</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>以上会产生用五秒将元素<code>(0, 0)</code>移动到<code>(100px, 100px)</code>，并且重复十次。</p>
-<p>当设置<code>display</code>属性为<code>none</code>时，会终止任何被应用在元素和它后代的运行中的动画。如果元素的<code>diaplay</code>为<code>none</code>，当更新它的<code>display</code>值不为<code>none</code>的任何值时所有通过<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>运用到元素的动画会开始运行，也同样包括它后代的<code>display</code>不为<code>none</code>的动画。</p>
-<p>虽然作者可以使用动画来创建动态变化的内容，动态变化的内容可以导致在某些用户癫痫。有关如何避免内容导致癫痫发作的信息，可以看<a href="http://www.w3.org/TR/WCAG20/#seizure" target="_blank" rel="external">Guideline 2.3: Seizures: Do not design content in a way that is known to cause seizures</a></p>
-<h2 id="4_关键帧（keyframes）">4 关键帧（keyframes）</h2><p>关键帧被用于在动画过程中指定用于在各个点的动画属性的值。关键帧指定了动画的一个周期的行为，动画可以迭代一次或多次。</p>
-<p>关键帧是使用专门的<code>CSS</code>的<code>@</code>规则来指定。一个<code>@keyframes</code>规则包含了关键字<code>@keyframes</code>，然后跟着标识符给出动画的名称（它会被<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>引用到），最后是一组样式规则（由大括号分隔）。</p>
-<p>对于关键帧样式规则的<strong>关键帧选择器（keyframe selector）</strong>包含了由逗号分隔的百分比值列表或关键字<code>from</code>或<code>to</code>。选择器用于指定沿该关键帧代表的该动画的持续时间的百分比。关键帧本身是通过在选择器声明的属性值块中指定。关键字<code>from</code>等价于<code>0%</code>，关键字<code>to</code>等价于<code>100%</code>。</p>
-<p>如果<code>0%</code>或<code>from</code>没有被指定，那么用户代理会使用将要动画的属性的计算值构造一个<code>0%</code>的关键帧。如果<code>100%</code>或<code>to</code>没有被指定，那么用户代理会使用将要动画的属性的计算值构造一个<code>100%</code>的关键帧。如果关键帧选择器指定了一个负的或者是大于<code>100%</code>百分比值，该关键帧将被忽略。</p>
-<p>一个关键帧规则的<strong>关键帧声明块（keyframe declaration block）</strong>包含属性和值，那些不能动画的属性将在规则中被忽略，除了<a href="http://www.w3.org/TR/css3-animations/#animation-timing-function" target="_blank" rel="external">animation-timing-function</a>之外，该属性的行为将在下面说明。此外，关键帧规则声明中想具有<code>!important</code>资格将被忽略（没有!important优先级）。</p>
-<p>动画所使用的<code>@keyframes</code>规则将是在被排序后的规则顺序中最后一个遇到的，且匹配在<a href="http://www.w3.org/TR/css3-animations/#animation-name" target="_blank" rel="external">animation-name</a>引用到）属性中指定的动画名称 。<code>@keyframes</code>规则不会层叠；因此，一个动画永远不会从多个<code>@keyframes</code>规则中获得关键帧。</p>
-<p>为了确定该组的关键帧，所有的选择器的值按时间递增顺序排序。如果有任何重复，那么<code>@keyframes</code>规则内指定的最后一个关键帧将被用于提供那时关键帧的信息。如果有多个关键帧指定了相同的关键帧选择器值时，在<code>@keyframes</code>规则中不会重叠。</p>
-<p>如果一个属性不是为关键帧指定，或者它的指定是无效的，动画的那个属性进行就好像那个关键帧不存在一样。概念上，就好像构造一组关键帧的每个属性存在于任何关键帧，且动画是为每个属性独立运行的。</p>
-<p><strong>实例2：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> wobble </span>&#123;</span><br><span class="line">  0% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  40% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">150px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  60% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">75px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  100% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">left</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>四个关键帧在动画名为<code>wobble</code>的动画中指定。在第一个关键帧中，显示了动画周期的开始，<code>left</code>属性的值被动画到<code>100px</code>。在<code>40%</code>时，<code>left</code>为<code>150px</code>。以此类推。下面的图展示了动画的状态，如果动画持续时间被指定为10s的话。</p>
-<p><ceter><br><img src="http://www.w3.org/TR/css3-animations/animation1.png" alt="enter image description here"><br></ceter></p>
-<p>下面是关键帧规则的语法：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">keyframes_rule: KEYFRAMES_SYM S+ IDENT S* <span class="string">'&#123;'</span> S* keyframes_blocks <span class="string">'&#125;'</span> S*;</span><br><span class="line"></span><br><span class="line">keyframes_blocks: [ keyframe_selector <span class="string">'&#123;'</span> S* declaration? [ <span class="string">';'</span> S* declaration? ]* <span class="string">'&#125;'</span> S* ]* ;</span><br><span class="line"></span><br><span class="line">keyframe_selector: [ FROM_SYM | TO_SYM | PERCENTAGE ] S* [ <span class="string">','</span> S* [ FROM_SYM | TO_SYM | PERCENTAGE ] S* ]*;</span><br><span class="line"></span><br><span class="line">@&#123;K&#125;&#123;E&#125;&#123;Y&#125;&#123;F&#125;&#123;R&#125;&#123;A&#125;&#123;M&#125;&#123;E&#125;&#123;S&#125;   &#123;<span class="keyword">return</span> KEYFRAMES_SYM;&#125;</span><br><span class="line">&#123;F&#125;&#123;R&#125;&#123;O&#125;&#123;M&#125;                   &#123;<span class="keyword">return</span> FROM_SYM;&#125;</span><br><span class="line">&#123;T&#125;&#123;O&#125;                         &#123;<span class="keyword">return</span> TO_SYM;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4-1_关键帧的缓动函数">4.1 关键帧的缓动函数</h3><p>关键帧样式同样可以定义缓动函数，这个缓动函数将用于动画从这个帧运行到下个帧。</p>
-<p><strong>实例3：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">keyframes</span> bounce </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="tag">from</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-out</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  25% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">50px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-in</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  50% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-out</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  75% <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">75px</span></span></span>;</span><br><span class="line">    <span class="rule"><span class="attribute">animation-timing-function</span>:<span class="value"> ease-in</span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">to</span> <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">top</span>:<span class="value"> <span class="number">100px</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>动画名为<code>bounce</code>的动画指定了五个关键帧。在第一个关键帧到第二个关键帧之间使用的缓动函数为<code>ease-out</code>（也即0%到25%），25%到50%之间使用的缓动函数为<code>ease-in</code>，以此类推了。</p>
-<p>在<code>100%</code>或<code>to</code>上指定的缓动函数将被忽略。</p>
-<h3 id="4-2_animation-name属性">4.2 <code>animation-name</code>属性</h3><p><code>animation-name</code>属性定义了应用的动画列表。每一个名字被用于选择关键帧规则，以提供该动画的属性值。如果该名字没有匹配任何关键帧<code>@</code>规则，没有属性进行动画且动画将不会执行（这里指的是该名字指定的动画，而不是说整个动画不会执行）。此外，如果动画名称为<code>none</code>，那么将不会有动画。这可以用于覆盖层叠而来的任何动画。如果多个动画尝试修改同一个属性，那么靠近列表的最后的动画会胜出。</p>
-<p>对于下面列出的其他动画属性的值，按名称列出的每个动画应该有相应的值（简单点说，比如我定义了animation-name: aa bb; 在animation-duration中应该有相应的值，例如animation-name: 2s 4s;或者其他）。如果对于其他动画属性值的列表不具有相同的长度，<code>animation-name</code>列表的长度决定了启动动画时检查每个列表项的数量。列表是从第一个值开始匹配：不使用尾部剩余的值。如果其他属性中的一个没有足够的逗号分隔的值去匹配<code>animation-name</code>属性值的数量时，用户代理必须通过列表中的值计算，直到有足够的值。这些截断和重复不影响属性的计算值。</p>
-<ul>
-<li>名称：<code>animation-name</code></li>
-<li>取值：<code>&lt;single-animation-name&gt; [ ‘,’ &lt;single-animation-name&gt; ]*</code></li>
-<li>初始值：<code>none</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-name&gt; = none | &lt;IDENT&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="4-3_animation-duration属性">4.3 <code>animation-duration</code>属性</h3><p><code>animation-duration</code>属性一个动画完成一个周期的时间。</p>
-<ul>
-<li>名称：<code>animation-duration</code></li>
-<li>取值：<code>&lt;time&gt; [, &lt;time&gt;]*</code></li>
-<li>初始值：<code>0s</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>初始值为<code>0s</code>，这意味着动画不花时间。当持续时间为<code>0s</code>时，<code>animation-fill-mode</code>仍然会被应用，所以一个动画填充为<code>backwards</code>将在一个延迟时间（如果有的话）后显示<code>0%</code>的关键帧，填充为<code>forwards</code>的将显示<code>100%</code>的关键帧，即使动画是瞬时的。同样，动画事件也会被触发。一个负的<code>animation-duration</code>值将导致该声明无效。</p>
-<h3 id="4-4_animation-timing-function属性">4.4 <code>animation-timing-function</code>属性</h3><p><code>animation-timing-function</code>属性描述了动画在一个周期内如何进展。更多关于缓动函数：<a href="http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS" target="_blank" rel="external">http://www.w3.org/TR/css3-animations/#CSS3-TRANSITIONS</a></p>
-<ul>
-<li>名称：<code>animation-timing-function</code></li>
-<li>取值：<code>&lt;single-timing-function&gt; [ ‘,’ &lt;single-timing-function&gt; ]*</code></li>
-<li>初始值：<code>ease</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<h3 id="4-5_animation-iteration-count属性">4.5 <code>animation-iteration-count</code>属性</h3><p>这个属性看名字就能看出来了，它定义动画运行周期的次数。初始值为<code>1</code>，意味着动画会从开始到结束运行一次。一个<code>infinite</code>值将会使动画运行无限次。非整数的值将会导致动画运行到一个循环的一部分结束。<code>animation-iteration-count</code>属性值为负值时是无效的。这个属性通常结合<code>animation-direction</code>属性值的<code>alternate</code>使用，这会导致动画交替运行。</p>
-<ul>
-<li>名称：<code>animation-iteration-count</code></li>
-<li>取值：<code>&lt;single-animation-iteration-count&gt; [ ‘,’ &lt;single-animation-iteration-count&gt; ]*</code></li>
-<li>初始值：1</li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-iteration-count&gt; = infinite | &lt;number&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="4-6_animation-direction属性">4.6 <code>animation-direction</code>属性</h3><p><code>animation-direction</code>属性定义了动画运行的方向。当一个动画运行是<code>reverse</code>（倒着运行）时，缓动函数也将是相反的。例如，当指定的缓动函数为<code>ease-in</code>，倒着运行时缓动函数为<code>ease-out</code>。</p>
-<ul>
-<li>名称：<code>animation-direction</code></li>
-<li>取值：<code>&lt;single-animation-direction&gt; [ ‘,’ &lt;single-animation-direction&gt; ]*</code></li>
-<li>初始值：<code>normal</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-direction&gt; = normal | reverse | alternate | alternate-reverse</span><br></pre></td></tr></table></figure>
-<p>属性值的意义：</p>
-<p><strong>normal</strong><br>动画的所有迭代按着指定的运行</p>
-<p><strong>reverse</strong><br>动画的所有迭代按着定义的相反方向来运行</p>
-<p><strong>alternate</strong><br>动画周期在奇数次按着<code>normal</code>方向运行，偶数次按着<code>reverse</code>方向运行。也就是交替运行</p>
-<p><strong>alternate-reverse</strong><br>这个和<code>alternate</code>相反。奇数次按着<code>reverse</code>方向运行，偶数次按着<code>normal</code>方向运行</p>
-<h3 id="4-7_animation-play-state属性">4.7 <code>animation-play-state</code>属性</h3><p><code>animation-play-state</code>属性定义了动画是否运行还是暂停。一个运行中的动画可以通过设置该属性为<code>pasued</code>。为了继续运行这个暂停的动画可以设置该属性为<code>running</code>。一个暂停的动画将继续处于静止状态显示动画的当前值，就好像动画的时间是常数。当已暂停的动画被恢复，它从当前值重新启动，而没必要从动画的开始。</p>
-<ul>
-<li>名称：<code>animation-play-state</code></li>
-<li>取值：<code>&lt;single-animation-play-state&gt; [ ‘,’ &lt;single-animation-play-state&gt; ]*</code></li>
-<li>初始值：<code>running</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-play-state&gt; = running | paused</span><br></pre></td></tr></table></figure>
-<h3 id="4-8_animation-delay属性">4.8 <code>animation-delay</code>属性</h3><p><code>animation-delay</code>属性定义了动画什么时候开始。它允许动画开始执行一段时间（就是延迟一段时间执行）后在它被应用之后。当<code>animation-delay</code>的值为<code>0s</code>，意味着动画会在被应用后立即执行。否则，该值指定了从动画被应用时刻的偏移，以及动画将用该偏移延迟执行。</p>
-<p>如果<code>animation-delay</code>的值是负的时间偏移，则动画将在它被应用的时刻执行，但是会出现在指定的偏移开始执行。也就是说，动画会出现从运行周期的一部分开始。</p>
-<ul>
-<li>名称：<code>animation-delay</code></li>
-<li>取值：<code>&lt;time&gt; [, &lt;time&gt;]*</code></li>
-<li>初始值：0s</li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<h3 id="4-9_animation-fill-mode属性">4.9 <code>animation-fill-mode</code>属性</h3><p><code>animation-fill-mode</code>属性定义了什么值被应用在动画之外的执行时间。默认情况下，动画不会影响在它被应用的时间和它开始执行的时间之间的属性值。同样，默认情况下动画也不会影响在动画结束后的属性值。<code>animation-fill-mode</code>可以覆盖这种行为。</p>
-<p>如果<code>animation-fill-mode</code>的值为<code>backwards</code>，则动画会应用在定义在动画第一个迭代开始的关键帧的属性值，在定义在<code>animation-delay</code>的时间之间。</p>
-<p>如果<code>animation-fill-mode</code>的值为<code>forwards</code>，则在动画结束后，动画将应用在动画结束后的属性值。</p>
-<p>如果<code>animation-fill-mode</code>的值为<code>both</code>，则动画会遵循<code>backwards</code>和<code>forwards</code>的规则。也就是说，它会扩展两个方向的动画属性。</p>
-<ul>
-<li>名称：<code>animation-fill-mode</code></li>
-<li>取值：<code>&lt;single-animation-fill-mode&gt; [ ‘,’ &lt;single-animation-fill-mode&gt; ]*</code></li>
-<li>初始值：<code>none</code></li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：指定的值</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation-fill-mode&gt; = none | forwards | backwards | both</span><br></pre></td></tr></table></figure>
-<h3 id="4-10_animation简写属性">4.10 <code>animation</code>简写属性</h3><p><code>animation</code>属性是一个逗号分隔的动画定义列表，其中结合了7个动画属性成单个组件的值。</p>
-<ul>
-<li>名称：<code>animation</code></li>
-<li>取值：<code>&lt;single-animation&gt; [ ‘,’ &lt;single-animation&gt; ]*</code></li>
-<li>初始值：看单个属性的初始值</li>
-<li>应用于：所有元素，<code>::before</code>和<code>::after</code>伪元素</li>
-<li>继承：无</li>
-<li>可否动画：否</li>
-<li>百分比：<code>N/A</code></li>
-<li>媒体：视觉</li>
-<li>计算值：看单个属性</li>
-</ul>
-<p>其中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;single-animation&gt; = &lt;single-animation-name&gt; || &lt;time&gt; || &lt;single-animation-timing-function&gt; || &lt;time&gt; || &lt;single-animation-iteration-count&gt; || &lt;single-animation-direction&gt; || &lt;single-animation-fill-mode&gt; || &lt;single-animation-play-state&gt;</span><br></pre></td></tr></table></figure>
-<p>要注意，在每个动画定义中顺序是非常重要的：第一个<code>&lt;time&gt;</code>值被赋给<code>animation-duration</code>，第二个<code>&lt;time&gt;</code>值赋给<code>animation-delay</code>。</p>
-<h2 id="5_动画事件">5 动画事件</h2><p>事件相关可以自己看文档啦：<a href="http://www.w3.org/TR/css3-animations/#animation-events" target="_blank" rel="external">http://www.w3.org/TR/css3-animations/#animation-events</a></p>
-<p>这里说下动画的三个事件：</p>
-<ul>
-<li>animationStart：发生在动画开始</li>
-<li>animationEnd：发生在动画结束</li>
-<li>animationiteration：发生在动画每个迭代的结束</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/CSS/">CSS</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Animation/">Animation</a><a href="/tags/CSS3/">CSS3</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/01/21/css3-animation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/01/21/css3-animation/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
