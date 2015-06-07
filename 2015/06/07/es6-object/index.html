@@ -4,28 +4,28 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Cookfront&#39;s Blog</title>
+    <title>每天学点ES6－对象 | Cookfront&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="cookfront@gmail.com">
     
 
     
-    <meta name="description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+    <meta name="description" content="本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
 ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
-属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集合，这意味着当属性值">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cookfront's Blog">
+<meta property="og:title" content="每天学点ES6－对象">
 <meta property="og:url" content="http://cookfront.github.io/2015/06/07/es6-object/index.html">
 <meta property="og:site_name" content="Cookfront's Blog">
-<meta property="og:description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+<meta property="og:description" content="本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
 ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
-属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集合，这意味着当属性值">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cookfront's Blog">
-<meta name="twitter:description" content="每天学点ES6－对象本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
+<meta name="twitter:title" content="每天学点ES6－对象">
+<meta name="twitter:description" content="本文内容来自于：https://leanpub.com/understandinges6/read#leanpub-auto-objectis。内容有删减，有不懂的地方可以看原文哟。
 ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Object.assign()等。下面来一一介绍ES6中对象的扩展。
-属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集">
+属性和方法的简写在ES5或者更早时，对象直接量其实就是简单的名－值对集合，这意味着当属性值">
 
     
     <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
@@ -84,14 +84,14 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2015/06/07/es6-object/" title="" itemprop="url"></a>
+      <a href="/2015/06/07/es6-object/" title="每天学点ES6－对象" itemprop="url">每天学点ES6－对象</a>
   </h1>
   <p class="article-author">By
        
 		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
 		
   <p class="article-time">
-    <time datetime="2015-06-07T10:51:55.000Z" itemprop="datePublished"> 發表於 2015-06-07</time>
+    <time datetime="2015-06-07T09:59:42.000Z" itemprop="datePublished"> 發表於 2015-06-07</time>
     
   </p>
 </header>
@@ -100,11 +100,11 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目錄</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每天学点ES6－对象"><span class="toc-number">1.</span> <span class="toc-text">每天学点ES6－对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">1.2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">1.3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">1.4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">1.5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">1.6.</span> <span class="toc-text">super引用</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">6.</span> <span class="toc-text">super引用</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="每天学点ES6－对象">每天学点ES6－对象</h1><p>本文内容来自于：<a href="https://leanpub.com/understandinges6/read#leanpub-auto-objectis" target="_blank" rel="external">https://leanpub.com/understandinges6/read#leanpub-auto-objectis</a>。内容有删减，有不懂的地方可以看原文哟。</p>
+		<p>本文内容来自于：<a href="https://leanpub.com/understandinges6/read#leanpub-auto-objectis" target="_blank" rel="external">https://leanpub.com/understandinges6/read#leanpub-auto-objectis</a>。内容有删减，有不懂的地方可以看原文哟。</p>
 <p><code>ES6</code>对对象也进行了很多扩展，比如属性和方法的简写方式、<code>Object.assign()</code>等。下面来一一介绍<code>ES6</code>中对象的扩展。</p>
 <h2 id="属性和方法的简写">属性和方法的简写</h2><p>在<code>ES5</code>或者更早时，对象直接量其实就是简单的<code>名－值</code>对集合，这意味着当属性值被初始化时可能会有一些重复。例如：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span><span class="params">(name, age)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        name: name,</span><br><span class="line">        age: age</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -157,6 +157,16 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
 
 </div>
 
@@ -164,7 +174,7 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://cookfront.github.io/2015/06/07/es6-object/" data-title="Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://cookfront.github.io/2015/06/07/es6-object/" data-title="每天学点ES6－对象 | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -190,7 +200,7 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2015/06/07/es6-object/" data-title="" data-url="http://cookfront.github.io/2015/06/07/es6-object/"></div>
+	<div class="ds-thread" data-thread-key="2015/06/07/es6-object/" data-title="每天学点ES6－对象" data-url="http://cookfront.github.io/2015/06/07/es6-object/"></div>
 </section>
 
 
@@ -200,7 +210,7 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目錄</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#每天学点ES6－对象"><span class="toc-number">1.</span> <span class="toc-text">每天学点ES6－对象</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">1.2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">1.3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">1.4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">1.5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">1.6.</span> <span class="toc-text">super引用</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#属性和方法的简写"><span class="toc-number">1.</span> <span class="toc-text">属性和方法的简写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性名"><span class="toc-number">2.</span> <span class="toc-text">计算属性名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Object-assign()"><span class="toc-number">3.</span> <span class="toc-text">Object.assign()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重复对象字面量属性"><span class="toc-number">4.</span> <span class="toc-text">重复对象字面量属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#改变原型"><span class="toc-number">5.</span> <span class="toc-text">改变原型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#super引用"><span class="toc-number">6.</span> <span class="toc-text">super引用</span></a></li></ol>
  
   </div>
 
@@ -218,7 +228,7 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 		  
 		
 		  
-			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>5</sup></a></li>
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 		  
 		
 		  
@@ -235,7 +245,7 @@ ES6对对象也进行了很多扩展，比如属性和方法的简写方式、Ob
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>5</sup></a></li>
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>6</sup></a></li>
 			
 		
 			
