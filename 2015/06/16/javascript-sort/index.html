@@ -1,0 +1,508 @@
+
+ <!DOCTYPE HTML>
+<html >
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JavaScript实现数据结构中的排序算法 | Cookfront&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="cookfront@gmail.com">
+    
+
+    
+    <meta name="description" content="本文主要是用JavaScript实现数据结构中的各种排序算法，例如：插入排序、希尔排序、合并排序等。
+插入排序插入排序应该算是最简单和容易理解的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。具有n个元素时它需要经过n-1趟排序。对于p = 1到p = n-1趟，插入排序保证从位置0到位置p上的元素为已排序状态。它就是基于这个事实来排序的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript实现数据结构中的排序算法">
+<meta property="og:url" content="http://cookfront.github.io/2015/06/16/javascript-sort/index.html">
+<meta property="og:site_name" content="Cookfront's Blog">
+<meta property="og:description" content="本文主要是用JavaScript实现数据结构中的各种排序算法，例如：插入排序、希尔排序、合并排序等。
+插入排序插入排序应该算是最简单和容易理解的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。具有n个元素时它需要经过n-1趟排序。对于p = 1到p = n-1趟，插入排序保证从位置0到位置p上的元素为已排序状态。它就是基于这个事实来排序的。">
+<meta property="og:image" content="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Insertion-sort-example-300px.gif/220px-Insertion-sort-example-300px.gif">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript实现数据结构中的排序算法">
+<meta name="twitter:description" content="本文主要是用JavaScript实现数据结构中的各种排序算法，例如：插入排序、希尔排序、合并排序等。
+插入排序插入排序应该算是最简单和容易理解的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。具有n个元素时它需要经过n-1趟排序。对于p = 1到p = n-1趟，插入排序保证从位置0到位置p上的元素为已排序状态。它就是基于这个事实来排序的。">
+
+    
+    <link rel="alternative" href="/atom.xml" title="Cookfront&#39;s Blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="Cookfront&#39;s Blog" title="Cookfront&#39;s Blog"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="Cookfront&#39;s Blog">Cookfront&#39;s Blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜單">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">Home</a></li>
+					
+						<li><a href="/archives">Archives</a></li>
+					
+						<li><a href="/about">About</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:cookfront.github.io">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2015/06/16/javascript-sort/" title="JavaScript实现数据结构中的排序算法" itemprop="url">JavaScript实现数据结构中的排序算法</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-06-16T03:07:42.000Z" itemprop="datePublished"> 發表於 2015-06-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目錄</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-number">1.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-number">2.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">3.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-number">4.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-number">5.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选取枢纽元"><span class="toc-number">5.1.</span> <span class="toc-text">选取枢纽元</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一种错误的方法"><span class="toc-number">5.1.1.</span> <span class="toc-text">一种错误的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一种安全的作法"><span class="toc-number">5.1.2.</span> <span class="toc-text">一种安全的作法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三数中值分割法"><span class="toc-number">5.1.3.</span> <span class="toc-text">三数中值分割法</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<p>本文主要是用<code>JavaScript</code>实现数据结构中的各种排序算法，例如：插入排序<br>、希尔排序、合并排序等。</p>
+<h2 id="插入排序">插入排序</h2><p>插入排序应该算是最简单和容易理解的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。具有<code>n</code>个元素时它需要经过<code>n-1</code>趟排序。对于<code>p = 1</code>到<code>p = n-1</code>趟，插入排序保证从位置<code>0</code>到位置<code>p</code>上的元素为已排序状态。它就是基于这个事实来排序的。</p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Insertion-sort-example-300px.gif/220px-Insertion-sort-example-300px.gif" alt="enter image description here"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">insertSort</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 1~n-1趟排序</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> tmp = arr[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> j = i; j &gt; <span class="number">0</span> &amp;&amp; arr[j - <span class="number">1</span>] &gt; tmp; j--) &#123;</span><br><span class="line">      arr[j] = arr[j - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    arr[j] = tmp;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">12</span>, <span class="number">290</span>, <span class="number">219</span>, <span class="number">278</span>, <span class="number">21</span>, <span class="number">43</span>, <span class="number">89</span>, <span class="number">78</span>, <span class="number">4432</span>];</span><br><span class="line"><span class="built_in">console</span>.log(insertSort(arr));</span><br></pre></td></tr></table></figure>
+<p>如果目标是把<code>n</code>个元素的序列升序排列，那么采用插入排序存在最好情况和最坏情况。最好情况就是，序列已经是升序排列了，在这种情况下，需要进行的比较操作需<code>(n-1)</code>次即可。最坏情况就是，序列是降序排列，那么此时需要进行的比较共有<code>n(n-1)/2</code>次。插入排序的赋值操作是比较操作的次数减去(n-1)次。平均来说插入排序算法复杂度为<code>O(n2)</code>。因而，插入排序不适合对于数据量比较大的排序应用。但是，如果需要排序的数据量很小，例如，量级小于千，那么插入排序还是一个不错的选择。 插入排序在工业级库中也有着广泛的应用，在STL的sort算法和stdlib的qsort算法中，都将插入排序作为快速排序的补充，用于少量元素的排序（通常为8个或以下）。</p>
+<h2 id="希尔排序">希尔排序</h2><p>希尔排序的名称源自于它的发明者<code>Donald Shell</code>。它又称之为<code>缩小增量排序</code>。它其实是插入排序的一种更高效的版本。</p>
+<p>希尔排序的原理是使用一个增量序列：h<sub>1</sub>、h<sub>2</sub>、…、h<sub>n</sub>。希尔排序的原理是在使用增量h<sub>k</sub>的一趟排序之后，对于每一个i我们有A[i] ≤ A[i + h<sub>k</sub>]，所有相隔h<sub>k</sub>的元素都被排序。此时称文件为h<sub>k</sub>-排序。但是对于不同的增量序列，排序的性能也会有所影响。我们一般使h<sub>n</sub> = Math.floor(N / 2)和h<sub>k</sub>=Math.floor(h<sub>k-1</sub> / 2)。算法实现如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shellSort</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 增量</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> increment = <span class="built_in">Math</span>.floor(len / <span class="number">2</span>); increment &gt; <span class="number">0</span>; increment = <span class="built_in">Math</span>.floor(increment / <span class="number">2</span>)) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = increment; i &lt; len; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> tmp = arr[i];</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">var</span> j = i; j &gt;= increment; j -= increment) &#123;</span><br><span class="line">        <span class="keyword">if</span> (arr[j] &lt; arr[j - increment]) &#123;</span><br><span class="line">          arr[j] = arr[j - increment];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      arr[j] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">12</span>, <span class="number">290</span>, <span class="number">219</span>, <span class="number">278</span>, <span class="number">21</span>, <span class="number">43</span>, <span class="number">89</span>, <span class="number">78</span>, <span class="number">4432</span>];</span><br><span class="line"><span class="built_in">console</span>.log(shellSort(arr));</span><br></pre></td></tr></table></figure>
+<h2 id="堆排序">堆排序</h2><p>二叉堆我们可以利用数组来实现，要进行排序，我们第一步时执行建堆操作，然后我们再依次执行<code>deleteMin</code>操作就可以得到我们的排好序的元素。我们可以使用最小堆，每次<code>deleteMin</code>时向一个临时数组中插入元素。这种情况的问题是多了一倍的空间需求。为了避免使用第二个数组，在每次<code>deleteMin</code>之后，堆缩小1，位于堆中最后的单元就可以用于存放刚刚删除的元素。但这样元素会按递减的顺序排列。为了达到递增的效果，我们这里要使用最大堆。</p>
+<p>下面是<code>js</code>实现的堆排序：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">leftChild</span> <span class="params">(i)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">2</span> * i + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span> <span class="params">(arr, i, j)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp = arr[i];</span><br><span class="line">  arr[i] = arr[j];</span><br><span class="line">  arr[j] = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">precDown</span> <span class="params">(arr, i, len)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> index = i;</span><br><span class="line">  <span class="keyword">var</span> child;</span><br><span class="line">  <span class="keyword">var</span> tmp;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (tmp = arr[index]; leftChild(index) &lt; len; index = child) &#123;</span><br><span class="line">    child = leftChild(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (child !== len - <span class="number">1</span> &amp;&amp; arr[child + <span class="number">1</span>] &gt; arr[child]) &#123;</span><br><span class="line">      child++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (tmp &lt; arr[child]) &#123;</span><br><span class="line">      arr[index] = arr[child];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  arr[index] = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heapSort</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// build max heap</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="built_in">Math</span>.floor(len / <span class="number">2</span>); i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">    precDown(arr, i, len)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// delete max element</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = len - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">    swap(arr, <span class="number">0</span>, i);</span><br><span class="line">    precDown(arr, <span class="number">0</span>, i);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">42</span>, <span class="number">53</span>, <span class="number">2432</span>, <span class="number">422</span>, <span class="number">5443</span>, <span class="number">89</span>];</span><br><span class="line"><span class="built_in">console</span>.log(heapSort(arr));</span><br></pre></td></tr></table></figure>
+<p>堆排序的算法复杂度是<code>O(NlogN)</code></p>
+<h2 id="归并排序">归并排序</h2><p>归并排序其实使用到了算法设计思想里面的分治法，分而治之。分治法是按照以下方案来工作的：</p>
+<ol>
+<li>将问题的实例划分为同一问题的几个较小的实例，最好拥有同样的规模</li>
+<li>对这些较小的实例求解</li>
+<li>如果必要的话，合并这些较小问题的解，以得到原始问题的解</li>
+</ol>
+<p>归并排序的思想就是将需要排序的数组<code>A[0...n-1]</code>一分为二，<code>A[0...Math.floor(n/2)-1]</code>和<code>A[Math.floor(n - 1)...n-1]</code>，并对每个子数组递归排序，然后将这两个排好序的子数组合并为一个有序数组。归并排序最主要的部分就是<code>merge</code>过程。下面看<code>js</code>实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">merge</span> <span class="params">(left, right)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> result = [];</span><br><span class="line">  <span class="keyword">var</span> leftIndex = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> rightIndex = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (leftIndex &lt; left.length &amp;&amp; rightIndex &lt; right.length) &#123;</span><br><span class="line">    <span class="keyword">if</span> (left[leftIndex] &lt; right[rightIndex]) &#123;</span><br><span class="line">      result.push(left[leftIndex++]);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      result.push(right[rightIndex++]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> result.concat(left.slice(leftIndex)).concat(right.slice(rightIndex));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mergeSort</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> len = arr.length;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (len &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> middle = <span class="built_in">Math</span>.floor(len / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">var</span> left = arr.slice(<span class="number">0</span>, middle);</span><br><span class="line">  <span class="keyword">var</span> right = arr.slice(middle);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> merge(mergeSort(left), mergeSort(right));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">21</span>, <span class="number">53</span>, <span class="number">643</span>, <span class="number">654</span>, <span class="number">24</span>, <span class="number">892</span>, <span class="number">5338</span>];</span><br><span class="line"><span class="built_in">console</span>.log(mergeSort(arr));</span><br></pre></td></tr></table></figure>
+<p>归并算法的运行时间为<code>O(NlogN)</code>，但是它很难用于主存排序，主要问题在于合并两个排序的表需要线性附加内存，在整个算法中还要将数据拷贝到临时数组再拷贝回来这样一些附加的工作，其结果严重放慢了排序的速度。</p>
+<h2 id="快速排序">快速排序</h2><p>正如它的名字，快速排序是在时间中最快的已知排序算法，它的平均运行时间是O(NlogN)。快速排序也是一种分治的递归算法。将数组S排序的基本算法由下列简单的四步组成：</p>
+<ol>
+<li>如果S中元素个数是0或1，则返回</li>
+<li>取S中任一元素<code>v</code>，称之为<code>枢纽元</code></li>
+<li>将<code>S - {v}</code>分成两个不相交的集合：S<sub>1</sub> = {x∈S - {v} | x ≤ v}和S<sub>2</sub> = {x∈S - {v} | x ≥ v}</li>
+<li>返回{quicksort(S<sub>1</sub>)}，继续v，继而quicksort(S<sub>2</sub>)</li>
+</ol>
+<p>由于对枢纽元的处理会导致第三步中的分割不唯一，因此，我们希望把等于枢纽元的大约一半的关键字分到S<sub>1</sub>中，而另外一半分到S<sub>2</sub>中，那怎么去选择一个好的枢纽元呢？</p>
+<h3 id="选取枢纽元">选取枢纽元</h3><h4 id="一种错误的方法">一种错误的方法</h4><p>通常的，没有经过充分考虑的选择是将第一个元素用作枢纽元。如果输入是随机的，那么这是可以接受的，但是如果输入是预排序或是反序的，那么这样的枢纽元就会产生一个劣质的分割，因为所有的元素不是都被划入S<sub>1</sub>就是被划入S<sub>2</sub>。</p>
+<h4 id="一种安全的作法">一种安全的作法</h4><p>一种安全的方针是随机选取枢纽元。但是另一方面，随机数的生成一般是昂贵的，根本减少不了算法奇遇部分的平均运行时间。</p>
+<h4 id="三数中值分割法">三数中值分割法</h4><p>一组N个数的中值是第<code>Math.ceil(N/2)</code>个最大的数。枢纽元的最好的选择是数组的中值。不幸的是，这很难算出，且会减慢快速排序的速度。因此一般的做法是使用左端、右端和中心位置上的三个元素的中值作为枢纽元。例如，输入为<code>8, 1, 4, 9, 6, 3, 5, 2, 7, 0</code>，它的左边元素是8，右边元素是0，中心位置为<code>Math.floor((left + right) / 2)</code>上的元素是6，于是枢纽元<code>v=6</code>。</p>
+<p>下面来看看具体实现了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">swap</span> <span class="params">(arr, i, j)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> tmp = arr[i];</span><br><span class="line">  arr[i] = arr[j];</span><br><span class="line">  arr[j] = tmp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">median3</span> <span class="params">(arr, left, right)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> center = <span class="built_in">Math</span>.floor((left + right) / <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (arr[left] &gt; arr[center]) &#123;</span><br><span class="line">    swap(arr, left, center);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (arr[left] &gt; arr[right]) &#123;</span><br><span class="line">    swap(arr, left, right);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (arr[center] &gt; arr[right]) &#123;</span><br><span class="line">    swap(arr, center, right);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  swap(arr, center, right - <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> arr[right - <span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">qSort</span> <span class="params">(arr, left, right)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 枢纽元</span></span><br><span class="line">  <span class="keyword">var</span> pivot = median3(arr, left, right);</span><br><span class="line">  <span class="keyword">var</span> i = left;</span><br><span class="line">  <span class="keyword">var</span> j = right - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="keyword">while</span> (arr[++i] &lt; pivot) &#123;&#125;</span><br><span class="line">    <span class="keyword">while</span> (arr[--j] &gt; pivot) &#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">      swap(arr, i, j);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  swap(arr, i, right - <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">if</span> (left &lt; i - <span class="number">1</span>) &#123;</span><br><span class="line">    qSort(arr, left, i - <span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (i + <span class="number">1</span> &lt; right) &#123;</span><br><span class="line">    qSort(arr, i + <span class="number">1</span>, right);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">quickSort</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> qSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">21</span>, <span class="number">53</span>, <span class="number">643</span>, <span class="number">654</span>, <span class="number">24</span>, <span class="number">892</span>, <span class="number">5338</span>];</span><br><span class="line"><span class="built_in">console</span>.log(quickSort(arr));</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaScript/">JavaScript</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://cookfront.github.io/2015/06/16/javascript-sort/" data-title="JavaScript实现数据结构中的排序算法 | Cookfront&#39;s Blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2015/06/07/es6-object/"  title="每天学点ES6－对象">
+ <strong>下一篇：</strong><br/> 
+ <span>每天学点ES6－对象
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2015/06/16/javascript-sort/" data-title="JavaScript实现数据结构中的排序算法" data-url="http://cookfront.github.io/2015/06/16/javascript-sort/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="顯示側邊欄"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目錄</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-number">1.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#希尔排序"><span class="toc-number">2.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-number">3.</span> <span class="toc-text">堆排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-number">4.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-number">5.</span> <span class="toc-text">快速排序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#选取枢纽元"><span class="toc-number">5.1.</span> <span class="toc-text">选取枢纽元</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一种错误的方法"><span class="toc-number">5.1.1.</span> <span class="toc-text">一种错误的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一种安全的作法"><span class="toc-number">5.1.2.</span> <span class="toc-text">一种安全的作法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三数中值分割法"><span class="toc-number">5.1.3.</span> <span class="toc-text">三数中值分割法</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隱藏側邊欄"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分類</p>
+		<ul>
+		
+		  
+			<li><a href="/categories/CSS/" title="CSS">CSS<sup>5</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/JavaScript/" title="JavaScript">JavaScript<sup>7</sup></a></li>
+		  
+		
+		  
+			<li><a href="/categories/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+		  
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">標簽</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/JavaScript/" title="JavaScript">JavaScript<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/CSS3/" title="CSS3">CSS3<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/iOS/" title="iOS">iOS<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Transform/" title="Transform">Transform<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Media-Query/" title="Media Query">Media Query<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Animation/" title="Animation">Animation<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/selector/" title="selector">selector<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情鏈接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 訂閱</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> keep coding <br/>
+			This is my blog,believe it or not.</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/https://github.com/cookfront" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:cookfront@gmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2015 
+		
+		<a href="http://cookfront.github.io/about" target="_blank" title="cookfront@gmail.com">cookfront@gmail.com</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#nothing"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"cookfront"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F1e9fdadfaa36dffc9a8914a1220e8161' type='text/javascript'%3E%3C/script%3E"));
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回頂部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
