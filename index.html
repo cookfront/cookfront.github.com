@@ -80,6 +80,87 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2015/11/24/youzan/" title="在有赞的四个月" itemprop="url">在有赞的四个月</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
+		
+  <p class="article-time">
+    <time datetime="2015-11-24T03:47:42.000Z" itemprop="datePublished"> 發表於 2015-11-24</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p>回顾四个月前，还在百度上研每天写着重复的代码，每天的日子也只是简单的重复，平淡如水。时间久了，就会觉得无聊了，继续呆下去，也不过是升T，然后继续每天写着重复的代码。走之前经理也以各种涨工资、教育资源、医疗资源来劝说，但内心是真的想走了，继续干下去感觉整个人都要废了，工作是真的很轻松，但自己一直以来是一个闲不住的人，而这样的生活让人觉得不踏实，不充实。</p>
+<p>So，就要准备跳槽了，跳槽的时候第一就是选择城市了，可选的杭州与深圳，其实最想去的还是深圳，空气好，气候好，然而看着均价三万一平的房价，想想还是放弃了，内心也是无数个草泥马了=-=。这样也就只有杭州了，杭州房价不高，据说还在降，其他除了堵，各种单行道之外也没有发现其他啥缺点了。选择完城市就是选择公司，为什么选择有赞，是有一次在内推网上看到他们的招聘信息很接地气，看福利也很棒，就了解了一下有赞，第一感觉觉得未来很有前途的，所以这次跳槽也就第一优先选择了有赞，也没有投任何其他杭州的公司。</p>
+<p>上面扯了这么多，开始进入正题了。来有赞这四个月确实工作比以前开心了，在这里的不仅仅是工作，生活也与工作融合在一起，工作也确实比以前忙了，更多的是接触到了很多以前没有接触到的技术。</p>
+<hr>
+<h2 id="公司氛围">公司氛围</h2><p>公司给人的感觉就像是一个伐木累，每个人都是其中的一员，每个月大家会全部聚在一起给这个月的寿星过生日，还有有点黄有点暴力的新人秀。当然不止这些，还有生活小组带你吃带你喝带你玩，各种兴趣小组总有适合你的：游泳、羽毛球、桌上足球，简直是数不胜数了。让我觉得印象最深的是我妈住院那次，HR发消息说有任何需要都可以联系她，不管是钱，其他需要，只要开口，内心真的很感动，从这时就觉得这家公司是可以托付终生的，真的是把每一位员工当作自己的家人去对待。</p>
+<p><img src="http://7mnm9p.com1.z0.glb.clouddn.com/1.pic_hd.jpg" alt="enter image description here"></p>
+<p>当然福利也是棒棒哒，绝对不比<code>BAT</code>差，每天下午有四五种水果，还有无限量零食，在这变胖应该只是时间问题的啦，过生日呢会根据每个人的性格购买不同的生日礼物，生宝宝了会有宝宝礼。真心的想说行政的妹子真的很贴心，把我们伺候的好好的，每天在写代码的同时，有吃有喝。餐补的话竟然有800，每个月中晚饭吃好喝好应该花完这些钱正好^_^。</p>
+<hr>
+<h2 id="成长">成长</h2><p>跳槽除了想涨工资之外，当然也希望能在新的团队中不断成长。在有赞的这四个月，自己在慢慢的成长，接触新的领域。</p>
+<h3 id="MVC">MVC</h3><p>这边主要使用的框架是<code>Backbone</code>，当然还有当下时髦的<code>React</code>，<code>Webpack</code>，一些内部的工具你还可以尽情发挥。以前在百度使用的是<a href="http://tangram.baidu.com/about" target="_blank" rel="external">Tangram</a>，一个早已不在维护的类似<code>jQuery</code>的库，页面所有的逻辑都写在一起，看着很难受，真是一把辛酸一把累呀。到了这边使用<code>Backbone</code>、<code>React</code>写起来还是很爽的，组件式的开发，以前可能只是学习了下<code>React</code>类似的框架，没有在实际生产环境中用到，而现在这些都已经成为日常每天都要接触的，看看现在的代码也比以前好看了:-)。</p>
+<h3 id="性能优化">性能优化</h3><p>在这里还接手了两个性能优化的工作：js延迟加载和商品详情懒加载。</p>
+<p>js延迟加载的库已经开源到<code>Github</code>，<a href="https://github.com/youzan/tiny-loader.js" target="_blank" rel="external">tiny-loader.js</a>，用上这个页面的加载速度降了<code>0.21s</code>，这个组件会在页面<code>load</code>事件以后进行静态资源的下载，减少<code>js</code>对页面打开速度的影响，页面有些<code>js</code>或者<code>CSS</code>可能并不需要立即加载出来，可以使用这个组件来延迟<code>js</code>的加载。</p>
+<p>商品详情懒加载则是用到了<code>textarea</code>去懒加载HTML，页面加载时并不会商品详情的内容，而是将其用到的<code>html</code>放在<code>textarea</code>标签内，当用户滚动到相应位置时再去将<code>html</code>插入到对应的节点。</p>
+<p>之前是做PC端的网页，也没有太多去考虑这方面的性能，而现在做<code>WAP</code>端就不一样了，用户的网络环境可能各不相同，在移动网络下，希望能更快的把内容呈现给用户才是我们的目标。</p>
+<h3 id="工程化">工程化</h3><p>目前在做代码规范统一的相关工作，使用到了<code>git</code>的<code>pre-commit</code>钩子，在代码<code>commit</code>之前，调用<code>eslint</code>检测<code>diff</code>文件是否符合代码规范，不符合规范，则不让<code>commit</code>代码。除此这些，还在这边开始接触PHP，虽然只是简单的功能，但是一个好的开头，后面也会不断去深入后端的知识，成为一个全栈工程师。</p>
+<hr>
+<h2 id="最后">最后</h2><p>最后想说的是：<code>革命尚未胜利，同志仍需努力</code>，后面需要学习的还有很多，踏踏实实的，走好每一步。有你有赞，要来的抓紧啦。</p>
+<p>下面就是和有赞的小伙伴一起去参加浙大毅行的合照：</p>
+<p><img src="http://7mnm9p.com1.z0.glb.clouddn.com/yixing.jpg" alt="enter image description here"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/生活/">生活</a>
+</div>
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/生活/">生活</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2015/11/24/youzan/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/11/24/youzan/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2015/06/20/javascript-topsort/" title="JavaScript 拓扑排序" itemprop="url">JavaScript 拓扑排序</a>
   </h1>
   <p class="article-author">By
@@ -1181,155 +1262,6 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2015/04/18/objectivec-block/" title="Objective-C基础学习之block" itemprop="url">Objective-C基础学习之block</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="http://cookfront.github.io/about" title="cookfront@gmail.com" target="_blank" itemprop="author">cookfront@gmail.com</a>
-		
-  <p class="article-time">
-    <time datetime="2015-04-18T10:07:42.000Z" itemprop="datePublished"> 發表於 2015-04-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p>以下学习内容是翻译自Apple的<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/ProgrammingWithObjectiveC.pdf" target="_blank" rel="external">Programming with Objective-C</a>，内容有部分删减，主要是自己一个学习和理解的过程，如有翻译不当，还请谅解。</p>
-<p><code>Block</code>是被添加到<code>C</code>、<code>Objective-C</code>和<code>C++</code>的语言级别的特性，它允许你创建不同的代码片段，这些代码片段可以作为值传入到方法或函数中。<code>Blocks</code>是<code>Objective-C</code>对象，这意味着它可以被添加到类似<code>NSArray</code>和<code>NSDictionary</code>的集合中。他们同样有从封闭作用域中捕获值的能力，使他们类似于其他编程语言的<code>closures</code>和<code>lambdas</code>。</p>
-<h2 id="Block语法">Block语法</h2><p>定义一个<code>block</code>是使用<code>^</code>符号，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^&#123;</span><br><span class="line">     NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>就像函数和方法的定义，大括号表明了<code>block</code>的开始和结束。在这个例子中，<code>block</code>没有返回任何值，也没有任何参数。</p>
-<p>以同样的方式，您可以使用一个函数指针来引用一个C函数，你可以定义一个变量来记录一个<code>block</code>，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^simpleBlock)(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
-<p>这个例子定义了一个变量：<code>simpleBlock</code>，该变量用于引用一个<code>block</code>，且该<code>block</code>没有参数且不返回值，这意味着您可以像下面这样将<code>block</code>字面赋给<code>simpleBlock</code>变量，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">simpleBlock = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>要注意的是大括号末尾的分号。您同样可以结合变量定义和赋值：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (^simpleBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"This is a block"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>最后你就可以像下面这样来调用<code>block</code>了：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">simpleBlock();</span><br></pre></td></tr></table></figure>
-<h2 id="带参数和返回值的Block">带参数和返回值的Block</h2><p><code>Block</code>是可以接受参数和返回值的，就像函数和方法那样。</p>
-<p>作为一个例子，考虑一个变量引用到一个<code>block</code>，该<code>block</code>返回两个值的乘积：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> (^multiplyTwoValues)(<span class="keyword">double</span>, <span class="keyword">double</span>);</span><br></pre></td></tr></table></figure>
-<p>关联的<code>block</code>字面可能是这样的：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">^ (<span class="keyword">double</span> firstValue, <span class="keyword">double</span> secondValue) &#123;</span><br><span class="line">    <span class="keyword">return</span> firstValue * secondValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当你声明和定义好了<code>block</code>，你可以调用它就像一个函数一样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> (^multiplyTwoValues)(<span class="keyword">double</span>, <span class="keyword">double</span>) =</span><br><span class="line">                          ^(<span class="keyword">double</span> firstValue, <span class="keyword">double</span> secondValue) &#123;</span><br><span class="line">                              <span class="keyword">return</span> firstValue * secondValue;</span><br><span class="line">                          &#125;;</span><br><span class="line"><span class="keyword">double</span> result = multiplyTwoValues(<span class="number">2</span>,<span class="number">4</span>);</span><br><span class="line">NSLog(@<span class="string">"The result is %f"</span>, result);</span><br></pre></td></tr></table></figure>
-<h2 id="Block能从封闭作用域中捕获值">Block能从封闭作用域中捕获值</h2><p>如果你在一个方法中定义了一个<code>block</code>，例如，它能从该方法的作用域中捕获任何能访问到的值，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)testMethod &#123;</span><br><span class="line">    <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line">    <span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">        NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">    testBlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，<code>anInteger</code>是定义在<code>block</code>之外的，但是当<code>block</code>定义时该变量被捕获到了。</p>
-<p>只有值被捕获了，除非你指定。这意味着当你在定义<code>block</code>和调用<code>block</code>之间改变该变量的外在值时，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">anInteger = <span class="number">84</span>;</span><br><span class="line">testBlock();</span><br></pre></td></tr></table></figure>
-<p>被<code>block</code>捕获的值并没有受到影响。这意味着同样会输出：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">42</span></span><br></pre></td></tr></table></figure>
-<h3 id="使用__block来共享存储">使用__block来共享存储</h3><p>如果你需要能够在<code>block</code>中改变捕获变量的值，你可以使用<code>__block</code>存储类型修饰符对原变量声明。这意味着该变量所在的存储是在原始变量的词法作用域和任何定义在该作用域的<code>block</code>之间共享。</p>
-<p>作为一个例子，你可以重写之前都例子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">&#125;;</span><br><span class="line">anInteger = <span class="number">84</span>;</span><br><span class="line">testBlock();</span><br></pre></td></tr></table></figure>
-<p>因为<code>anInteger</code>被定义为一个<code>__block</code>变量，它的存储会在<code>block</code>定义中共享。上面的代码会输出：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">84</span></span><br></pre></td></tr></table></figure>
-<p>这也意味着在<code>block</code>中可以修改原始值，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__block <span class="keyword">int</span> anInteger = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">void</span> (^testBlock)(<span class="keyword">void</span>) = ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Integer is: %i"</span>, anInteger);</span><br><span class="line">    anInteger = <span class="number">100</span>;</span><br><span class="line">&#125;;</span><br><span class="line">testBlock();</span><br><span class="line">NSLog(@<span class="string">"Value of original variable is now: %i"</span>, anInteger);</span><br></pre></td></tr></table></figure>
-<p>以上会输出：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer is: <span class="number">42</span></span><br><span class="line">Value of original variable is now: <span class="number">100</span></span><br></pre></td></tr></table></figure>
-<h2 id="你可以传递Block给方法或函数作为参数">你可以传递Block给方法或函数作为参数</h2><p>在前面的所有例子中，你都是定义<code>block</code>之后立即调用它。实践中，传递<code>block</code>给函数或方法调用是非常常见的。你可能会使用<code>Grand Central Dispatch</code>在后台调用<code>block</code>，例如，或者定义一个<code>block</code>代表重复被调用的任务，例如当枚举一个集合的时候。</p>
-<p><code>Block</code>也同样可以被用于回调，定义一些代码在任务完成后执行。作为一个例子，你的app可能需要通过创建一个对象来响应用户的动作以此处理复杂的任务，例如从web服务器请求信息。因为这个任务可能会需要很长一段时间，在任务正在进行时您应该显示某种进度指示器，而一旦任务完成，您就需要隐藏掉任务指示器。</p>
-<p>这将可能使用委托来完成这些：您需要创建一个合适的委托协议，实现必须的方法，设置您的对象为任务的委托，然后等待您的对象在任务完成时调用委托方法。</p>
-<p><code>Block</code>使这些变得更加容易，然而，因为你可以定义回调行为在你初始化任务的时候，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (IBAction)fetchRemoteInformation:(id)sender &#123;</span><br><span class="line">    [self showProgressIndicator];</span><br><span class="line">    XYZWebTask *task = ...</span><br><span class="line">    [task beginTaskWithCallbackBlock:^&#123;</span><br><span class="line">        [self hideProgressIndicator];</span><br><span class="line">&#125;]; &#125;</span><br></pre></td></tr></table></figure>
-<p>这个例子调用了一个方法来显示进度指示器，然后创建任务并开始。回调的<code>block</code>指定了在任务完成后执行的代码；在这种情况下，它只是调用了一个方法来隐藏进度指示器。要注意，这个回调<code>block</code>为了能够调用<code>hideProgressIndicator</code>方法而捕获了<code>self</code>。有一点非常重要的是在捕获<code>self</code>时要非常注意，因为它会造成<code>strong reference cycle</code>。</p>
-<p>在代码的可读性方面，<code>block</code>使得很容易在一个地方看出在任务完成之前和之后会发生什么，避免了需要通过跟踪委托方法来找出发生了什么事情。</p>
-<p>下面是<code>beginTaskWithCallbackBlock:</code>方法的声明：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)beginTaskWithCallbackBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))callbackBlock;</span><br></pre></td></tr></table></figure>
-<p><code>(void (^)(void))</code>指定了这个参数是一个不接受任何参数也没有返回值的<code>block</code>。该方法的实现可以以通常的方式来调用<code>block</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)beginTaskWithCallbackBlock:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))callbackBlock &#123;</span><br><span class="line">    ...</span><br><span class="line">    callbackBlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="block必须为方法的最后的参数">block必须为方法的最后的参数</h3><p>在方法中只使用一个<code>block</code>参数通常是最好的做法。如果一个方法同样需要其他的非<code>block</code>参数，那么<code>block</code>应该放在最后：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">￼- (<span class="keyword">void</span>)beginTaskWithName:(NSString *)name completion:(<span class="keyword">void</span>(^)(<span class="keyword">void</span>))callback</span><br></pre></td></tr></table></figure>
-<p>这也使得在方法调用时代码具有更好的可读性，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">self beginTaskWithName:@<span class="string">"MyTask"</span> completion:^&#123;</span><br><span class="line">    NSLog(@<span class="string">"The task is complete"</span>);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<h2 id="使用类型定义简化block语法">使用类型定义简化block语法</h2><p>如果你需要定义不只一个<code>block</code>，且它们具有相同的签名，你可能想定义自己的类型签名。</p>
-<p>作为一个例子，你可以定义一个没有参数也没有返回值的简单<code>block</code>类型，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(^XYZSimpleBlock)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>然后你就可以使用你的自定义类型来创建<code>block</code>了：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">XYZSimpleBlock anotherBlock = ^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="对象使用属性来记录block">对象使用属性来记录block</h2><p>该语法定义了一个属性来记录一个<code>block</code>，这很类似一个<code>block</code>变量：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface XYZObject : NSObject</span><br><span class="line">@property (copy) <span class="keyword">void</span> (^blockProperty)(<span class="keyword">void</span>);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>一个<code>block</code>属性就像其他<code>block</code>变量一样被设置和调用：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">self.blockProperty = ^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line">self.blockProperty();</span><br></pre></td></tr></table></figure>
-<p>同样可能使用类型定义来定义<code>block</code>属性声明，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(^XYZSimpleBlock)</span><span class="params">(<span class="keyword">void</span>)</span></span>;</span><br><span class="line">@interface XYZObject : NSObject</span><br><span class="line">@property (copy) XYZSimpleBlock blockProperty;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<h2 id="捕获self时避免Strong_Reference_Cycles">捕获self时避免Strong Reference Cycles</h2><p>如果你需要在<code>block</code>中捕获<code>self</code>，例如，当定义一个回调<code>block</code>，有一点非常重要当是要考虑内存管理的影响。</p>
-<p><code>Block</code>保持对任何捕获对象的强引用，也包括<code>self</code>，这意味着最后很容易造成强引用循环，例如，一个对象为一个<code>block</code>保持为一个<code>copy</code>属性然后捕获了<code>self</code>：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@interface XYZBlockKeeper : NSObject</span><br><span class="line">@property (copy) <span class="keyword">void</span> (^block)(<span class="keyword">void</span>);</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@implementation XYZBlockKeeper</span><br><span class="line">- (<span class="keyword">void</span>)configureBlock &#123;</span><br><span class="line">	self.block = ^&#123;</span><br><span class="line">          [self doSomething];</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;</span><br><span class="line">... @end</span><br></pre></td></tr></table></figure>
-<p>编译器会警告你一个简单的例子是这样的，但更复杂的例子可能涉及到对象创建周期之间的多个强引用，使之更难以诊断。</p>
-<p>为了避免这个问题，捕获一个对<code>self</code>对弱引用是最好的办法，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)configureBlock &#123;</span><br><span class="line">    XYZBlockKeeper * __weak weakSelf = self;</span><br><span class="line">    self.block = ^&#123;</span><br><span class="line">        [weakSelf doSomething];   <span class="comment">// capture the weak reference</span></span><br><span class="line">                                  <span class="comment">// to avoid the reference cycle</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Block简化枚举">Block简化枚举</h2><p>除了一般的完成处理，许多<code>Cocoa</code>和<code>Cocoa Touch API</code>使用<code>block</code>来简化常用的任务，如集合枚举。<code>NSArray</code>类，例如，提供了三个基于<code>block</code>的方法，包括：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)enumerateObjectsUsingBlock:(<span class="keyword">void</span> (^)(id obj, NSUInteger idx, BOOL</span><br><span class="line">*stop))block;</span><br></pre></td></tr></table></figure>
-<p>该方法接受一个参数，它是一个<code>block</code>会被数组中的每一个元素调用：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSArray *<span class="built_in">array</span> = ...</span><br><span class="line">[<span class="built_in">array</span> enumerateObjectsUsingBlock:^ (id obj, NSUInteger idx, BOOL *stop) &#123;</span><br><span class="line">    NSLog(@<span class="string">"Object at index %lu is %@"</span>, idx, obj);</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<h2 id="Block简化并发任务">Block简化并发任务</h2><p><code>block</code>代表了一个工作的不同单位，结合可执行代码和从周围作用域捕获的可选状态。这使得它非常适用于在iOS和OS X中使用并发选项之一来异步调用。而不必弄清楚如何与低层次的机制工作，就像线程，您可以使用<code>block</code>简单地定义你的任务，然后让系统执行这些任务随着处理器资源可用。</p>
-<p>OS X和iOS提供了各种技术的并发性，其中包括两个任务调度机制：操作队列和<code>Grand Central Dispatch</code>，这些机制围绕队列任务等待被执行的想法。您按照您想<code>block</code>执行的顺序将<code>blocks</code>添加到队列中，然后系统将它们出列直到处理器时间和资源可用。</p>
-<p>串行队列只允许一个任务同时执行——队列中的下一个任务将不被出列并调用直到前一个任务已完成。并发队列调用尽可能多的任务，无需等待前一个任务来完成。</p>
-<h3 id="使用Block操作与操作队列">使用Block操作与操作队列</h3><p>操作队列是<code>Cocoa</code>和<code>Cocoa Touch</code>的任务调度方式。你创建一个<code>NSOperation</code>实例为了封装工作单位以及任何必要的数据，然后将那个操作添加到<code>NSOperationQueue</code>执行。</p>
-<p>尽管你创建了你自己的自定义<code>NSOperation</code>子类去实现复杂的任务，但还是可能去使用<code>NSBlockOperation</code>来用<code>block</code>创建一个操作，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
-<p>这是可能手动去执行操作，但是操作可能通常被添加到一个已经存在到操作队列或你自己创建的一个队列，准备执行：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// schedule task on main queue:</span></span><br><span class="line">NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];</span><br><span class="line">[mainQueue addOperation:operation];</span><br><span class="line"><span class="comment">// schedule task on background queue:</span></span><br><span class="line">NSOperationQueue *<span class="built_in">queue</span> = [[NSOperationQueue alloc] init];</span><br><span class="line">[<span class="built_in">queue</span> addOperation:operation];</span><br></pre></td></tr></table></figure>
-<p>如果你使用一个操作队列，你可以在操作之间配置优先级和依赖，例如指定某个操作必须在其他一些操作执行后才能操作。</p>
-<h3 id="调度Block在GCD的调度队列（Schedule_Blocks_on_Dispatch_Queues_with_Grand_Central_Dispatch）">调度Block在GCD的调度队列（Schedule Blocks on Dispatch Queues with Grand Central Dispatch）</h3><p>如果你需要调度执行代码的任意块，你可以直接使用被GCD（Grand Central Dispatch ）控制的调度队列，调度队列使得操作任务更加简单，不管是相对于调用者的同步或异步操作，且执行这些任务的顺序为先进先出。</p>
-<p>你可以创建你自己的调度队列或使用GCD提供的队列。如果你需要调度一个任务为并发执行，例如，你可以通过<code>dispatch_get_global_queue()</code>获取一个存在队列的引用，和指定一个队列优先级，就像这样：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_queue_t <span class="built_in">queue</span> = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<p>为了将<code>block</code>调度到队列，您可以使用<code>dispatch_async()</code>或<code>dispatch_sync()</code>函数。<code>dispatch_async()</code>函数是立即返回，不用去等待<code>block</code>的执行。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(<span class="built_in">queue</span>, ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"Block for asynchronous execution"</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/iOS/">iOS</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/iOS/">iOS</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2015/04/18/objectivec-block/#comments" class="ds-thread-count comments-count-link" data-thread-key="2015/04/18/objectivec-block/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -1359,6 +1291,10 @@
 			<li><a href="/categories/iOS/" title="iOS">iOS<sup>3</sup></a></li>
 		  
 		
+		  
+			<li><a href="/categories/生活/" title="生活">生活<sup>1</sup></a></li>
+		  
+		
 		</ul>
 </div>
 
@@ -1382,6 +1318,10 @@
 		
 			
 				<li><a href="/tags/Flexbox/" title="Flexbox">Flexbox<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/生活/" title="生活">生活<sup>1</sup></a></li>
 			
 		
 			
